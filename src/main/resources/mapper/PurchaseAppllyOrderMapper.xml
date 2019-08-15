@@ -19,6 +19,24 @@
     from purchase_applly_order
     where purchase_applly_order_id = #{purchaseAppllyOrderId,jdbcType=VARCHAR}
   </select>
+    <select id="findPurchaseAppllyOrder" resultMap="BaseResultMap">
+        select * from purchase_applly_order
+        <where>
+        <if test="purchaseAppllyUserName!=null and purchaseAppllyUserName !=''">
+            and purchase_applly_user_name like '%${purchaseAppllyUserName}%'
+        </if>
+        </where>
+         limit #{start},#{rows}
+    </select>
+    <select id="getCount" resultType="int">
+        select count(*) from purchase_applly_order
+        <where>
+            <if test="purchaseAppllyUserName!=null and purchaseAppllyUserName !=''">
+                and purchase_applly_user_name like '%${purchaseAppllyUserName}%'
+            </if>
+        </where>
+
+    </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from purchase_applly_order
     where purchase_applly_order_id = #{purchaseAppllyOrderId,jdbcType=VARCHAR}
