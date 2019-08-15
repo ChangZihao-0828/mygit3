@@ -460,35 +460,35 @@ function link_operating(name,title){
 					</li>
 
 
-					<li>
-						<a href="#" class="dropdown-toggle">
-							<i class="icon-desktop"></i>
+						<li>
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-desktop"></i>
 								<span class="menu-text"> 出库管理 </span>
-									<b class="arrow icon-angle-down"></b>
-						</a>
-					<ul class="submenu">
-					<li class="home">
-						<a  href="javascript:void(0)" name="Products_List.html"  title="出库接单" class="iframeurl">
-							<i class="icon-double-angle-right"></i>出库接单
-						</a>
-					</li>
-					 <li class="home">
-						<a  href="javascript:void(0)" name="Brand_Manage.html" title="出库拣货"  class="iframeurl">
-							<i class="icon-double-angle-right"></i>出库拣货
-						</a>
-					</li>
-					<li class="home">
-						<a href="javascript:void(0)" name="Category_Manage.html" title="出库装卸"  class="iframeurl">
-							<i class="icon-double-angle-right"></i>出库装卸
-						</a>
-					</li>
-					<li class="home">
-						<a href="javascript:void(0)" name="Category_Manage.html" title="出库作业"  class="iframeurl">
-							<i class="icon-double-angle-right"></i>出库作业
-						</a>
-					</li>
-					</ul>
-					</li>
+								<b class="arrow icon-angle-down"></b>
+							</a>
+							<ul class="submenu">
+								<li class="home">
+									<a  href="javascript:void(0)" name="Products_List.html"  title="出库接单" class="iframeurl">
+										<i class="icon-double-angle-right"></i>出库接单
+									</a>
+								</li>
+								<li class="home">
+									<a  th:href="@{'/stock/Delivery_Picking'}" target="iframe" name="Brand_Manage.html" title="出库拣货"  class="iframeurl">
+										<i class="icon-double-angle-right"></i>出库拣货
+									</a>
+								</li>
+								<li class="home">
+									<a th:href="@{'/stock/Delivery_Unloading'}" target="iframe" name="Category_Manage.html" title="出库装卸"  class="iframeurl">
+										<i class="icon-double-angle-right"></i>出库装卸
+									</a>
+								</li>
+								<li class="home">
+									<a th:href="@{'/stock/Delivery_Order'}" target="iframe" name="Category_Manage.html" title="出库作业"  class="iframeurl">
+										<i class="icon-double-angle-right"></i>出库作业
+									</a>
+								</li>
+							</ul>
+						</li>
 
 
 					<li>
