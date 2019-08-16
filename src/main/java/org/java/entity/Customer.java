@@ -3,13 +3,26 @@ package org.java.entity;
 import java.io.Serializable;
 
 public class Customer implements Serializable {
+
     private String customer_id;
+
     private String customer_name;
+
     private String customer_shortName;
+
     private Integer customer_vocation_id;
+
     private String customer_contacts;
+
     private Integer customer_creditIimit;
+
     private String customer_pwd;
+
+    private String customer_email;
+
+    private String customer_address;
+
+    private Integer customer_telephone;
 
     public String getCustomer_id() {
         return customer_id;
@@ -91,9 +104,7 @@ public class Customer implements Serializable {
         this.customer_telephone = customer_telephone;
     }
 
-    private String customer_email;
-    private String customer_address;
-    private Integer customer_telephone;
+
 
     @Override
     public String toString() {
