@@ -14,8 +14,8 @@ import java.util.Map;
 
 @Controller
 public class SupplierController {
-@Autowired
-   private SupplierService supplierService;
+    @Autowired
+    private SupplierService supplierService;
 
     @ResponseBody
     @RequestMapping("sc")
