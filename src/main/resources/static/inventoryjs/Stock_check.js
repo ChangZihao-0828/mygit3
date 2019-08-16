@@ -15,7 +15,7 @@ layui.use(['table','layer','jquery'], function(){
         ,cols: [[ //表头
             {field: 'stockCheckId', title: '库存盘点记录编号', width:"10%", sort: true, fixed: 'left',align:"center"}
             ,{field: 'userId', title: '盘点人', width:"15%",align:"center"}
-            ,{field: 'checkDate', title: '盘点日期', width:"12.5%", sort: true,align:"center",templet:'<div>{{ layui.util.toDateString(d.bir, "yyyy-MM-dd") }}</div>'}
+            ,{field: 'checkDate', title: '盘点日期', width:"12.5%", sort: true,align:"center",templet:'<div>{{ layui.util.toDateString(d.checkDate, "yyyy-MM-dd") }}</div>'}
             ,{field: 'matterId', title: '物料编号', width:"12.5%",align:"center", sort: true}
             ,{field: 'stockCount', title: '数量', width:"10%",align:"center", sort: true}
             ,{field: 'warehouseId', title: '仓库编号', width:"10%",align:"center", sort: true}

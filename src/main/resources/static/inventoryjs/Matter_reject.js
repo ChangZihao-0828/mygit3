@@ -17,7 +17,7 @@ layui.use(['table','layer','jquery'], function(){
             ,{field: 'matterId', title: '报废的物料', width:"16%",align:"center"}
             ,{field: 'matterRejectCount', title: '报废的数量', width:"16%", sort: true,align:"center"}
             ,{field: 'matterUserId', title: '报废人', width:"12%",align:"center"}
-            ,{field: 'matterRejectDate', title: '报废日期', width: "13%",align:"center", sort: true,templet:'<div>{{ layui.util.toDateString(d.bir, "yyyy-MM-dd") }}</div>'}
+            ,{field: 'matterRejectDate', title: '报废日期', width: "13%",align:"center", sort: true,templet:'<div>{{ layui.util.toDateString(d.matterRejectDate, "yyyy-MM-dd") }}</div>'}
             ,{field: 'matterRejectReason', title: '报废原因', width: "13%",align:"center"}
             , {field: 'op', title: '操作', width: "10%", align: "center", toolbar: "#barDemo"}
         ]]

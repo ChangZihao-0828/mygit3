@@ -16,7 +16,7 @@ layui.use(['table','layer','jquery'], function(){
             {field: 'warehouseCheckId', title: '仓库检查单编号', width:"20%", sort: true, fixed: 'left',align:"center"}
             ,{field: 'warehouseId', title: '仓库编号', width:"10%",align:"center", sort: true}
             ,{field: 'warehouseCheckUserId', title: '检查人', width:"10%",align:"center"}
-            ,{field: 'warehouseCheckDate', title: '检查日期', width:"10%",align:"center", sort: true,templet:'<div>{{ layui.util.toDateString(d.bir, "yyyy-MM-dd") }}</div>'}
+            ,{field: 'warehouseCheckDate', title: '检查日期', width:"10%",align:"center", sort: true,templet:'<div>{{ layui.util.toDateString(d.warehouseCheckDate, "yyyy-MM-dd") }}</div>'}
             ,{field: 'warehouseCheckResult', title: '检查结果', width: "10%",align:"center"}
             ,{field: 'temperatureCheck', title: '温度检查', width: "10%",align:"center"}
             ,{field: 'humidityCheck', title: '湿度检查', width: "10%",align:"center"}
