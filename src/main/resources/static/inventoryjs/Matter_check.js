@@ -7,7 +7,7 @@ layui.use(['table','layer','jquery'], function(){
         elem: '#demo'
         ,url: '/matterCheck' //数据接口
         ,page: true //开启分页
-        ,limit:5 //默认每一页显示的条数
+        ,limit:10 //默认每一页显示的条数
         ,limits:[1,2,3,5,10,20,30,50]//提示的每页条数的列表
         ,toolbar:"#addDemo" //显示工具栏
         ,title:"物料检查记录汇总" //设置导出文件时的标题
@@ -16,7 +16,7 @@ layui.use(['table','layer','jquery'], function(){
             {field: 'matterCheckId', title: '物料检查单编号', width:"10%", sort: true, fixed: 'left',align:"center"}
             ,{field: 'warehousePositionId', title: '仓位编号', width:"10%", sort: true,align:"center"}
             ,{field: 'matterCheckUserId', title: '检查人', width:"10%",align:"center"}
-            ,{field: 'matterCheckDate', title: '检查日期', width: "10%",align:"center", sort: true,templet:'<div>{{ layui.util.toDateString(d.bir, "yyyy-MM-dd") }}</div>'}
+            ,{field: 'matterCheckDate', title: '检查日期', width: "10%",align:"center", sort: true,templet:'<div>{{ layui.util.toDateString(d.matterCheckDate, "yyyy-MM-dd") }}</div>'}
             ,{field: 'matterCheckResult', title: '检查结果', width: "10%",align:"center"}
             ,{field: 'temperatureCheck', title: '温度检查', width:"8%",align:"center"}
             ,{field: 'humidityCheck', title: '湿度检查', width:"8%",align:"center"}
@@ -57,13 +57,11 @@ layui.use(['table','layer','jquery'], function(){
     $("#search").click(function(){
 
         //获得输入框的内容
-        var myname = $("#name").val();
-        var myclazz = $("#clazz").val();
+        var mySearchMatterCheckId = $("#searchMatterCheckId").val();
 
         table.reload('demo', {
             where: { //设定异步数据接口的额外参数，任意设
-                name:myname
-                ,clazz:myclazz
+                searchMatterCheckId:mySearchMatterCheckId
             }
             ,page: {
                 curr: 1 //重新从第 1 页开始
@@ -81,7 +79,7 @@ layui.use(['table','layer','jquery'], function(){
 
             layer.confirm('真的删除行么', function (index) {
 
-                $.post("/delMatterCheckId", {"matterCheckId": data.matterCheckId}, function () {
+                $.post("/delMatterCheck", {"matterCheckId": data.matterCheckId}, function () {
 
                     table.reload('demo', {
                         page: {
@@ -110,12 +108,16 @@ layui.use(['table','layer','jquery'], function(){
                     var body = layui.layer.getChildFrame("body");
 
                     //给弹出层body中的表单控件赋值
-                    body.find("[name='id']").val(data.id);
-                    body.find("[name='name']").val(data.name);
-                    body.find("[name='clazz']").val(data.clazz);
-                    body.find("[name='score']").val(data.score);
-                    body.find("[value='" + data.gender + "']").attr("checked", true);//选中指定性别的单选按钮
-                    body.find("[name='bir']").val(format(data.bir, 'yyyy-MM-dd'));
+                    body.find("[name='matterCheckId']").val(data.matterCheckId);
+                    body.find("[name='warehousePositionId']").val(data.warehousePositionId);
+                    body.find("[name='matterCheckUserId']").val(data.matterCheckUserId);
+                    body.find("[name='matterCheckResult']").val(data.matterCheckResult);
+                    body.find("[name='temperatureCheck']").val(data.temperatureCheck);
+                    body.find("[name='humidityCheck']").val(data.humidityCheck);
+                    body.find("[name='sanitationCheck']").val(data.sanitationCheck);
+                    body.find("[name='metamorphicCheck']").val(data.metamorphicCheck);
+                    body.find("[name='wearoutCheck']").val(data.wearoutCheck);
+                    body.find("[name='matterCheckDate']").val(format(data.matterCheckDate, 'yyyy-MM-dd'));
                 }
             });
         }

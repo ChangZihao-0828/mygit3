@@ -17,6 +17,25 @@
     from in_goods
     where in_goods_id = #{inGoodsId,jdbcType=VARCHAR}
   </select>
+<select id="findInGoods" resultMap="BaseResultMap">
+select * from  in_goods
+<where>
+    <if test="inGoodsId!=null and inGoodsId !=''">
+        and in_goods_id like '%${inGoodsId}%'
+    </if>
+</where>
+limit #{start},#{rows}
+</select>
+<select id="getInGoodsCount" resultType="int">
+select count(*) from  in_goods
+<where>
+    <if test="inGoodsId!=null and inGoodsId !=''">
+        and in_goods_id like '%${inGoodsId}%'
+    </if>
+</where>
+
+</select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from in_goods
     where in_goods_id = #{inGoodsId,jdbcType=VARCHAR}

@@ -153,8 +153,20 @@
   </update>
   <select id="findMatterCheck" resultMap="BaseResultMap">
     select * from matter_check
+    <where>
+      <if test="id!=null and id !=''">
+        and matter_check_id like '%${id}%'
+      </if>
+    </where>
+    limit #{start},#{rows}
   </select>
   <select id="findMatterCheckCount" resultType="java.lang.Integer">
     select count(*) from matter_check
+    <where>
+      <if test="id!=null and id !=''">
+        and matter_check_id like '%${id}%'
+      </if>
+    </where>
+
   </select>
 </mapper>

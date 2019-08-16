@@ -1,18 +1,22 @@
 package org.java.entity;
 
-import java.io.Serializable;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
-public class MatterReject  implements Serializable {
+public class MatterReject {
     private String matterRejectId;
 
     private String matterId;
 
     private String matterUserId;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date matterRejectDate;
 
     private String matterRejectReason;
+
+    private Integer matterRejectCount;
 
     public String getMatterRejectId() {
         return matterRejectId;
@@ -52,5 +56,13 @@ public class MatterReject  implements Serializable {
 
     public void setMatterRejectReason(String matterRejectReason) {
         this.matterRejectReason = matterRejectReason == null ? null : matterRejectReason.trim();
+    }
+
+    public Integer getMatterRejectCount() {
+        return matterRejectCount;
+    }
+
+    public void setMatterRejectCount(Integer matterRejectCount) {
+        this.matterRejectCount = matterRejectCount;
     }
 }

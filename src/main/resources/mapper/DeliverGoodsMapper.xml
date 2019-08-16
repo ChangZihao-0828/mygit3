@@ -18,6 +18,24 @@
     from deliver_goods
     where deliver_goods_id = #{deliverGoodsId,jdbcType=VARCHAR}
   </select>
+<select id="findDeliverGoods" resultMap="BaseResultMap">
+select * from deliver_goods
+<where>
+    <if test="deliverGoodsId!=null and deliverGoodsId !=''">
+        and deliver_goods_id like '%${deliverGoodsId}%'
+    </if>
+</where>
+limit #{start},#{rows}
+</select>
+<select id="getDeliverGoodsCount" resultType="int">
+select count(*) from deliver_goods
+<where>
+    <if test="deliverGoodsId!=null and deliverGoodsId !=''">
+        and deliver_goods_id like '%${deliverGoodsId}%'
+    </if>
+</where>
+
+</select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from deliver_goods
     where deliver_goods_id = #{deliverGoodsId,jdbcType=VARCHAR}

@@ -7,7 +7,7 @@ layui.use(['table','layer','jquery'], function(){
         elem: '#demo'
         ,url: '/warehouseCheck' //数据接口
         ,page: true //开启分页
-        ,limit:5 //默认每一页显示的条数
+        ,limit:10 //默认每一页显示的条数
         ,limits:[1,2,3,5,10,20,30,50]//提示的每页条数的列表
         ,toolbar:"#addDemo"//显示工具栏
         ,title:"仓库检查记录汇总" //设置导出文件时的标题
@@ -16,7 +16,7 @@ layui.use(['table','layer','jquery'], function(){
             {field: 'warehouseCheckId', title: '仓库检查单编号', width:"20%", sort: true, fixed: 'left',align:"center"}
             ,{field: 'warehouseId', title: '仓库编号', width:"10%",align:"center", sort: true}
             ,{field: 'warehouseCheckUserId', title: '检查人', width:"10%",align:"center"}
-            ,{field: 'warehouseCheckDate', title: '检查日期', width:"10%",align:"center", sort: true,templet:'<div>{{ layui.util.toDateString(d.bir, "yyyy-MM-dd") }}</div>'}
+            ,{field: 'warehouseCheckDate', title: '检查日期', width:"10%",align:"center", sort: true,templet:'<div>{{ layui.util.toDateString(d.warehouseCheckDate, "yyyy-MM-dd") }}</div>'}
             ,{field: 'warehouseCheckResult', title: '检查结果', width: "10%",align:"center"}
             ,{field: 'temperatureCheck', title: '温度检查', width: "10%",align:"center"}
             ,{field: 'humidityCheck', title: '湿度检查', width: "10%",align:"center"}
@@ -55,13 +55,11 @@ layui.use(['table','layer','jquery'], function(){
     $("#search").click(function(){
 
         //获得输入框的内容
-        var myname = $("#name").val();
-        var myclazz = $("#clazz").val();
+        var searchWarehouseCheckId = $("#searchWarehouseCheckId").val();
 
         table.reload('demo', {
             where: { //设定异步数据接口的额外参数，任意设
-                name:myname
-                ,clazz:myclazz
+                searchWarehouseCheckId:searchWarehouseCheckId
             }
             ,page: {
                 curr: 1 //重新从第 1 页开始

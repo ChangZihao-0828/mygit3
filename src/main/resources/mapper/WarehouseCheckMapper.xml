@@ -130,8 +130,19 @@
   </update>
   <select id="findWarehouseCheck" resultMap="BaseResultMap">
     select * from warehouse_check
+    <where>
+      <if test="id!=null and id !=''">
+        and warehouse_check_id like '%${id}%'
+      </if>
+    </where>
+    limit #{start},#{rows}
   </select>
   <select id="findWarehouseCheckCount" resultType="java.lang.Integer">
     select count(*) from warehouse_check
+    <where>
+      <if test="id!=null and id !=''">
+        and warehouse_check_id like '%${id}%'
+      </if>
+    </where>
   </select>
 </mapper>

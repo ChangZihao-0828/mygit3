@@ -1,5 +1,6 @@
 package org.java.service;
 
+import org.apache.ibatis.annotations.Param;
 import org.java.entity.*;
 
 import java.util.List;
@@ -13,21 +14,21 @@ import java.util.List;
 
 public interface InventoryService {
 
-    public List<WarehouseCheck> findWarehouseCheck();
+    public List<WarehouseCheck> findWarehouseCheck(Integer page,Integer rows,String searchWarehouseCheckId);
 
-    public Integer findWarehouseCheckCount();
+    public Integer findWarehouseCheckCount(String searchWarehouseCheckId);
 
-    public List<MatterCheck> findMatterCheck();
+    public List<MatterCheck> findMatterCheck(Integer page,Integer rows,String searchMatterCheckId);
 
-    public Integer findMatterCheckCount();
+    public Integer findMatterCheckCount(String searchMatterCheckId);
 
-    public List<MatterReject> findMatterReject();
+    public List<MatterReject> findMatterReject(Integer page,Integer rows,String searchMatterRejectId);
 
-    public Integer findMatterRejectCount();
+    public Integer findMatterRejectCount(String searchMatterRejectId);
 
-    public List<StockCheck> findStockCheck();
+    public List<StockCheck> findStockCheck(Integer page,Integer rows,String searchStockCheckId);
 
-    public Integer findStockCheckCount();
+    public Integer findStockCheckCount(String searchStockCheckId);
 
     public void delWarehouseCheck(String warehouseCheckId);
 
