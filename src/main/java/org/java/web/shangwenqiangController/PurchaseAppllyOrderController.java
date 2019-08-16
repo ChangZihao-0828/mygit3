@@ -31,7 +31,7 @@ public class PurchaseAppllyOrderController {
         map.put("msg","");
         map.put("count",count);
         map.put("data",list);
-
+        System.out.println(purchaseAppllyUserName);
         return map;
 
     }
