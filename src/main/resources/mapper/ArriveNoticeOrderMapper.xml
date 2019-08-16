@@ -19,6 +19,24 @@
     from arrive_notice_order
     where arrive_notice_order_id = #{arriveNoticeOrderId,jdbcType=VARCHAR}
   </select>
+    <select id="findArriveNoticeOrder" resultMap="BaseResultMap">
+        select * from arrive_notice_order
+        <where>
+            <if test="arriveNoticeOrderId!=null and arriveNoticeOrderId !=''">
+                and arrive_notice_order_id like '%${arriveNoticeOrderId}%'
+            </if>
+        </where>
+        limit #{start},#{rows}
+    </select>
+    <select id="getArriveNoticeOrderCount" resultType="int">
+        select count(*) from arrive_notice_order
+        <where>
+            <if test="arriveNoticeOrderId!=null and arriveNoticeOrderId !=''">
+                and arrive_notice_order_id like '%${arriveNoticeOrderId}%'
+            </if>
+        </where>
+
+    </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from arrive_notice_order
     where arrive_notice_order_id = #{arriveNoticeOrderId,jdbcType=VARCHAR}
