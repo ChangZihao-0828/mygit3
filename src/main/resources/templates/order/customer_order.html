@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>table</title>
+    <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}" media="all">
+    <script th:src="@{'/layui/layui.js'}"></script>
+</head>
+<body>
+<Br>
+&nbsp;&nbsp;&nbsp;<h1>客户订单</h1>
+<div>
+    <div class="layui-inline">
+        <input class="layui-input" name="customerOrderId" id="customerOrderId" placeholder="搜索条件..."
+               autocomplete="off">
+    </div>
+    <button class="layui-btn" id="search">搜索</button>
+    <button class="layui-btn" id="reset">重置</button>
+</div>
+<table id="demo" lay-filter="test"></table>
+<script>
+    layui.use(['table', 'layer', 'jquery'], function () {
+        var table = layui.table;
+        var layer = layui.layer;
+        var $ = layui.$;
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            , url: '/initCustomerOrder' //数据接口
+            , page: true //开启分页
+            , limit: 5 //默认每一页显示的条数
+            , limits: [1, 2, 3, 5, 10, 20, 30, 50]//提示的每页条数的列表
+            , toolbar: "#addDemo" //显示工具栏
+            , title: "客户订单" //设置导出文件时的标题
+            , loading: true
+            , cols: [
+                [ //表头
+
+                {field: 'no', type: 'checkbox', width: "3%", fixed: 'left', align: "center"}
+                , {field: 'customerOrderId', title: '订单编号', width: "16%", sort: true, fixed: 'left', align: "center"}
+                , {field: 'customerOrderNameId', title: '客户名称编号', width: "16%", align: "center"}
+                , {
+                    field: 'customerOrderTime',
+                    title: '订单日期',
+                    width: "16%",
+                    sort: true,
+                    align: "center",
+                    templet: '<div>{{ layui.util.toDateString(d.bir, "yyyy-MM-dd") }}</div>'
+                }
+                , {field: 'customerOrderType', title: '订单类型', width: "16%", sort: true, align: "center"}
+                , {field: 'customerOrderModeofpayment', title: '付款方式', width: "16%", align: "center"}
+                , {field: 'customerOrderState', title: '状态', width: "16%", align: "center", templet: '#resutlTemplet'}
+            ]
+            ]
+        });
+        var format = function (time, format) {
+            var t = new Date(time);
+            var tf = function (i) {
+                return (i < 10 ? '0' : '') + i
+            };
+            return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+                switch (a) {
+                    case 'yyyy':
+                        return tf(t.getFullYear());
+                        break;
+                    case 'MM':
+                        return tf(t.getMonth() + 1);
+                        break;
+                    case 'mm':
+                        return tf(t.getMinutes());
+                        break;
+                    case 'dd':
+                        return tf(t.getDate());
+                        break;
+                    case 'HH':
+                        return tf(t.getHours());
+                        break;
+                    case 'ss':
+                        return tf(t.getSeconds());
+                        break;
+                }
+            })
+
+        }
+        /*******给搜索按钮绑定事件*************/
+        $("#search").click(function(){
+
+            //获得输入框的内容
+            var myname = $("#customerOrderId").val();
+            table.reload('demo', {
+                where: { //设定异步数据接口的额外参数，任意设
+                    customerOrderId :myname
+                }
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            }); //只重载数据
+        });
+
+
+
+        /********给重置按钮绑定事件**************/
+        $("#reset").click(function(){
+            $("input").val("");
+        });
+
+
+
+    });
+</script>
+</body>
+</html>
