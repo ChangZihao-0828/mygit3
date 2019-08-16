@@ -1,7 +1,12 @@
 package org.java.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.java.entity.PurchaseAppllyOrder;
 import org.java.entity.PurchaseOrder;
+
+import java.util.List;
+
 @Mapper
 public interface PurchaseOrderMapper {
     int deleteByPrimaryKey(String purchaseOrderId);
@@ -15,4 +20,10 @@ public interface PurchaseOrderMapper {
     int updateByPrimaryKeySelective(PurchaseOrder record);
 
     int updateByPrimaryKey(PurchaseOrder record);
+
+    public List<PurchaseOrder> findPurchaseOrder(@Param("start") int start, @Param("rows") int rows, @Param("purchaseOrderId") String purchaseOrderId);
+
+    public int getPurchaseOrderCount(@Param("purchaseOrderId") String purchaseOrderId);
+
+
 }

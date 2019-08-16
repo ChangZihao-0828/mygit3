@@ -8,10 +8,10 @@
 </head>
 <body>
 <Br>
-&nbsp;<h1>采购申请单</h1>
+&nbsp;<h1>配送任务单</h1>
 <div>
     <div class="layui-inline">
-        <input class="layui-input" name="purchaseAppllyUserName" id="purchaseAppllyUserName" placeholder="搜索条件..."
+        <input class="layui-input" name="deliverGoodsId" id="deliverGoodsId" placeholder="搜索条件..."
                autocomplete="off">
     </div>
     <button class="layui-btn" id="search">搜索</button>
@@ -26,27 +26,30 @@
         //第一个实例
         table.render({
             elem: '#demo'
-            , url: '/initPurchaseAppllyOrder' //数据接口
+            , url: '/initDeliverGoods' //数据接口
             , page: true //开启分页
             , limit: 5 //默认每一页显示的条数
             , limits: [1, 2, 3, 5, 10, 20, 30, 50]//提示的每页条数的列表
             , toolbar: "#addDemo" //显示工具栏
-            , title: "采购申请单" //设置导出文件时的标题
+            , title: "配送任务单" //设置导出文件时的标题
             , loading: true
             , cols: [
                 [ //表头
 
                 {field: 'no', type: 'checkbox', width: "3%", fixed: 'left', align: "center"}
-                , {field: 'purchaseAppllyOrderId', title: '采购申请编号', width: "30%", sort: true, fixed: 'left', align: "center"}
-                , {field: 'purchaseAppllyUserName', title: '申请人', width: "30%", align: "center"}
+                , {field: 'deliverGoodsId', title: '配送任务编号', width: "19%", sort: true, fixed: 'left', align: "center"}
+                , {field: 'userId', title: '配送员编号', width: "19%", align: "center"}
                 , {
-                    field: 'purchaseAppllyOrderBeginTime',
-                    title: '采购日期',
-                    width: "30%",
+                    field: 'DeliverDate',
+                    title: '配送日期',
+                    width: "19%",
                     sort: true,
                     align: "center",
                     templet: '<div>{{ layui.util.toDateString(d.bir, "yyyy-MM-dd") }}</div>'
                 }
+
+                , {field: 'customerOrderId', title: '订单编号', width: "19%", sort: true, align: "center"}
+                , {field: 'customerId', title: '客户编号', width: "20%", sort: true, align: "center"}
             ]
             ]
         });
@@ -83,10 +86,10 @@
         $("#search").click(function(){
 
             //获得输入框的内容
-            var myname = $("#purchaseAppllyUserName").val();
+            var myname = $("#deliverGoodsId").val();
             table.reload('demo', {
                 where: { //设定异步数据接口的额外参数，任意设
-                    purchaseAppllyUserName :myname
+                    deliverGoodsId :myname
                 }
                 ,page: {
                     curr: 1 //重新从第 1 页开始

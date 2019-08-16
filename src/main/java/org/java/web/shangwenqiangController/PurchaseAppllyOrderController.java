@@ -21,7 +21,7 @@ public class PurchaseAppllyOrderController {
     @Autowired
     private PurchaseAppllyOrderService purchaseAppllyOrderService;
 
-    @GetMapping("/init")
+    @GetMapping("/initPurchaseAppllyOrder")
     public Map findPurchaseAppllyOrder(Integer page ,Integer limit ,Integer purchaseAppllyUserName){
          Map map = new HashMap();
         List<PurchaseAppllyOrder> list = purchaseAppllyOrderService.findPurchaseAppllyOrder(page,limit,purchaseAppllyUserName);
@@ -31,7 +31,7 @@ public class PurchaseAppllyOrderController {
         map.put("msg","");
         map.put("count",count);
         map.put("data",list);
-
+        System.out.println(purchaseAppllyUserName);
         return map;
 
     }

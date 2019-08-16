@@ -8,10 +8,10 @@
 </head>
 <body>
 <Br>
-&nbsp;<h1>采购申请单</h1>
+&nbsp;<h1>到货通知单</h1>
 <div>
     <div class="layui-inline">
-        <input class="layui-input" name="purchaseAppllyUserName" id="purchaseAppllyUserName" placeholder="搜索条件..."
+        <input class="layui-input" name="arriveNoticeOrderId" id="arriveNoticeOrderId" placeholder="搜索条件..."
                autocomplete="off">
     </div>
     <button class="layui-btn" id="search">搜索</button>
@@ -26,28 +26,30 @@
         //第一个实例
         table.render({
             elem: '#demo'
-            , url: '/initPurchaseAppllyOrder' //数据接口
+            , url: '/initNotice' //数据接口
             , page: true //开启分页
             , limit: 5 //默认每一页显示的条数
             , limits: [1, 2, 3, 5, 10, 20, 30, 50]//提示的每页条数的列表
             , toolbar: "#addDemo" //显示工具栏
             , title: "采购申请单" //设置导出文件时的标题
             , loading: true
-            , cols: [
+            ,  cols: [
                 [ //表头
 
-                {field: 'no', type: 'checkbox', width: "3%", fixed: 'left', align: "center"}
-                , {field: 'purchaseAppllyOrderId', title: '采购申请编号', width: "30%", sort: true, fixed: 'left', align: "center"}
-                , {field: 'purchaseAppllyUserName', title: '申请人', width: "30%", align: "center"}
-                , {
-                    field: 'purchaseAppllyOrderBeginTime',
-                    title: '采购日期',
-                    width: "30%",
-                    sort: true,
-                    align: "center",
-                    templet: '<div>{{ layui.util.toDateString(d.bir, "yyyy-MM-dd") }}</div>'
-                }
-            ]
+            {field: 'no', type: 'checkbox', width: "3%", fixed: 'left', align: "center"}
+            , {field: 'arriveNoticeOrderId', title: '到货通知编号', width: "20%", sort: true, fixed: 'left', align: "center"}
+            , {field: 'inGoodsId', title: '采购订单', width: "20%", align: "center"}
+            , {
+                field: 'inGoodsArrivedDate',
+                title: '到货日期',
+                width: "20%",
+                sort: true,
+                align: "center",
+                templet: '<div>{{ layui.util.toDateString(d.bir, "yyyy-MM-dd") }}</div>'
+            }
+            , {field: 'arriveNoticeOrderDeliverGoodsMan', title: '送货人', width: "20%", align: "center"}
+            , {field: 'arriveNoticeOrderStatus', title: '状态', width: "20%", align: "center", sort: true}
+        ]
             ]
         });
         var format = function (time, format) {
@@ -83,10 +85,10 @@
         $("#search").click(function(){
 
             //获得输入框的内容
-            var myname = $("#purchaseAppllyUserName").val();
+            var myname = $("#arriveNoticeOrderId").val();
             table.reload('demo', {
                 where: { //设定异步数据接口的额外参数，任意设
-                    purchaseAppllyUserName :myname
+                    arriveNoticeOrderId :myname
                 }
                 ,page: {
                     curr: 1 //重新从第 1 页开始
