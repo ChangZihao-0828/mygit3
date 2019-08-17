@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}" media="all">
+    <script th:src="@{'/layui/layui.js'}"></script>
+    <script th:src="@{'/carDeployjs/car_deploy_line.js'}"></script>
+</head>
+<body style="margin-left: 70px;margin-top: 10px">
+<Br>
+    <form class="layui-form" id="addFrm"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+        <div class="layui-form-item">
+            <label class="layui-form-label">编号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="carDeployLineId" placeholder="请输入配线编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">车辆编号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="carId" placeholder="请输入车辆编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">配送编号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="deliverGoodsId" placeholder="请输入配送编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">始发站</label>
+            <div class="layui-input-inline">
+                <input type="text" name="carFromSite" placeholder="请输入始发站"  required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">目的站</label>
+            <div class="layui-input-inline">
+                <input type="text" name="carToSite" placeholder="请输入目的站"  required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">配线日期</label>
+            <div class="layui-input-inline">
+                <input type="date" name="carDispatchDate"  autocomplete="off" required class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">里程</label>
+            <div class="layui-input-inline">
+                <input type="text" name="carMileage" placeholder="请输入里程"  required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">单价</label>
+            <div class="layui-input-inline">
+                <input type="text" name="carPrice" placeholder="请输入单价"  required  lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+<script>
+    layui.use(['form','jquery','layer'], function(){
+        var form = layui.form;
+        var $ = layui.$;
+        var layer = layui.layer;
+        //准备添加数据
+        //要使用jquery发出ajax 请求
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            $.ajax({
+                url:"/carDeployUpdate",
+                type:"get",
+                data:$("#addFrm").serialize(),
+                success:function () {
+                    //layer.msg("添加成功!!!",function(){
+                    //准备让父窗口刷新，并且关闭当前弹出的窗体
+                    window.parent.location.reload();
+                    //});
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
+</body>
+</html>

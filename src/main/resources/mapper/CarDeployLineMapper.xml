@@ -22,6 +22,24 @@
     from car_deploy_line
     where car_deploy_line_id = #{carDeployLineId,jdbcType=VARCHAR}
   </select>
+<select id="findCarDeployLine" resultMap="BaseResultMap">
+select * from car_deploy_line
+<where>
+    <if test="carDeployLineId!=null and carDeployLineId !=''">
+        and car_deploy_line_id like '%${carDeployLineId}%'
+    </if>
+</where>
+limit #{start},#{rows}
+</select>
+<select id="getCarDeployLineCount" resultType="int">
+select count(*) from car_deploy_line
+<where>
+    <if test="carDeployLineId!=null and carDeployLineId !=''">
+        and car_deploy_line_id like '%${carDeployLineId}%'
+    </if>
+</where>
+
+</select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from car_deploy_line
     where car_deploy_line_id = #{carDeployLineId,jdbcType=VARCHAR}

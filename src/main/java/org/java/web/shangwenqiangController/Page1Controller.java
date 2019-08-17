@@ -30,4 +30,10 @@ public class Page1Controller {
         System.out.println("----###--");
         return "carDispatch/"+page;
     }
+    @GetMapping("/carDeployLine/{page}")
+    public String carDeployLine(@PathVariable("page") String page){
+
+        System.out.println("----###--");
+        return "carDeployLine/"+page;
+    }
 }
