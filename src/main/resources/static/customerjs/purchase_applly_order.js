@@ -4,7 +4,7 @@ layui.use(['table','layer'], function(){
     //第一个实例
     table.render({
         elem: '#demo'
-        ,url: '/sc' //数据接口
+        ,url: '/initPurchaseAppllyOrder' //数据接口
         ,page: true //开启分页
         ,limit:5 //默认每一页显示的条数
         ,limits:[1,2,3,5,10,20,30,50]//提示的每页条数的列表
