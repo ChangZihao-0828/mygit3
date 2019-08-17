@@ -18,4 +18,10 @@ public class Page1Controller {
         System.out.println("----###--");
         return "order/"+page;
     }
+    @GetMapping("/deliver/{page}")
+    public String deliver(@PathVariable("page") String page){
+
+        System.out.println("----###--");
+        return "deliver/"+page;
+    }
 }
