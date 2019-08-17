@@ -33,6 +33,24 @@
     from customer_order
     where customer_order_id = #{customer_order_id,jdbcType=VARCHAR}
   </select>
+    <select id="findCustomerOrder" resultMap="BaseResultMap">
+        select * from customer_order
+        <where>
+            <if test="customerOrderId!=null and customerOrderId !=''">
+                and customer_order_id like '%${customerOrderId}%'
+            </if>
+        </where>
+        limit #{start},#{rows}
+    </select>
+    <select id="getCustomerOrderCount" resultType="int">
+        select count(*) from customer_order
+        <where>
+            <if test="customerOrderId!=null and customerOrderId !=''">
+                and customer_order_id like '%${customerOrderId}%'
+            </if>
+        </where>
+
+    </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from customer_order
     where customer_order_id = #{customerOrderId,jdbcType=VARCHAR}

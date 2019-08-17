@@ -2,7 +2,6 @@ package org.java.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.java.entity.ArriveNoticeOrder;
 import org.java.entity.CustomerOrder;
 
 import java.util.List;
