@@ -128,8 +128,19 @@
   </update>
   <select id="findStockCheck" resultMap="BaseResultMap">
     select * from stock_check
+    <where>
+      <if test="id!=null and id !=''">
+        and Stock_check_id like '%${id}%'
+      </if>
+    </where>
+    limit #{start},#{rows}
   </select>
   <select id="findStockCheckCount" resultType="java.lang.Integer">
     select count(*) from stock_check
+    <where>
+      <if test="id!=null and id !=''">
+        and Stock_check_id like '%${id}%'
+      </if>
+    </where>
   </select>
 </mapper>

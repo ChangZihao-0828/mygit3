@@ -1,6 +1,7 @@
 package org.java.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.java.entity.WarehouseCheck;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface WarehouseCheckMapper {
 
     int updateByPrimaryKey(WarehouseCheck record);
 
-    List<WarehouseCheck> findWarehouseCheck();
+    List<WarehouseCheck> findWarehouseCheck(@Param("start") Integer start,@Param("rows") Integer rows,@Param("id") String searchWarehouseCheckId);
 
-    Integer findWarehouseCheckCount();
+    Integer findWarehouseCheckCount(@Param("id") String searchWarehouseCheckId);
 }

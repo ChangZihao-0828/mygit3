@@ -7,7 +7,7 @@ layui.use(['table','layer','jquery'], function(){
         elem: '#demo'
         ,url: '/matterReject' //数据接口
         ,page: true //开启分页
-        ,limit:5 //默认每一页显示的条数
+        ,limit:10 //默认每一页显示的条数
         ,limits:[1,2,3,5,10,20,30,50]//提示的每页条数的列表
         ,toolbar:"#addDemo" //显示工具栏
         ,title:"物料报废记录汇总" //设置导出文件时的标题
@@ -15,9 +15,9 @@ layui.use(['table','layer','jquery'], function(){
         ,cols: [[ //表头
             {field: 'matterRejectId', title: '物料报废记录编号', width:"20%", sort: true, fixed: 'left',align:"center"}
             ,{field: 'matterId', title: '报废的物料', width:"16%",align:"center"}
-            ,{field: 'matterUserCount', title: '报废的数量', width:"16%", sort: true,align:"center"}
+            ,{field: 'matterRejectCount', title: '报废的数量', width:"16%", sort: true,align:"center"}
             ,{field: 'matterUserId', title: '报废人', width:"12%",align:"center"}
-            ,{field: 'matterRejectDate', title: '报废日期', width: "13%",align:"center", sort: true,templet:'<div>{{ layui.util.toDateString(d.bir, "yyyy-MM-dd") }}</div>'}
+            ,{field: 'matterRejectDate', title: '报废日期', width: "13%",align:"center", sort: true,templet:'<div>{{ layui.util.toDateString(d.matterRejectDate, "yyyy-MM-dd") }}</div>'}
             ,{field: 'matterRejectReason', title: '报废原因', width: "13%",align:"center"}
             , {field: 'op', title: '操作', width: "10%", align: "center", toolbar: "#barDemo"}
         ]]
@@ -38,7 +38,7 @@ layui.use(['table','layer','jquery'], function(){
                     maxmin: false,
                     anim: 1,
                     title: "添加物料报废单",
-                    content: '/inventory/add_Matter_scrap',
+                    content: '/inventory/add_Matter_reject',
                     zIndex: layer.zIndex, //重点1
                     success: function (layero) {
                         layer.setTop(layero); //重点2
@@ -53,13 +53,11 @@ layui.use(['table','layer','jquery'], function(){
     $("#search").click(function(){
 
         //获得输入框的内容
-        var myname = $("#name").val();
-        var myclazz = $("#clazz").val();
+        var mySearchMatterRejectId = $("#searchMatterRejectId").val();
 
         table.reload('demo', {
             where: { //设定异步数据接口的额外参数，任意设
-                name:myname
-                ,clazz:myclazz
+                searchMatterRejectId:mySearchMatterRejectId
             }
             ,page: {
                 curr: 1 //重新从第 1 页开始
@@ -77,7 +75,7 @@ layui.use(['table','layer','jquery'], function(){
 
             layer.confirm('真的删除行么', function (index) {
 
-                $.post("/delMatterRejectId", {"matterRejectId": data.matterRejectId}, function () {
+                $.post("/delMatterReject", {"matterRejectId": data.matterRejectId}, function () {
 
                     table.reload('demo', {
                         page: {
@@ -97,7 +95,7 @@ layui.use(['table','layer','jquery'], function(){
                 maxmin: false,
                 anim: 1,
                 title: "物料报废单详情",
-                content: '/inventory/add_Matter_scrap',
+                content: '/inventory/add_Matter_reject',
                 zIndex: layer.zIndex, //重点1
                 success: function (layero) {
                     layer.setTop(layero); //重点2
@@ -106,12 +104,12 @@ layui.use(['table','layer','jquery'], function(){
                     var body = layui.layer.getChildFrame("body");
 
                     //给弹出层body中的表单控件赋值
-                    body.find("[name='id']").val(data.id);
-                    body.find("[name='name']").val(data.name);
-                    body.find("[name='clazz']").val(data.clazz);
-                    body.find("[name='score']").val(data.score);
-                    body.find("[value='" + data.gender + "']").attr("checked", true);//选中指定性别的单选按钮
-                    body.find("[name='bir']").val(format(data.bir, 'yyyy-MM-dd'));
+                    body.find("[name='matterRejectId']").val(data.matterRejectId);
+                    body.find("[name='matterId']").val(data.matterId);
+                    body.find("[name='matterUserCount']").val(data.matterRejectCount);
+                    body.find("[name='matterUserId']").val(data.matterUserId);
+                    body.find("[name='matterRejectReason']").val(data.matterRejectReason);
+                    body.find("[name='matterRejectDate']").val(format(data.matterRejectDate, 'yyyy-MM-dd'));
                 }
             });
         }

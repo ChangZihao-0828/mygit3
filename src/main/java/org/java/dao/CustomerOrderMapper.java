@@ -20,6 +20,7 @@ public interface CustomerOrderMapper {
     int updateByPrimaryKeySelective(CustomerOrder record);
 
     int updateByPrimaryKey(CustomerOrder record);
+
     public List<CustomerOrder> findCustomerOrder(@Param("start") int start, @Param("rows") int rows, @Param("customerOrderId") String customerOrderId);
 
     public int getCustomerOrderCount(@Param("customerOrderId") String customerOrderId);

@@ -1,6 +1,7 @@
 package org.java.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.java.entity.StockCheck;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public interface StockCheckMapper {
 
     int updateByPrimaryKey(StockCheck record);
 
-    List<StockCheck> findStockCheck();
+    List<StockCheck> findStockCheck(@Param("start") Integer start, @Param("rows") Integer rows, @Param("id") String searchStockCheckId);
 
-    Integer findStockCheckCount();
+    Integer findStockCheckCount(@Param("id") String searchStockCheckId);
 }

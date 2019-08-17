@@ -7,9 +7,11 @@
     <result column="matter_user_id" jdbcType="VARCHAR" property="matterUserId" />
     <result column="matter_reject_date" jdbcType="DATE" property="matterRejectDate" />
     <result column="matter_reject_reason" jdbcType="VARCHAR" property="matterRejectReason" />
+    <result column="matter_reject_count" jdbcType="INTEGER" property="matterRejectCount" />
   </resultMap>
   <sql id="Base_Column_List">
-    matter_reject_id, matter_id, matter_user_id, matter_reject_date, matter_reject_reason
+    matter_reject_id, matter_id, matter_user_id, matter_reject_date, matter_reject_reason, 
+    matter_reject_count
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -23,9 +25,11 @@
   </delete>
   <insert id="insert" parameterType="org.java.entity.MatterReject">
     insert into matter_reject (matter_reject_id, matter_id, matter_user_id, 
-      matter_reject_date, matter_reject_reason)
+      matter_reject_date, matter_reject_reason, matter_reject_count
+      )
     values (#{matterRejectId,jdbcType=VARCHAR}, #{matterId,jdbcType=VARCHAR}, #{matterUserId,jdbcType=VARCHAR}, 
-      #{matterRejectDate,jdbcType=DATE}, #{matterRejectReason,jdbcType=VARCHAR})
+      #{matterRejectDate,jdbcType=DATE}, #{matterRejectReason,jdbcType=VARCHAR}, #{matterRejectCount,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="org.java.entity.MatterReject">
     insert into matter_reject
@@ -45,6 +49,9 @@
       <if test="matterRejectReason != null">
         matter_reject_reason,
       </if>
+      <if test="matterRejectCount != null">
+        matter_reject_count,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="matterRejectId != null">
@@ -61,6 +68,9 @@
       </if>
       <if test="matterRejectReason != null">
         #{matterRejectReason,jdbcType=VARCHAR},
+      </if>
+      <if test="matterRejectCount != null">
+        #{matterRejectCount,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -79,6 +89,9 @@
       <if test="matterRejectReason != null">
         matter_reject_reason = #{matterRejectReason,jdbcType=VARCHAR},
       </if>
+      <if test="matterRejectCount != null">
+        matter_reject_count = #{matterRejectCount,jdbcType=INTEGER},
+      </if>
     </set>
     where matter_reject_id = #{matterRejectId,jdbcType=VARCHAR}
   </update>
@@ -87,13 +100,26 @@
     set matter_id = #{matterId,jdbcType=VARCHAR},
       matter_user_id = #{matterUserId,jdbcType=VARCHAR},
       matter_reject_date = #{matterRejectDate,jdbcType=DATE},
-      matter_reject_reason = #{matterRejectReason,jdbcType=VARCHAR}
+      matter_reject_reason = #{matterRejectReason,jdbcType=VARCHAR},
+      matter_reject_count = #{matterRejectCount,jdbcType=INTEGER}
     where matter_reject_id = #{matterRejectId,jdbcType=VARCHAR}
   </update>
   <select id="findMatterReject" resultMap="BaseResultMap">
     select * from matter_reject
+    <where>
+      <if test="id!=null and id !=''">
+        and matter_reject_id like '%${id}%'
+      </if>
+    </where>
+    limit #{start},#{rows}
   </select>
   <select id="findMatterRejectCount" resultType="java.lang.Integer">
     select count(*) from matter_reject
+    <where>
+      <if test="id!=null and id !=''">
+        and matter_reject_id like '%${id}%'
+      </if>
+    </where>
+
   </select>
 </mapper>

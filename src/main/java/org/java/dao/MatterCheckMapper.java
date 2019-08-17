@@ -1,8 +1,8 @@
 package org.java.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.java.entity.MatterCheck;
-import org.java.entity.MatterReject;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public interface MatterCheckMapper {
 
     int updateByPrimaryKey(MatterCheck record);
 
-    List<MatterCheck> findMatterCheck();
+    List<MatterCheck> findMatterCheck(@Param("start") Integer start, @Param("rows") Integer rows, @Param("id") String searchMatterCheckId);
 
-    Integer findMatterCheckCount();
+    Integer findMatterCheckCount(@Param("id") String searchMatterCheckId);
 }
