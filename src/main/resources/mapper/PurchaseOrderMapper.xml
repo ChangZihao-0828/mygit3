@@ -10,11 +10,10 @@
     <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
     <result column="purchase_type" jdbcType="VARCHAR" property="purchaseType" />
     <result column="processinstance_id" jdbcType="VARCHAR" property="processinstanceId" />
-    <result column="purchase_user_id" jdbcType="VARCHAR" property="purchaseUserId" />
   </resultMap>
   <sql id="Base_Column_List">
     purchase_order_id, purchase_supplier_id, purchase_order_beginTime, purchase_order_endTime, 
-    purchase_applly_order_id, customer_id, purchase_type, processinstance_id, purchase_user_id
+    purchase_applly_order_id, customer_id, purchase_type, processinstance_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -22,6 +21,25 @@
     from purchase_order
     where purchase_order_id = #{purchaseOrderId,jdbcType=VARCHAR}
   </select>
+
+<select id="findPurchaseOrder" resultMap="BaseResultMap">
+select * from purchase_order
+<where>
+    <if test="purchaseOrderId!=null and purchaseOrderId !=''">
+        and purchase_order_id like '%${purchaseOrderId}%'
+    </if>
+</where>
+limit #{start},#{rows}
+</select>
+<select id="getPurchaseOrderCount" resultType="int">
+select count(*) from purchase_order
+<where>
+    <if test="purchaseOrderId!=null and purchaseOrderId !=''">
+        and purchase_order_id like '%${purchaseOrderId}%'
+    </if>
+</where>
+
+</select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from purchase_order
     where purchase_order_id = #{purchaseOrderId,jdbcType=VARCHAR}
@@ -30,11 +48,11 @@
     insert into purchase_order (purchase_order_id, purchase_supplier_id, 
       purchase_order_beginTime, purchase_order_endTime, 
       purchase_applly_order_id, customer_id, purchase_type, 
-      processinstance_id, purchase_user_id)
+      processinstance_id)
     values (#{purchaseOrderId,jdbcType=VARCHAR}, #{purchaseSupplierId,jdbcType=INTEGER}, 
       #{purchaseOrderBegintime,jdbcType=DATE}, #{purchaseOrderEndtime,jdbcType=DATE}, 
       #{purchaseAppllyOrderId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{purchaseType,jdbcType=VARCHAR}, 
-      #{processinstanceId,jdbcType=VARCHAR}, #{purchaseUserId,jdbcType=VARCHAR})
+      #{processinstanceId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.java.entity.PurchaseOrder">
     insert into purchase_order
@@ -63,9 +81,6 @@
       <if test="processinstanceId != null">
         processinstance_id,
       </if>
-      <if test="purchaseUserId != null">
-        purchase_user_id,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="purchaseOrderId != null">
@@ -91,9 +106,6 @@
       </if>
       <if test="processinstanceId != null">
         #{processinstanceId,jdbcType=VARCHAR},
-      </if>
-      <if test="purchaseUserId != null">
-        #{purchaseUserId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -121,9 +133,6 @@
       <if test="processinstanceId != null">
         processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
       </if>
-      <if test="purchaseUserId != null">
-        purchase_user_id = #{purchaseUserId,jdbcType=VARCHAR},
-      </if>
     </set>
     where purchase_order_id = #{purchaseOrderId,jdbcType=VARCHAR}
   </update>
@@ -135,8 +144,7 @@
       purchase_applly_order_id = #{purchaseAppllyOrderId,jdbcType=VARCHAR},
       customer_id = #{customerId,jdbcType=VARCHAR},
       purchase_type = #{purchaseType,jdbcType=VARCHAR},
-      processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
-      purchase_user_id = #{purchaseUserId,jdbcType=VARCHAR}
+      processinstance_id = #{processinstanceId,jdbcType=VARCHAR}
     where purchase_order_id = #{purchaseOrderId,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -17,7 +17,7 @@
     supplier_shortName, supplier_telephone, supplier_email, supplier_address
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from supplier
     where supplier_id = #{supplierId,jdbcType=VARCHAR}
@@ -139,11 +139,4 @@
       supplier_address = #{supplierAddress,jdbcType=VARCHAR}
     where supplier_id = #{supplierId,jdbcType=VARCHAR}
   </update>
-  <select id="getList" resultMap="BaseResultMap">
-      select * from supplier limit #{start},#{rows}
-  </select>
-  <!--查询总数-->
-  <select id="getCount" resultType="int">
-    select count(*) from supplier
-  </select>
 </mapper>

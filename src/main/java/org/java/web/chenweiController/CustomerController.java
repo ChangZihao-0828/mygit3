@@ -14,49 +14,49 @@ import java.util.Map;
 @Controller
 public class CustomerController {
     @Autowired
-    private CustomerService service;
-
+   private CustomerService service;
 
     @ResponseBody
-    @RequestMapping("op")//显示数据库全部数据的请求
+    @RequestMapping("/op")
     public Map getList(Integer page,Integer limit){
-        Map map = new HashMap();
-        List<Customer> list =service.getList(page,limit);//集合
-        int count =service.getCount();//总数
-        map.put("code", 0);//状态正常
-        map.put("msg","" );
-        map.put("count",count );//总数
-        map.put("data",list );
+    Map map = new HashMap();
 
-        return map;
-    }
-    @RequestMapping("pl")//查看全部数据的的请求
+    List<Customer> list =service.getList(page,limit);//集合
+    int count =service.getCount();//总数
+
+    map.put("code", 0);//状态正常
+    map.put("msg","" );
+    map.put("count",count );//总数
+    map.put("data",list );
+
+    return map;
+}
+    @RequestMapping("pl")
     public String pl(){
 
-
+        System.out.println("11111");
         return "customer/Customer_Information_Management";
     }
 
-    @RequestMapping("op1")//将表单数据添加的请求
+    @RequestMapping("op1")
     @ResponseBody
     public void op1(Customer f){
 
-        service.add(f);
+       service.add(f);
     }
     @RequestMapping("op3")
     public String op3(){
 
-        return "customer/order_processing";
+        return "/init";
     }
-    @RequestMapping("op4")//跳转到订单跟踪页面
+    @RequestMapping("op4")
     public String op4(){
 
-        return "customer/Brand_Manage";
+        return "/Brand_Manage";
     }
-    @RequestMapping("op5")//调到订单接收页面
+    @RequestMapping("op5")
     public String op5(){
 
-        return "customer/Category_Manage";
+        return "/Category_Manage";
     }
-
 }

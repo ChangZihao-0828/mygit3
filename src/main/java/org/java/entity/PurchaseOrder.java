@@ -1,12 +1,16 @@
 package org.java.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class PurchaseOrder {
+public class PurchaseOrder  implements Serializable {
     private String purchaseOrderId;
 
     private Integer purchaseSupplierId;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date purchaseOrderBegintime;
 
     private Date purchaseOrderEndtime;
@@ -18,8 +22,6 @@ public class PurchaseOrder {
     private String purchaseType;
 
     private String processinstanceId;
-
-    private String purchaseUserId;
 
     public String getPurchaseOrderId() {
         return purchaseOrderId;
@@ -83,13 +85,5 @@ public class PurchaseOrder {
 
     public void setProcessinstanceId(String processinstanceId) {
         this.processinstanceId = processinstanceId == null ? null : processinstanceId.trim();
-    }
-
-    public String getPurchaseUserId() {
-        return purchaseUserId;
-    }
-
-    public void setPurchaseUserId(String purchaseUserId) {
-        this.purchaseUserId = purchaseUserId == null ? null : purchaseUserId.trim();
     }
 }
