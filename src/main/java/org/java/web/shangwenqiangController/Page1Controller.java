@@ -24,4 +24,10 @@ public class Page1Controller {
         System.out.println("----###--");
         return "deliver/"+page;
     }
+    @GetMapping("/carDispatch/{page}")
+    public String carDispatch(@PathVariable("page") String page){
+
+        System.out.println("----###--");
+        return "carDispatch/"+page;
+    }
 }
