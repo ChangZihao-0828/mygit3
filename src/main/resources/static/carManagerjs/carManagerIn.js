@@ -5,12 +5,12 @@ layui.use(['table', 'layer', 'jquery'], function () {
     //第一个实例
     table.render({
         elem: '#demo'
-        , url: '/initCarManager' //数据接口
+        , url: '/initCarManagerIn' //数据接口
         , page: true //开启分页
         , limit: 5 //默认每一页显示的条数
         , limits: [1, 2, 3, 5, 10, 20, 30, 50]//提示的每页条数的列表
         , toolbar: "#addDemo" //显示工具栏
-        , title: "出车管理" //设置导出文件时的标题
+        , title: "回车管理" //设置导出文件时的标题
         , loading: true
         , cols: [
             [ //表头
@@ -43,8 +43,8 @@ layui.use(['table', 'layer', 'jquery'], function () {
                     area: ['500px', '500px'],
                     maxmin: false,
                     anim: 1,
-                    title: "添加出车",
-                    content: '/carManager/add',
+                    title: "添加回车",
+                    content: '/carManagerIn/add',
                     zIndex: layer.zIndex, //重点1
                     success: function (layero) {
                         layer.setTop(layero); //重点2
@@ -70,8 +70,8 @@ layui.use(['table', 'layer', 'jquery'], function () {
                 area: ['500px', '500px'],
                 maxmin: false,
                 anim: 1,
-                title: "出车详情",
-                content: '/carManager/detail',
+                title: "回车详情",
+                content: '/carManagerIn/detail',
                 zIndex: layer.zIndex, //重点1
                 success: function (layero) {
                     layer.setTop(layero); //重点2
@@ -93,7 +93,7 @@ layui.use(['table', 'layer', 'jquery'], function () {
 
             layer.confirm('真的删除行么', function (index) {
 
-                $.post("/carManager/carManagerDel", {"carId": data.carId}, function () {
+                $.post("/carManagerIn/carManagerDel", {"carId": data.carId}, function () {
 
                     table.reload('demo', {
                         page: {
@@ -112,8 +112,8 @@ layui.use(['table', 'layer', 'jquery'], function () {
                 area: ['500px', '500px'],
                 maxmin: false,
                 anim: 1,
-                title: "修改出车",
-                content: '/carManager/update',
+                title: "修改回车",
+                content: '/carManagerIn/update',
                 zIndex: layer.zIndex, //重点1
                 success: function (layero) {
                     layer.setTop(layero); //重点2

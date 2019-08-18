@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>出车详情</title>
+    <title>增加回车</title>
     <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}" media="all">
     <script th:src="@{'/layui/layui.js'}"></script>
     <script th:src="@{'/carManagerjs/carManager.js'}"></script>
@@ -61,6 +61,30 @@
         </div>
     </div>
 </form>
+<script>
+    layui.use(['form','jquery','layer'], function(){
+        var form = layui.form;
+        var $ = layui.$;
+        var layer = layui.layer;
+        //准备添加数据
+        //要使用jquery发出ajax 请求
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+                    $.ajax({
+                url:"/carManagerAdd",
+                type:"get",
+                data:$("#addFrm").serialize(),
+                success:function () {
+                   //layer.msg("添加成功!!!",function(){
+                        //准备让父窗口刷新，并且关闭当前弹出的窗体
+                        window.parent.location.reload();
+                    //});
+                }
+            });
+            return false;
+        });
+    });
+</script>
 </body>
 </html>
 </body>

@@ -42,4 +42,10 @@ public class Page1Controller {
         System.out.println("----###--");
         return "carManager/"+page;
     }
+    @GetMapping("/carManagerIn/{page}")
+    public String carManagerIn(@PathVariable("page") String page){
+
+        System.out.println("----###--");
+        return "carManagerIn/"+page;
+    }
 }
