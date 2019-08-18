@@ -1,5 +1,7 @@
 package org.java.web;
 
+import org.apache.shiro.SecurityUtils;
+import org.java.entity.SysUserinfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class pageController {
+
+
     @GetMapping("/forword/{page}")
     public String forword(@PathVariable("page") String page){
 
@@ -24,6 +28,9 @@ public class pageController {
 
     @RequestMapping("login")
     public String login(HttpServletRequest request) throws Exception{
+
+        SysUserinfo users = (SysUserinfo) SecurityUtils.getSubject().getPrincipal();
+
 
         //获得错误信息shiroLoginFailure,如果是由于没有登录，进入控制器，该值为null
         String err = (String) request.getAttribute("shiroLoginFailure");
@@ -39,5 +46,12 @@ public class pageController {
         }
 
         return "/login";
+    }
+
+
+    @GetMapping("/activiti/{page}")
+    public String activity(@PathVariable String page){
+
+        return "/activitiFlow/"+page;
     }
 }
