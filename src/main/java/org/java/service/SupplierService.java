@@ -1,6 +1,5 @@
 package org.java.service;
 
-import org.java.entity.CustomerOrder;
 import org.java.entity.Supplier;
 
 import java.util.List;
@@ -10,5 +9,8 @@ public interface SupplierService {
 
     public int getCount();
 
-    public void add(Supplier f);
+    public void add(Supplier e);
+
+    public int delSupplier(String supplierId);
+    public void updateSupplier(Supplier e);
 }

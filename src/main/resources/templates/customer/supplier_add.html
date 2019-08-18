@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}"  media="all">
+    <script th:src="@{'/customerjs/supplier.js'}"></script>
+    <script th:src="@{'/layui/layui.js'}"></script>
+</head>
+</head>
+<body>
+<form class="layui-form" action="" lay-filter="example" id="addFrm">
+    <div class="layui-form-item">
+        <label class="layui-form-label">供应商编号</label>
+        <div class="layui-inline">
+            <input type="text" name="supplierId" lay-verify="title" autocomplete="off" placeholder="供应商编号有系统自动生成" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-inline">
+            <input type="password" name="supplierPwd" placeholder="请输入密码" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">供应商名称</label>
+        <div class="layui-inline">
+            <input type="text" name="supplierName" lay-verify="title" autocomplete="off" placeholder="供应商名称" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">供应商简称</label>
+        <div class="layui-inline">
+            <input type="text" name="supplierShortname" lay-verify="title" autocomplete="off" placeholder="供应商简称" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系人</label>
+        <div class="layui-inline">
+            <input type="text" name="supplierContacts" lay-verify="title" autocomplete="off" placeholder="联系人" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">电话</label>
+        <div class="layui-inline">
+            <input type="text" name="supplierTelephone" lay-verify="title" autocomplete="off" placeholder="电话" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">信用额度</label>
+        <div class="layui-inline">
+            <input type="text" name="supplierCreditiimit" lay-verify="title" autocomplete="off" placeholder="信用额度" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">电子邮箱</label>
+        <div class="layui-inline">
+            <input type="text" name="supplierEmail" lay-verify="title" autocomplete="off" placeholder="电子邮箱" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">地址</label>
+        <div class="layui-inline">
+            <input type="text" name="supplierAddress" lay-verify="title" autocomplete="off" placeholder="地址" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="demo1"> 保存</button>
+        </div>
+    </div>
+    </div>
+
+</form>
+<script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+<script>
+    layui.use(['form','jquery','layer'], function(){
+        var form = layui.form;
+        var $ = layui.$;
+        var layer = layui.layer;
+        //准备添加数据
+        //要使用jquery发出ajax 请求
+        //监听提交
+
+        form.on('submit(demo1)', function(data){
+            $.ajax({
+                url:"/supplieradd",
+                type:"get",
+                data:$("#addFrm").serialize(),
+
+                success:function () {
+                    layer.msg("添加成功!!!",function(){
+                   // 准备让父窗口刷新，并且关闭当前弹出的窗体
+                    window.parent.location.reload();
+                    });
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

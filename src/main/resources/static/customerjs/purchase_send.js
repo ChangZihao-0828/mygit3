@@ -1,7 +1,7 @@
-layui.use(['table','layer'], function(){
+layui.use(['table','layer','jquery'], function(){
     var table = layui.table;
     var layer = layui.layer;
-    //第一个实例
+    var $ = layui.$;
     table.render({
         elem: '#demo'
         ,url: '/sc' //数据接口
