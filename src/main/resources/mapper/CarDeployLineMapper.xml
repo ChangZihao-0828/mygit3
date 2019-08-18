@@ -157,4 +157,12 @@ select count(*) from car_deploy_line
       processinstance_id = #{processinstanceId,jdbcType=VARCHAR}
     where car_deploy_line_id = #{carDeployLineId,jdbcType=VARCHAR}
   </update>
+    <update id="updateCarFromSite" parameterType="org.java.entity.CarDeployLine">
+    update car_deploy_line set car_from_site = #{carFromSite,jdbcType=VARCHAR}
+where car_deploy_line_id = #{carDeployLineId,jdbcType=VARCHAR}
+  </update><update id="updateCarFromSiteIn" parameterType="org.java.entity.CarDeployLine">
+    update car_deploy_line set car_to_site = #{carToSite,jdbcType=VARCHAR}
+where car_deploy_line_id = #{carDeployLineId,jdbcType=VARCHAR}
+  </update>
+
 </mapper>

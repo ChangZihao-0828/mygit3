@@ -25,4 +25,7 @@ public interface CarDeployLineMapper {
 
     public int getCarDeployLineCount(@Param("carDeployLineId") String carDeployLineId);
 
+    int updateCarFromSite(CarDeployLine record);
+
+    int updateCarFromSiteIn(CarDeployLine record);
 }

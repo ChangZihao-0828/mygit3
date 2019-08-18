@@ -19,8 +19,10 @@ layui.use(['table', 'layer', 'jquery'], function () {
                 , {field: 'carDeployLineId', title: '编号', width: "10%", sort: true, fixed: 'left', align: "center"}
                 , {field: 'carId', title: '车辆编号', width: "10%", align: "center"}
                 , {field: 'deliverGoodsId', title: '配送任务单编号', width: "10%", align: "center"}
-                , {field: 'carFromSite', title: '始发站', width: "10%", align: "center"}
-                , {field: 'carToSite', title: '目的站', width: "10%", align: "center"}
+                , {field: 'carFromSite', title: '始发站', width: "20%", align: "center"}
+                , {field: 'carMap', title: '始发站地图', width: "10%", align: "center", toolbar: "#barMap"}
+                , {field: 'carToSite', title: '目的站', width: "20%", align: "center"}
+                , {field: 'carMapIn', title: '目的站地图', width: "10%", align: "center", toolbar: "#barMapIn"}
                 , {
                 field: 'carDispatchDate',
                 title: '配线日期',
@@ -141,64 +143,124 @@ layui.use(['table', 'layer', 'jquery'], function () {
                     body.find("[name='carPrice']").val(data.carPrice);
                 }
             });
-        }
-    });
+        }else if
 
-    /***********指定日期格式**********************/
-        //指定日期转换格式
-    var format = function (time, format) {
-            var t = new Date(time);
-            var tf = function (i) {
-                return (i < 10 ? '0' : '') + i
-            };
-            return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
-                switch (a) {
-                    case 'yyyy':
-                        return tf(t.getFullYear());
-                        break;
-                    case 'MM':
-                        return tf(t.getMonth() + 1);
-                        break;
-                    case 'mm':
-                        return tf(t.getMinutes());
-                        break;
-                    case 'dd':
-                        return tf(t.getDate());
-                        break;
-                    case 'HH':
-                        return tf(t.getHours());
-                        break;
-                    case 'ss':
-                        return tf(t.getSeconds());
-                        break;
+              (layEvent === 'map') { //地图
+                /******地图弹出层********/
+                layer.open({
+                    type: 2,
+                    shade: true,
+                    area: ['700px', '480px'],
+                    maxmin: false,
+                    anim: 1,
+                    title: "地图",
+                    content: '/carDeployLine/carBaiDuMap',
+                    zIndex: layer.zIndex, //重点1
+                    success: function (layero) {
+                        layer.setTop(layero); //重点2
+                        /*********弹出新窗体以后，给新窗中的控件赋值**********************/
+                            //-------------获得弹出层页面的body部份
+                        var body = layui.layer.getChildFrame("body");
+
+                        //给弹出层body中的表单控件赋值
+                        body.find("[name='carDeployLineId']").val(data.carDeployLineId);
+                        body.find("[name='carId']").val(data.carId);
+                        body.find("[name='deliverGoodsId']").val(data.deliverGoodsId);
+                        body.find("[name='carFromSite']").val(data.carFromSite);
+                        body.find("[name='carToSite']").val(data.carToSite);
+                        body.find("[name='carDispatchDate']").val(format(data.carDispatchDate, 'yyyy-MM-dd'));
+                        body.find("[name='carMileage']").val(data.carMileage);
+                        body.find("[name='carPrice']").val(data.carPrice);
+                    }
+                });
+            }else if
+
+        (layEvent === 'mapIn') { //地图
+            /******地图弹出层********/
+            layer.open({
+                type: 2,
+                shade: true,
+                area: ['700px', '480px'],
+                maxmin: false,
+                anim: 1,
+                title: "地图",
+                content: '/carDeployLine/carBaiDuMapIn',
+                zIndex: layer.zIndex, //重点1
+                success: function (layero) {
+                    layer.setTop(layero); //重点2
+                    /*********弹出新窗体以后，给新窗中的控件赋值**********************/
+                        //-------------获得弹出层页面的body部份
+                    var body = layui.layer.getChildFrame("body");
+
+                    //给弹出层body中的表单控件赋值
+                    body.find("[name='carDeployLineId']").val(data.carDeployLineId);
+                    body.find("[name='carId']").val(data.carId);
+                    body.find("[name='deliverGoodsId']").val(data.deliverGoodsId);
+                    body.find("[name='carFromSite']").val(data.carFromSite);
+                    body.find("[name='carToSite']").val(data.carToSite);
+                    body.find("[name='carDispatchDate']").val(format(data.carDispatchDate, 'yyyy-MM-dd'));
+                    body.find("[name='carMileage']").val(data.carMileage);
+                    body.find("[name='carPrice']").val(data.carPrice);
                 }
-            })
-
+            });
         }
+        });
 
 
-    /*******给搜索按钮绑定事件*************/
-    $("#search").click(function(){
+        /***********指定日期格式**********************/
+            //指定日期转换格式
+        var format = function (time, format) {
+                var t = new Date(time);
+                var tf = function (i) {
+                    return (i < 10 ? '0' : '') + i
+                };
+                return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+                    switch (a) {
+                        case 'yyyy':
+                            return tf(t.getFullYear());
+                            break;
+                        case 'MM':
+                            return tf(t.getMonth() + 1);
+                            break;
+                        case 'mm':
+                            return tf(t.getMinutes());
+                            break;
+                        case 'dd':
+                            return tf(t.getDate());
+                            break;
+                        case 'HH':
+                            return tf(t.getHours());
+                            break;
+                        case 'ss':
+                            return tf(t.getSeconds());
+                            break;
+                    }
+                })
 
-        //获得输入框的内容
-        var myname = $("#carDeployLineId").val();
-
-        table.reload('demo', {
-            where: { //设定异步数据接口的额外参数，任意设
-                carDeployLineId:myname
             }
-            ,page: {
-                curr: 1 //重新从第 1 页开始
-            }
-        }); //只重载数据
-    });
 
 
+        /*******给搜索按钮绑定事件*************/
+        $("#search").click(function () {
 
-    /********给重置按钮绑定事件**************/
-    $("#reset").click(function(){
-        $("input").val("");
-    });
+            //获得输入框的内容
+            var myname = $("#carDeployLineId").val();
+
+            table.reload('demo', {
+                where: { //设定异步数据接口的额外参数，任意设
+                    carDeployLineId: myname
+                }
+                , page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            }); //只重载数据
+        });
+
+
+        /********给重置按钮绑定事件**************/
+        $("#reset").click(function () {
+            $("input").val("");
+        });
 
 
 

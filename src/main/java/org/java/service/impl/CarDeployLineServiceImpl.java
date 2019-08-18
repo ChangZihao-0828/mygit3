@@ -62,4 +62,15 @@ public class CarDeployLineServiceImpl implements CarDeployLineService {
     public void del(String carDeployLineId) {
         mapper.deleteByPrimaryKey(carDeployLineId);
     }
+
+    @Transactional
+    @Override
+    public void UpdateCarFromSite(CarDeployLine c) {
+        mapper.updateCarFromSite(c);
+    }@Transactional
+    @Override
+    public void UpdateCarFromSiteIn(CarDeployLine c) {
+        mapper.updateCarFromSiteIn(c);
+    }
+
 }

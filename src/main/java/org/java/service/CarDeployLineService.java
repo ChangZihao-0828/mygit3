@@ -32,4 +32,8 @@ public interface CarDeployLineService {
     public void update(CarDeployLine c);
 
     public void del(String carDeployLineId);
+
+    public void UpdateCarFromSite(CarDeployLine c);
+
+    public void UpdateCarFromSiteIn(CarDeployLine c);
 }

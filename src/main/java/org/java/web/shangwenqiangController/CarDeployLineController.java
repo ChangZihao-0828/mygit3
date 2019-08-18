@@ -67,5 +67,17 @@ public class CarDeployLineController {
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+carDeployLineId);
         carDeployLineService.del(carDeployLineId);
     }
+    @RequestMapping("/carFromSiteUpdate")
+    @ResponseBody //一定要添加此注解
+    public void updateCarFromSite(CarDeployLine c){
+        System.out.println("#########################");
+        carDeployLineService.UpdateCarFromSite(c);
+    }
+    @RequestMapping("/carFromSiteUpdateIn")
+    @ResponseBody //一定要添加此注解
+    public void updateCarFromSiteIn(CarDeployLine c){
+        System.out.println("#########################");
+        carDeployLineService.UpdateCarFromSiteIn(c);
+    }
 
 }
