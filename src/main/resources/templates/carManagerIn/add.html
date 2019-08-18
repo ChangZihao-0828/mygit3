@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>增加车辆</title>
+    <title>增加回车</title>
     <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}" media="all">
     <script th:src="@{'/layui/layui.js'}"></script>
-    <script th:src="@{'/carDispatchjs/car_dispatch.js'}"></script>
+    <script th:src="@{'/carManagerjs/carManager.js'}"></script>
 </head>
 <body style="margin-left: 70px;margin-top: 10px">
 <Br>
@@ -13,39 +13,45 @@
     <div class="layui-form-item">
         <label class="layui-form-label">编号</label>
         <div class="layui-input-inline">
-            <input type="text" name="carDispatchId" placeholder="请输入任务编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
+            <input type="text" name="carId" placeholder="请输入编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">车辆编号</label>
         <div class="layui-input-inline">
-            <input type="text" name="carId" placeholder="请输入车辆编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
+            <input type="text" name="carTypeId" placeholder="请输入车辆编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">配送编号</label>
+        <label class="layui-form-label">车牌号</label>
         <div class="layui-input-inline">
-            <input type="text" name="deliverGoodsId" placeholder="请输入配送编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
+            <input type="text" name="carBrand" placeholder="请输入车牌号"  required  lay-verify="required" autocomplete="off" class="layui-input">
         </div>
     </div>
-    </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">出车日期</label>
+        <label class="layui-form-label">车队编号</label>
         <div class="layui-input-inline">
-            <input type="date" name="carGoDate"  autocomplete="off" required class="layui-input">
+            <input type="text" name="motorcadeId" placeholder="请输入车队编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">回车日期</label>
+        <label class="layui-form-label">载重</label>
         <div class="layui-input-inline">
-            <input type="date" name="carBackDate"  autocomplete="off" required class="layui-input">
+            <input type="text" name="carLoad" placeholder="请输入载重"  required  lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">体重</label>
+        <div class="layui-input-inline">
+            <input type="text" name="carBulk" placeholder="请输入体重"  required  lay-verify="required" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">状态</label>
+        <label class="layui-form-label">车辆状态</label>
         <div class="layui-input-block">
-            <input type="radio" name="carDispatchStatus" value="已调度" title="已调度" checked>
-            <input type="radio" name="carDispatchStatus" value="未调度" title="未调度">
+            <input type="radio" name="carState" value="已出车" title="已出车" checked>
+            <input type="radio" name="carState" value="已回车" title="已回车">
         </div>
     </div>
     <div class="layui-form-item">
@@ -65,7 +71,7 @@
         //监听提交
         form.on('submit(formDemo)', function(data){
                     $.ajax({
-                url:"/dispatchAdd",
+                url:"/carManagerAdd",
                 type:"get",
                 data:$("#addFrm").serialize(),
                 success:function () {

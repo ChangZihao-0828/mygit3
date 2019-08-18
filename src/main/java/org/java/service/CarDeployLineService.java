@@ -31,5 +31,5 @@ public interface CarDeployLineService {
 
     public void update(CarDeployLine c);
 
-    public void del(String c);
+    public void del(String carDeployLineId);
 }
