@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}" media="all">
+    <script th:src="@{'/layui/layui.js'}"></script>
+    <script th:src="@{'/carManagerjs/carManager.js'}"></script>
+</head>
+<body style="margin-left: 70px;margin-top: 10px">
+<Br>
+<form class="layui-form" id="addFrm"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+    <div class="layui-form-item">
+        <label class="layui-form-label">编号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="carId" placeholder="请输入配线编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">车辆编号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="carTypeId" placeholder="请输入车辆编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">车牌号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="carBrand" placeholder="请输入配送编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">车队编号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="MotorcadeId" placeholder="请输入始发站"  required  lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">载重</label>
+        <div class="layui-input-inline">
+            <input type="text" name="carLoad" placeholder="请输入目的站"  required  lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">体重</label>
+        <div class="layui-input-inline">
+            <input type="text" name="carBulk" placeholder="请输入里程"  required  lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">车辆状态</label>
+        <div class="layui-input-block">
+            <input type="radio" name="carState" value="已调度" title="已调度" checked>
+            <input type="radio" name="carState" value="未调度" title="未调度">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>
+</body>
+</html>

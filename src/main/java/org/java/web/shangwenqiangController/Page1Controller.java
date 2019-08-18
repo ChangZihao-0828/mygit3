@@ -36,4 +36,10 @@ public class Page1Controller {
         System.out.println("----###--");
         return "carDeployLine/"+page;
     }
+    @GetMapping("/carManager/{page}")
+    public String carManager(@PathVariable("page") String page){
+
+        System.out.println("----###--");
+        return "carManager/"+page;
+    }
 }
