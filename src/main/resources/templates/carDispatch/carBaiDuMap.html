@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<head xmlns:th="http://www.thymeleaf.org">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>地图找房</title>
+    <link href="css/map.css" rel="stylesheet"></link>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <!-- 百度地图密钥 -->
+    <script type="text/javascript" th:src="@{'http://api.map.baidu.com/api?v=3.0&ak=hTYC5YWQY77O7Hx7ouZfU4YARcQMTipH'}"></script>
+</head>
+<body>
+<button id="showMap">地图标注</button>&nbsp;&nbsp;坐标点：<input type="text" id="zuobiao">
+<div id="map" style="margin: 80px; display:none ">
+    地点查询：<input type="text" id="suggestId" value="明发城市广场"><button class="search">查询</button>&nbsp;<button id="clear">清除坐标点</button><!---放置地图数据-->
+
+    <div style="width:800px;height: 600px;margin-top:20px" id="allmap"></div> <!---加载地图-->
+
+
+</div>
+<script>
+    // 点击显示地图层、
+    $("#showMap").click(function(){
+        $("#map").show();
+        // 百度地图API功能
+        var map = new BMap.Map("allmap", {enableMapClick:false});
+        map.centerAndZoom(new BMap.Point(118.861294,32.085751),12);
+        map.enableScrollWheelZoom();
+        map.enableInertialDragging();
+        map.enableContinuousZoom();
+        // 添加城市列表控件
+        var size = new BMap.Size(10, 22);
+        map.addControl(new BMap.CityListControl({
+            anchor: BMAP_ANCHOR_TOP_LEFT,
+            offset: size
+        }));
+        //单击获取点击的经纬度
+        var markers;
+        map.addEventListener("click",function(e){
+            //自定义标注样式
+            var icon = new BMap.Icon('./img/marker.png', new BMap.Size(20, 25));
+            $("#zuobiao").val(e.point.lng + "," + e.point.lat);
+            var marker=new BMap.Point(e.point.lng,e.point.lat);
+            markers = new BMap.Marker(marker,{
+                icon:icon
+            });// 创建标注
+            map.addOverlay(markers);
+        });
+        //
+        function Clear(){//清除
+            map.clearOverlays(markers);//清除图层覆盖物
+        }
+//关键字检索
+        $(".search").click(function(){
+            $("#zuobiao").val("");
+            var keyword=$("#suggestId").val();
+            var local = new BMap.LocalSearch(map, {
+                renderOptions:{map:map},
+            });
+            local.search(keyword);
+            //清除检索完的标注点  Clear();
+            local.setMarkersSetCallback(function(pois){
+                for(var i=0;i<pois.length;i++){
+                    pois[i].marker.addEventListener("click",attribute);
+                    pois[i].marker.addEventListener("mouseover",function(e){
+
+                    });
+                }
+            });
+            //获取覆盖物位置
+            function attribute(e){
+                e.domEvent.stopPropagation();//阻止事件穿透
+                var p = e.target;
+                $("#zuobiao").val(p.getPosition().lng + "," + p.getPosition().lat);
+                console.log(e)
+            }
+        })
+//清除地图标注
+        $("#clear").click(function(){
+            Clear();
+        })
+    })
+</script>
+</body>
