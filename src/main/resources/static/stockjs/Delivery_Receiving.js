@@ -5,17 +5,19 @@ layui.use(['table','layer','jquery'], function(){
     //第一个实例
     table.render({
         elem: '#demo'
-        ,url: '/deliveryOrder' //数据接口
+        ,url: '/deliveryReceiving' //数据接口
         ,page: true //开启分页
         ,limit:10 //默认每一页显示的条数
         ,limits:[1,2,3,5,10,20,30,50]//提示的每页条数的列表
         ,toolbar:"#addDemo"//显示工具栏
-        ,title:"仓库检查记录汇总" //设置导出文件时的标题
+        ,title:"出库作业单记录汇总" //设置导出文件时的标题
         ,loading:true
         ,cols: [[ //表头
-            {field: 'outGoodsId', title: '出库作业单', width:"35%", sort: true, fixed: 'left',align:"center"}
-            ,{field: 'outGoodsStatus', title: '状态', width:"35%",align:"center"}
-            , {field: 'op', title: '操作', width: "30%", align: "center", toolbar: "#barDemo"}
+            {field: 'outGoodsId', title: '出库作业单', width:"20%", sort: true, fixed: 'left',align:"center"}
+            ,{field: 'outGoodsTime', title: '出库时间', width:"20%",align:"center", sort: true,templet:'<div>{{ layui.util.toDateString(d.outGoodsTime, "yyyy-MM-dd") }}</div>'}
+            ,{field: 'customerOrderId', title: '仓管员', width:"20%",align:"center", sort: true}
+            ,{field: 'outGoodsStatus', title: '状态', width:"20%",align:"center"}
+            , {field: 'op', title: '操作', width: "20%", align: "center", toolbar: "#barDemo"}
         ]]
     });
 
@@ -34,7 +36,7 @@ layui.use(['table','layer','jquery'], function(){
                     maxmin: false,
                     anim: 1,
                     title: "添加出库作业单",
-                    content: '/stock/add_Delivery_Order',
+                    content: '/stock/add_Delivery_Receiving',
                     zIndex: layer.zIndex, //重点1
                     success: function (layero) {
                         layer.setTop(layero); //重点2
@@ -49,13 +51,11 @@ layui.use(['table','layer','jquery'], function(){
     $("#search").click(function(){
 
         //获得输入框的内容
-        var myname = $("#name").val();
-        var myclazz = $("#clazz").val();
+        var searchDeliveryReceivingId = $("#searchDeliveryReceivingId").val();
 
         table.reload('demo', {
             where: { //设定异步数据接口的额外参数，任意设
-                name:myname
-                ,clazz:myclazz
+                searchDeliveryReceivingId:searchDeliveryReceivingId
             }
             ,page: {
                 curr: 1 //重新从第 1 页开始
@@ -69,31 +69,16 @@ layui.use(['table','layer','jquery'], function(){
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的DOM对象
 
-        if (layEvent === 'del') { //删除
-
-            layer.confirm('是否确认出库？', function (index) {
-
-                $.post("/addDeliveryOrder", {"id": data.outGoodsId}, function () {
-
-                    table.reload('demo', {
-                        page: {
-                            curr: 1 //重新从第 1 页开始
-                        }
-                    }); //只重载数据
-                    layer.close(index);
-                });
-                //
-            });
-        } else if (layEvent === 'edit') { //编辑
+       if (layEvent === 'edit') { //编辑
             /******修改数据********/
             layer.open({
                 type: 2,
                 shade: true,
-                area: ['500px', '400px'],
+                area: ['1000px', '440px'],
                 maxmin: false,
                 anim: 1,
-                title: "修改用户",
-                content: '/forward/update',
+                title: "仓库检查单详情",
+                content: '/stock/add_Delivery_Receiving',
                 zIndex: layer.zIndex, //重点1
                 success: function (layero) {
                     layer.setTop(layero); //重点2
@@ -102,16 +87,15 @@ layui.use(['table','layer','jquery'], function(){
                     var body = layui.layer.getChildFrame("body");
 
                     //给弹出层body中的表单控件赋值
-                    body.find("[name='id']").val(data.id);
-                    body.find("[name='name']").val(data.name);
-                    body.find("[name='clazz']").val(data.clazz);
-                    body.find("[name='score']").val(data.score);
-                    body.find("[value='" + data.gender + "']").attr("checked", true);//选中指定性别的单选按钮
-                    body.find("[name='bir']").val(format(data.bir, 'yyyy-MM-dd'));
+                    body.find("[name='outGoodsId']").val(data.outGoodsId);
                 }
             });
         }
+
+
+
     });
+
 
     /***********指定日期格式**********************/
         //指定日期转换格式
@@ -144,6 +128,5 @@ layui.use(['table','layer','jquery'], function(){
             })
 
         }
-
 
 });

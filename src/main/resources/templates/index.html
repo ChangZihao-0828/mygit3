@@ -468,7 +468,7 @@ function link_operating(name,title){
 							</a>
 							<ul class="submenu">
 								<li class="home">
-									<a  href="javascript:void(0)" name="Products_List.html"  title="出库接单" class="iframeurl" target="iframe">
+									<a  th:href="@{'/stock/Delivery_Receiving'}" name="Products_List.html"  title="出库接单" class="iframeurl" target="iframe">
 										<i class="icon-double-angle-right"></i>出库接单
 									</a>
 								</li>
@@ -484,7 +484,7 @@ function link_operating(name,title){
 								</li>
 								<li class="home">
 									<a th:href="@{'/stock/Delivery_Order'}" target="iframe" name="Category_Manage.html" title="出库作业"  class="iframeurl">
-										<i class="icon-double-angle-right"></i>出库作业
+										<i class="icon-double-angle-right"></i>出库确认
 									</a>
 								</li>
 							</ul>

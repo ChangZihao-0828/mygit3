@@ -8,29 +8,31 @@
 </head>
 <body>
 <br>
-<h1>&nbsp;&nbsp;&nbsp;添加物料拣选单</h1>
+<h1>&nbsp;&nbsp;&nbsp;添加出库拣选单</h1>
 <br/>
-<form class="layui-form" action="" method="post">
+<form class="layui-form" id="addFrm">
     <table align="center" width="100%">
         <tr>
             <td colspan="4"><h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>基础信息</b></h4><hr/></td>
         </tr>
         <tr>
-            <td align="center" width="15%">盘点单编号:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td align="center" width="15%">拣选单单编号:&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td width="35%"><div class="layui-input-inline">
-                <input type="text" name="Stock_check_id" lay-verify="title" autocomplete="off" placeholder="请输入盘点单编号" class="layui-input">
+                <input type="text" name="takeGoodsId" lay-verify="title" autocomplete="off" placeholder="自动生成" class="layui-input" readonly="readonly">
             </div><br/><br/></td>
             <td align="center" width="15%">拣货人:&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td width="35%"><div class="layui-input-inline">
-                <input type="text" name="user_id" lay-verify="title" placeholder="请输入盘点人编号" autocomplete="off" class="layui-input">
+                <input type="text" name="takeGoodsPeople" lay-verify="title" placeholder="" autocomplete="off" class="layui-input">
             </div><br/><br/></td>
         </tr>
-
         <tr>
-
+            <td align="center" width="15%">出库作业单编号:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td width="35%"><div class="layui-input-inline">
+                <input type="text" name="outGoodsId" lay-verify="title" autocomplete="off" placeholder="" class="layui-input" readonly="readonly">
+            </div><br/><br/></td>
             <td align="center" width="15%">备注:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td width="35%" colspan="3"><div class="layui-input-inline">
-                <input type="text" name="warehouse_position_id" lay-verify="title" autocomplete="off" placeholder="请输入仓位编号" class="layui-input">
+            <td width="35%"><div class="layui-input-inline">
+                <input type="text" name="takeGoodsRemark" lay-verify="title" placeholder="" autocomplete="off" class="layui-input">
             </div><br/><br/></td>
         </tr>
        
@@ -81,11 +83,12 @@
     </table>
 </form>
 <script>
-    layui.use(['form', 'layedit', 'laydate'], function() {
+    layui.use(['form', 'layedit', 'laydate','jquery'], function() {
         var form = layui.form
             , layer = layui.layer
             , layedit = layui.layedit
-            , laydate = layui.laydate;
+            , laydate = layui.laydate
+            , $ = layui.$;
 
         //日期
         laydate.render({
@@ -109,9 +112,18 @@
 
         //监听提交
         form.on('submit(demo1)', function(data){
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })
+            $.ajax({
+                url:"/addDeliveryPicking",
+                type:"post",
+                data:$("#addFrm").serialize(),
+                success:function () {
+                    alert("添加成功");
+                    //layer.msg("添加成功!!!",function(){
+                    //准备让父窗口刷新，并且关闭当前弹出的窗体
+                    window.parent.location.reload();
+                    //});
+                }
+            });
             return false;
         });
 

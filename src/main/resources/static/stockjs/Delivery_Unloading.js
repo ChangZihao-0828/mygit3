@@ -1,26 +1,21 @@
-layui.use('table', function(){
+layui.use(['table','layer','jquery'], function(){
     var table = layui.table;
-
+    var layer = layui.layer;
+    var $ = layui.$;
     //第一个实例
     table.render({
         elem: '#demo'
-        ,url: '/init' //数据接口
+        ,url: '/deliveryUnloading' //数据接口
         ,page: true //开启分页
-        ,limit:5 //默认每一页显示的条数
+        ,limit:10 //默认每一页显示的条数
         ,limits:[1,2,3,5,10,20,30,50]//提示的每页条数的列表
         ,toolbar:"#addDemo"//显示工具栏
         ,title:"仓库检查记录汇总" //设置导出文件时的标题
         ,loading:true
         ,cols: [[ //表头
-            {field: 'out_equip_goods_id', title: '编号', width:"20%", sort: true, fixed: 'left',align:"center"}
-            ,{field: 'out_goods_id', title: '出库作业单编号', width:"20%", sort: true, fixed: 'left',align:"center"}
-           ,{field: 'out_equip_goods_beginTime', title: '开始时间', width:"10%",align:"center", sort: true,templet:'<div>{{ layui.util.toDateString(d.bir, "yyyy-MM-dd") }}</div>'}
-            ,{field: 'out_equip_goods_endTime', title: '结束时间', width:"10%",align:"center", sort: true,templet:'<div>{{ layui.util.toDateString(d.bir, "yyyy-MM-dd") }}</div>'}
-            ,{field: 'out_equip_goods_people', title: '装卸人', width:"10%",align:"center"}
-            ,{field: 'out_equip_goods_status', title: '状态', width:"10%",align:"center"}
-            ,{field: 'processinstance_id', title: '流程实列id', width: "10%",align:"center"}
-
-            , {field: 'op', title: '操作', width: "10%", align: "center", toolbar: "#barDemo"}
+            {field: 'outGoodsId', title: '出库作业单', width:"35%", sort: true, fixed: 'left',align:"center"}
+            ,{field: 'outGoodsStatus', title: '状态', width:"35%",align:"center"}
+            , {field: 'op', title: '操作', width: "30%", align: "center", toolbar: "#barDemo"}
         ]]
     });
 
@@ -73,32 +68,16 @@ layui.use('table', function(){
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的DOM对象
-
-        if (layEvent === 'del') { //删除
-
-            layer.confirm('真的删除行么', function (index) {
-
-                $.post("/del", {"id": data.id}, function () {
-
-                    table.reload('demo', {
-                        page: {
-                            curr: 1 //重新从第 1 页开始
-                        }
-                    }); //只重载数据
-                    layer.close(index);
-                });
-                //
-            });
-        } else if (layEvent === 'edit') { //编辑
+            if (layEvent === 'edit') { //编辑
             /******修改数据********/
             layer.open({
                 type: 2,
                 shade: true,
-                area: ['500px', '400px'],
+                area: ['1000px', '440px'],
                 maxmin: false,
                 anim: 1,
                 title: "修改用户",
-                content: '/forward/update',
+                content: '/stock/add_Delivery_Unloading',
                 zIndex: layer.zIndex, //重点1
                 success: function (layero) {
                     layer.setTop(layero); //重点2
@@ -107,12 +86,7 @@ layui.use('table', function(){
                     var body = layui.layer.getChildFrame("body");
 
                     //给弹出层body中的表单控件赋值
-                    body.find("[name='id']").val(data.id);
-                    body.find("[name='name']").val(data.name);
-                    body.find("[name='clazz']").val(data.clazz);
-                    body.find("[name='score']").val(data.score);
-                    body.find("[value='" + data.gender + "']").attr("checked", true);//选中指定性别的单选按钮
-                    body.find("[name='bir']").val(format(data.bir, 'yyyy-MM-dd'));
+                    body.find("[name='outGoodsId']").val(data.outGoodsId);
                 }
             });
         }
