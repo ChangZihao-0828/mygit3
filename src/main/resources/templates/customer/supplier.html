@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>供货商</title>
+    <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}" media="all">
+    <script th:src="@{'/layui/layui.js'}"></script>
+    <script th:src="@{'/customerjs/supplier.js'}"></script>
+</head>
+<body>
+
+<div class="layui-inline">
+    搜索：<input type="text" name="userid" lay-verify="title" autocomplete="off" placeholder="搜索条件" class="layui-input">
+</div>
+<script type="text/html" id="addDemo">
+    <div class="layui-btn-group" style="float: right">
+        <button class="layui-btn  layui-btn-primary" lay-event="add">
+            添加
+        </button>
+    </div>
+</script>
+
+<table id="demo" lay-filter="test"></table>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+
+</body>
+</html>

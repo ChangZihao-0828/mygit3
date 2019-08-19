@@ -1,6 +1,7 @@
 package org.java.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.java.entity.SysUserinfo;
 @Mapper
 public interface SysUserinfoMapper {
@@ -15,4 +16,6 @@ public interface SysUserinfoMapper {
     int updateByPrimaryKeySelective(SysUserinfo record);
 
     int updateByPrimaryKey(SysUserinfo record);
+
+    SysUserinfo login(@Param("username") String username);
 }

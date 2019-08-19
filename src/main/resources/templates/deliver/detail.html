@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}" media="all">
+    <script th:src="@{'/layui/layui.js'}"></script>
+    <script th:src="@{'/deliverjs/deliver_goods.js'}"></script>
+</head>
+<body style="margin-left: 70px;margin-top: 10px">
+<Br>
+<form class="layui-form" id="addFrm"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+    <div class="layui-form-item">
+        <label class="layui-form-label">任务编号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="deliverGoodsId" placeholder="请输入任务编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">配送员编号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="userId" placeholder="请输入配送员编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">订单编号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="customerOrderId" placeholder="请输入订单编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">客户编号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="customerId" placeholder="请输入客户编号" required  lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">配送日期</label>
+        <div class="layui-input-inline">
+            <input type="date" name="deliverDate"  autocomplete="off" required class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+    <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+</form>
+</body>
+</html>
+</body>
+</html>

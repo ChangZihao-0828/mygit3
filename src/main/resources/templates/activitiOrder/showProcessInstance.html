@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Title</title>
+    <link th:href="@{'/layui/css/layui.css'}" type="text/css" rel="stylesheet">
+    <script th:src="@{'/layui/layui.js'}" type="text/javascript"></script>
+</head>
+<body>
+<table class="layui-table">
+    <colgroup>
+        <col width="100">
+        <col width="130">
+        <col width="130">
+        <col>
+    </colgroup>
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>流程实例编号</th>
+        <th>采购单名称</th>
+        <th>采购金额</th>
+        <th>采购详情</th>
+        <th>经办人</th>
+        <th>创建时间</th>
+        <th>当前任务阶段</th>
+        <th>查看流程图</th>
+        <th>查看历史任务</th>
+        <th>删除流程实例</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="l,st:${list}">
+        <td th:text="${st.count}"></td>
+        <td th:text="${l.processInstanceId}"></td>
+        <td th:text="${l.name}"></td>
+        <td th:text="${l.price}"></td>
+        <td th:text="${l.content}"></td>
+        <td th:text="${l.user_id}"></td>
+        <td th:text="${#dates.format(l.createtime,'yyyy-MM-dd')}"></td>
+        <td th:text="${l.activitiId}"></td>
+        <td><a th:href="@{|/showActiveMap/${l.processInstanceId}|}" class="layui-btn">查看流程图</a></td>
+        <td><a th:href="@{|/showHistoryTask/${l.processInstanceId}|}" class="layui-btn layui-btn-normal">查看历史任务</a></td>
+        <td><a class="layui-btn layui-btn-danger" href="#">删除</a></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

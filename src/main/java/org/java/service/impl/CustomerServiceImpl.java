@@ -33,4 +33,10 @@ public class CustomerServiceImpl implements CustomerService {
         customerMapper.insert(f);
     }
 
+    @Override
+    public void delCustomer(String customer_id) {
+        customerMapper.deleteByPrimaryKey(customer_id);
+    }
+
+
 }

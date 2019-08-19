@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class OutEquipGoods  implements Serializable {
+
     private String outEquipGoodsId;
 
     private String outGoodsId;

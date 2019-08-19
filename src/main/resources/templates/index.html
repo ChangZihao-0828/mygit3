@@ -195,7 +195,7 @@ $('.change_Password').on('click', function(){
 	 icon:2,
     }, 
 	function(){
-          location.href='login.html';
+        window.location="logout";
     });
 });
 });
@@ -334,22 +334,22 @@ function link_operating(name,title){
 						</a>
 					<ul class="submenu">
 					<li class="home">
-						<a  th:href="pl" name="Customer_Information_Management.html"  title="客户资料管理" class="iframeurl" target="iframe">
+						<a  th:href="@{'/pl'}" name="Customer_Information_Management.html"  title="客户资料管理" class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>客户资料管理
 						</a>
 					</li>
 					 <li class="home">
-						<a  href="javascript:void(0)" name="Brand_Manage.html" title="订单跟踪"  class="iframeurl" target="iframe">
+						<a  th:href="@{'/op4'}" name="Brand_Manage.html" title="订单跟踪"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>订单跟踪
 						</a>
 					</li>
 					<li class="home">
-						<a href="javascript:void(0)" name="Category_Manage.html" title="订单接收"  class="iframeurl" target="iframe">
+						<a th:href="@{'/op5'}" name="Category_Manage.html" title="订单接收"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>订单接收
 						</a>
 					</li>
 					<li class="home">
-						<a href="javascript:void(0)" name="Category_Manage.html" title="订单处理"  class="iframeurl" target="iframe">
+						<a th:href="@{'/op3'}" name="Category_Manage.html" title="订单处理"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>订单处理</a>
 					</li>
 					</ul>
@@ -364,21 +364,21 @@ function link_operating(name,title){
 						</a>
 					<ul class="submenu">
 					<li class="home">
-						<a  href="javascript:void(0)" name="Products_List.html"  title="供货商" class="iframeurl" target="iframe">
+						<a th:href="@{'/cg1'}" name="Products_List.html"  title="供货商" class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>供货商
 						</a>
 					</li>
 					 <li class="home">
-						<a  href="javascript:void(0)" name="Brand_Manage.html" title="采购申请单"  class="iframeurl" target="iframe">
+						<a  th:href="@{'/cg2'}" name="Brand_Manage.html" title="采购申请单"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>采购申请单
 						</a>
 					</li>
 					<li class="home">
-						<a href="javascript:void(0)" name="Category_Manage.html" title="采购订单"  class="iframeurl" target="iframe">
+						<a th:href="@{'/cg3'}" name="Category_Manage.html" title="采购订单"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>采购订单</a>
 					</li>
 					<li class="home">
-						<a href="javascript:void(0)" name="Category_Manage.html" title="采购发送"  class="iframeurl" target="iframe">
+						<a th:href="@{'/cg4'}" name="Category_Manage.html" title="采购发送"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>采购发送</a>
 					</li>
 					<li class="home">
@@ -468,7 +468,7 @@ function link_operating(name,title){
 							</a>
 							<ul class="submenu">
 								<li class="home">
-									<a  href="javascript:void(0)" name="Products_List.html"  title="出库接单" class="iframeurl" target="iframe">
+									<a  th:href="@{'/stock/Delivery_Receiving'}" name="Products_List.html"  title="出库接单" class="iframeurl" target="iframe">
 										<i class="icon-double-angle-right"></i>出库接单
 									</a>
 								</li>
@@ -484,7 +484,7 @@ function link_operating(name,title){
 								</li>
 								<li class="home">
 									<a th:href="@{'/stock/Delivery_Order'}" target="iframe" name="Category_Manage.html" title="出库作业"  class="iframeurl">
-										<i class="icon-double-angle-right"></i>出库作业
+										<i class="icon-double-angle-right"></i>出库确认
 									</a>
 								</li>
 							</ul>
@@ -499,27 +499,27 @@ function link_operating(name,title){
 						</a>
 					<ul class="submenu">
 					<li class="home">
-						<a  href="javascript:void(0)" name="Products_List.html"  title="配送任务" class="iframeurl" target="iframe">
+						<a  th:href="@{'/deliver/deliver_goods'}" name="Products_List.html"  title="配送任务" class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>配送任务
 						</a>
 					</li>
 					 <li class="home">
-						<a  href="javascript:void(0)" name="Brand_Manage.html" title="车辆调度"  class="iframeurl" target="iframe">
+						<a  th:href="@{'carDispatch/car_dispatch'}" name="Brand_Manage.html" title="车辆调度"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>车辆调度
 						</a>
 					</li>
 					<li class="home">
-						<a href="javascript:void(0)" name="Category_Manage.html" title="配线管理"  class="iframeurl" target="iframe">
+						<a th:href="@{'/carDeployLine/car_deploy_line'}" name="Category_Manage.html" title="配线管理"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>配线管理
 						</a>
 					</li>
 					<li class="home">
-						<a href="javascript:void(0)" name="Category_Manage.html" title="出车管理"  class="iframeurl" target="iframe">
+						<a th:href="@{'/carManager/car_Manager'}" name="Category_Manage.html" title="出车管理"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>出车管理
 						</a>
 					</li>
 					<li class="home">
-						<a href="javascript:void(0)" name="Category_Manage.html" title="回车管理"  class="iframeurl" target="iframe">
+						<a th:href="@{'/carManagerIn/car_Manager_in'}" name="Category_Manage.html" title="回车管理"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>回车管理
 						</a>
 					</li>
@@ -565,7 +565,7 @@ function link_operating(name,title){
 						</a>
 					</li>
 					<li class="home">
-						<a href="javascript:void(0)" name="Category_Manage.html" title="客户订单"  class="iframeurl" target="iframe">
+						<a th:href="@{/order/customer_order}" name="Category_Manage.html" title="客户订单"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>客户订单
 						</a>
 					</li>
@@ -612,33 +612,33 @@ function link_operating(name,title){
 						</a>
 					<ul class="submenu">
 					<li class="home">
-						<a  href="javascript:void(0)" name="Products_List.html"  title="部署流程定义" class="iframeurl" target="iframe">
+						<a  th:href="@{'/activiti/deploy'}" name="deploy.html"  title="部署流程定义" class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>部署流程定义
 						</a>
 					</li>
 					 <li class="home">
-						<a  href="javascript:void(0)" name="Brand_Manage.html" title="查看流程定义"  class="iframeurl" target="iframe">
+						<a  th:href="@{'/processDefinition'}" name="showProcessDefinition.html" title="查看流程定义"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>查看流程定义
 						</a>
 					</li>
 					<li class="home">
-						<a href="javascript:void(0)" name="Category_Manage.html" title="审核中的业务流程"  class="iframeurl" target="iframe">
+						<a th:href="@{'/showProcessInstance'}" name="showProcessInstance.html" title="审核中的业务流程"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>审核中的业务流程
 						</a>
 					</li>
 						<li class="home">
-							<a href="javascript:void(0)" name="Category_Manage.html" title="拾取任务"  class="iframeurl" target="iframe">
-								<i class="icon-double-angle-right"></i>审核中的业务流程
+							<a th:href="@{'/showClaimTask'}" name="showClaimTask.html" title="拾取任务"  class="iframeurl" target="iframe">
+								<i class="icon-double-angle-right"></i>拾取任务
 							</a>
 						</li>
 						<li class="home">
-							<a href="javascript:void(0)" name="Category_Manage.html" title="查看个人任务"  class="iframeurl" target="iframe">
-								<i class="icon-double-angle-right"></i>审核中的业务流程
+							<a th:href="@{'/showPersonTask'}" name="showPersonTask.html" title="查看个人代办任务"  class="iframeurl" target="iframe">
+								<i class="icon-double-angle-right"></i>查看个人代办任务
 							</a>
 						</li>
 						<li class="home">
-							<a href="javascript:void(0)" name="Category_Manage.html" title="查看历史任务"  class="iframeurl" target="iframe">
-								<i class="icon-double-angle-right"></i>审核中的业务流程
+							<a th:href="@{'/Order'}" name="createOrder.html" title="创建采购单"  class="iframeurl" target="iframe">
+								<i class="icon-double-angle-right"></i>创建采购单
 							</a>
 						</li>
 					</ul>

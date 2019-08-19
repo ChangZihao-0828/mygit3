@@ -3,8 +3,7 @@ package org.java.web.shangwenqiangController;
 import org.java.entity.DeliverGoods;
 import org.java.service.DeliverGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,5 +33,26 @@ public class DeliverGoodsController {
         return map;
 
     }
+    @RequestMapping("/deliverAdd")
+    @ResponseBody //一定要添加此注解
+    public void add(DeliverGoods d){
+        deliverGoodsService.add(d);
+    }
+
+    @RequestMapping("/deliverUpdate")
+    @ResponseBody //一定要添加此注解
+    public void update(DeliverGoods d){
+        System.out.println("#########################");
+        deliverGoodsService.update(d);
+    }
+
+    @RequestMapping("/deliver/{deliverDel}")
+    @ResponseBody //一定要添加此注解
+    public void del(String deliverGoodsId, @PathVariable String deliverDel){
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+deliverGoodsId);
+        deliverGoodsService.del(deliverGoodsId);
+    }
+
+
 }
 
