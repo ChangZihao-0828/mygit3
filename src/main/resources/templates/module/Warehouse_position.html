@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}" media="all">
+    <script th:src="@{'/layui/layui.js'}"></script>
+    <script th:src="@{'/my.js'}"></script>
+</head>
+<body>
+
+<!--搜索界面 -->
+<Br>
+<div>
+    <div class="layui-inline">
+        <input class="layui-input" name="searchWarehousePositionId" id="searchWarehousePositionId" placeholder="要搜索的编号..."
+               autocomplete="off">
+    </div>
+    <button class="layui-btn" id="search">搜索</button>
+</div>
+<table id="demo8" lay-filter="test"></table>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<script type="text/html" id="addDemo">
+    <button class="layui-btn  layui-btn-primary" lay-event="add">
+        <i class="layui-icon layui-icon-add-1"></i>
+    </button>
+</script>
+
+<script th:inline="none">
+    layui.use(['table','layer','jquery'], function(){
+        var table = layui.table;
+        var layer = layui.layer;
+        var $ = layui.$;
+
+        //第八个实例
+        table.render({
+            elem: '#demo8'
+            ,url: '/warehousePosition' //数据接口
+            ,page: true //开启分页
+            ,limit:5
+            ,limits:[1,2,3,5,10,20,30,50]
+            ,toolbar:"#addDemo"
+            ,title:"仓位管理"
+            ,loading:true
+            ,cols: [[ //表头
+                {field: 'no', type:'checkbox', width:"5%", sort: true, fixed: 'left',align:"center"}
+                ,{field: 'warehousePositionId', title: '编号', width:"10%", sort: true, fixed: 'left',align:"center"}
+                ,{field: 'warehousePositionRegionId', title: '所属仓库区域编号', width:"15%", sort: true, fixed: 'left',align:"center"}
+                ,{field: 'warehouseId', title: '所属仓库编号', width:"15%", sort: true, align:"center"}
+                ,{field: 'warehousePositionArea', title: '面积', width:"15%",align:"center"}
+                ,{field: 'warehousePositionBuildDate', title: '创建时间', width:"20%", sort: true, align:"center",templet:'<div>{{ layui.util.toDateString(d.warehousePositionBuildDate, "yyyy-MM-dd") }}</div>'}
+                ,{field: 'op', title: '操作', width:"20%",align:"center", toolbar:"#barDemo"}
+            ]]
+        });
+
+        //监听工具条
+        table.on('tool(test)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data; //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+            var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+            if(layEvent === 'del'){ //删除
+
+                layer.confirm('真的删除行么', function(index){
+
+                    $.post("/delWarehousePosition",{"warehousePositionId":data.warehousePositionId},function () {
+
+                        table.reload('demo8', {
+
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                        });
+                        layer.close(index);
+                    });
+                });
+            } else if(layEvent === 'edit'){ //编辑
+                //通过这种方式弹出的层，每当它被选择，就会置顶。
+                layer.open({
+                    type: 2,
+                    shade: true,
+                    area: ['500px','400px'],
+                    anim: 1,
+                    title:"修改用户",
+                    content: '/forward/Warehouse_position_add',
+                    zIndex: layer.zIndex, //重点1
+                    success: function(layero){
+                        layer.setTop(layero); //重点2
+
+                        var body = layui.layer.getChildFrame("body");
+
+                        body.find("[name='warehousePositionId']").val(data.warehousePositionId);
+                        body.find("[name='warehousePositionRegionId']").val(data.warehousePositionRegionId);
+                        body.find("[name='warehouseId']").val(data.warehouseId);
+                        body.find("[name='warehousePositionArea']").val(data.warehousePositionArea);
+                        body.find("[name='warehousePositionBuildDate']").val(format(data.warehousePositionBuildDate,'yyyy-MM-dd'));
+                    }
+                });
+            }
+        });
+
+        //监听头工具栏事件
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id)
+                ,data = checkStatus.data; //获取选中的数据
+            switch(obj.event){
+                case 'add':
+                    //通过这种方式弹出的层，每当它被选择，就会置顶。
+                    layer.open({
+                        type: 2,
+                        shade: true,
+                        area: ['500px','400px'],
+                        anim: 1,
+                        title:"添加仓位",
+                        content: '/forward/Warehouse_position_add',
+                        zIndex: layer.zIndex, //重点1
+                        success: function(layero){
+                            layer.setTop(layero); //重点2
+                        }
+                    });
+                    break;
+            };
+        });
+
+        /***********指定日期格式**********************/
+            //指定日期转换格式
+        var format = function (time, format) {
+                var t = new Date(time);
+                var tf = function (i) {
+                    return (i < 10 ? '0' : '') + i
+                };
+                return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+                    switch (a) {
+                        case 'yyyy':
+                            return tf(t.getFullYear());
+                            break;
+                        case 'MM':
+                            return tf(t.getMonth() + 1);
+                            break;
+                        case 'mm':
+                            return tf(t.getMinutes());
+                            break;
+                        case 'dd':
+                            return tf(t.getDate());
+                            break;
+                        case 'HH':
+                            return tf(t.getHours());
+                            break;
+                        case 'ss':
+                            return tf(t.getSeconds());
+                            break;
+                    }
+                })
+
+            }
+
+        /*******给搜索按钮绑定事件*************/
+        $("#search").click(function(){
+
+            //获得输入框的内容
+            var searchWarehousePositionId = $("#searchWarehousePositionId").val();
+            table.reload('demo8', {
+                where: { //设定异步数据接口的额外参数，任意设
+                    searchWarehousePositionId:searchWarehousePositionId
+                }
+                ,page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            }); //只重载数据
+        });
+
+        /********给重置按钮绑定事件**************/
+        $("#reset").click(function(){
+            $("input").val("");
+        });
+
+    });
+</script>
+
+
+</body>
+</html>

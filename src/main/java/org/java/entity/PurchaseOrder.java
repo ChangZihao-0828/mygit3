@@ -13,6 +13,7 @@ public class PurchaseOrder  implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date purchaseOrderBegintime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date purchaseOrderEndtime;
 
     private String purchaseAppllyOrderId;

@@ -304,22 +304,22 @@ function link_operating(name,title){
 						</a>
 					<ul class="submenu">
 					<li class="home">
-						<a  href="javascript:void(0)" name="Products_List.html"  title="仓库管理" class="iframeurl" target="iframe">
+						<a  th:href="@{'/forward/Warehouse'}" name="Products_List.html"  title="仓库管理" class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>仓库管理
 						</a>
 					</li>
 					 <li class="home">
-						<a  href="javascript:void(0)" name="Brand_Manage.html" title="区域管理"  class="iframeurl" target="iframe">
+						<a  th:href="@{'/forward/Warehouse_region'}" name="Brand_Manage.html" title="区域管理"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>区域管理
 						</a>
 					</li>
 					<li class="home">
-						<a href="javascript:void(0)" name="Category_Manage.html" title="仓位管理"  class="iframeurl" target="iframe">
+						<a th:href="@{'/forward/Warehouse_position'}" name="Category_Manage.html" title="仓位管理"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>仓位管理
 						</a>
 					</li>
 					<li class="home">
-						<a href="javascript:void(0)" name="Category_Manage.html" title="车位管理"  class="iframeurl" target="iframe">
+						<a th:href="@{'/forward/Car'}" name="Category_Manage.html" title="车位管理"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>车位管理</a>
 					</li>
 					</ul>
@@ -402,22 +402,22 @@ function link_operating(name,title){
 						</a>
 					<ul class="submenu">
 					<li class="home">
-						<a  href="javascript:void(0)" name="Products_List.html"  title="订单接收" class="iframeurl" target="iframe">
+						<a  th:href="@{'/forward/Purchase_order'}" name="Products_List.html"  title="订单接收" class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>订单接收
 						</a>
 					</li>
 					 <li class="home">
-						<a  href="javascript:void(0)" name="Brand_Manage.html" title="备货"  class="iframeurl" target="iframe">
+						<a  th:href="@{'/forward/Prepare_goods'}" name="Brand_Manage.html" title="备货"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>备货
 						</a>
 					</li>
 					<li class="home">
-						<a href="javascript:void(0)" name="Category_Manage.html" title="备货处理"  class="iframeurl" target="iframe">
+						<a th:href="@{'/forward/Prepare_goods_disposeof'}" name="Category_Manage.html" title="备货处理"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>备货处理
 						</a>
 					</li>
 					<li class="home">
-						<a href="javascript:void(0)" name="Category_Manage.html" title="发货"  class="iframeurl" target="iframe">
+						<a th:href="@{'/forward/Consignment'}" name="Category_Manage.html" title="发货"  class="iframeurl" target="iframe">
 							<i class="icon-double-angle-right"></i>发货</a>
 					</li>
 					</ul>

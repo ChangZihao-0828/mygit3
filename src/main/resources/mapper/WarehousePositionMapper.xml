@@ -93,4 +93,23 @@
       warehouse_position_build_date = #{warehousePositionBuildDate,jdbcType=DATE}
     where warehouse_position_id = #{warehousePositionId,jdbcType=VARCHAR}
   </update>
+
+  <select id="findWarehousePosition" resultMap="BaseResultMap">
+    select * from warehouse_position
+    <where>
+      <if test="id!=null and id !=''">
+        and warehouse_position_id like '%${id}%'
+      </if>
+    </where>
+    limit #{start},#{rows}
+  </select>
+  <select id="findWarehousePositionCount" resultType="java.lang.Integer">
+    select count(*) from warehouse_position
+    <where>
+      <if test="id!=null and id !=''">
+        and warehouse_position_id like '%${id}%'
+      </if>
+    </where>
+  </select>
+
 </mapper>

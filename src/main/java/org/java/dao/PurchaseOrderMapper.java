@@ -25,5 +25,9 @@ public interface PurchaseOrderMapper {
 
     public int getPurchaseOrderCount(@Param("purchaseOrderId") String purchaseOrderId);
 
+    List<PurchaseOrder> findPurchaseOrder2(@Param("start") Integer start, @Param("rows") Integer rows, @Param("id") String searchPurchaseOrderId);
+
+    Integer findPurchaseOrderCount2(@Param("id") String searchPurchaseOrderId);
+
 
 }

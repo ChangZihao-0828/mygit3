@@ -114,4 +114,22 @@
       car_state = #{carState,jdbcType=VARCHAR}
     where car_id = #{carId,jdbcType=INTEGER}
   </update>
+
+  <select id="findCar" resultMap="BaseResultMap">
+    select * from car
+    <where>
+      <if test="id!=null and id!=''">
+        and car_id like '%${id}%'
+      </if>
+    </where>
+    limit #{start},#{rows}
+  </select>
+  <select id="findCarCount" resultType="java.lang.Integer">
+    select count(*) from car
+    <where>
+      <if test="id!=null and id!=''">
+        and car_id like '%${id}%'
+      </if>
+    </where>
+  </select>
 </mapper>
