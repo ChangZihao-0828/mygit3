@@ -42,7 +42,7 @@
             elem: '#demo7'
             ,url: '/warehouseRegion' //数据接口
             ,page: true //开启分页
-            ,limit:5
+            ,limit:10
             ,limits:[1,2,3,5,10,20,30,50]
             ,toolbar:"#addDemo"
             ,title:"区域管理"
@@ -52,7 +52,7 @@
                 ,{field: 'warehouseRegionId', title: '编号', width:"10%", sort: true, fixed: 'left',align:"center"}
                 ,{field: 'warehouseRegionName', title: '名称', width:"20%", sort: true, align:"center"}
                 ,{field: 'warehouseRegionArea', title: '面积', width:"15%", sort: true, align:"center"}
-                ,{field: 'warehouseId ', title: '所属仓库编号', width:"10%",align:"center"}
+                ,{field: 'warehouseId', title: '所属仓库编号', width:"10%",align:"center"}
                 ,{field: 'warehouseRegionBuildDate', title: '创建时间', width:"20%", sort: true, align:"center",templet:'<div>{{ layui.util.toDateString(d.warehouseRegionBuildDate, "yyyy-MM-dd") }}</div>'}
                 ,{field: 'op', title: '操作', width:"20%",align:"center", toolbar:"#barDemo"}
             ]]
