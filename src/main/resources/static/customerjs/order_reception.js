@@ -1,7 +1,7 @@
-layui.use(['table','layer'], function(){
+layui.use(['table','layer','jquery'], function(){
     var table = layui.table;
     var layer = layui.layer;
-    //第一个实例
+    var $ = layui.$;
     table.render({
         elem: '#demo'
         ,url: '/order' //数据接口
@@ -29,27 +29,7 @@ layui.use(['table','layer'], function(){
     /******监听工具条事件************/
     //监听表的工具条
     //监听头工具栏事件
-    table.on('toolbar(test)', function(obj){
-        var checkStatus = table.checkStatus(obj.config.id)
-            ,data = checkStatus.data; //获取选中的数据
-        switch(obj.event){
-            case 'add':
-                layer.open({
-                    type: 2,
-                    shade: true,
-                    area: ['500px','400px'],
-                    maxmin: false,
-                    anim: 1,
-                    title:"添加用户",
-                    content: '/customer/Customer_Add',
-                    zIndex: layer.zIndex, //重点1
-                    success: function(layero){
-                        layer.setTop(layero); //重点2
-                    }
-                });
-                break;
-        };
-    });
+
 
 
     //监听行工具条

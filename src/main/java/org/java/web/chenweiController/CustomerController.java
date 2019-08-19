@@ -4,6 +4,7 @@ import org.java.entity.Customer;
 import org.java.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -58,5 +59,17 @@ public class CustomerController {
 
         return "customer/Category_Manage";
     }
+    @RequestMapping("op6")//调到添加客户页面
+    public String op6(){
+
+        return "customer/Customer_Add";
+    }
+    @PostMapping("delCustomerId")
+    @ResponseBody
+    public String delCustomer(String customer_id){
+       service.delCustomer(customer_id);
+       return "redirect:/p1";
+    }
+
 
 }

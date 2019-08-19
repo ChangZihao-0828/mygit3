@@ -11,5 +11,6 @@ public interface CustomerService {
     public int getCount();
 
     public void add(Customer f);
+    public void delCustomer(String customer_id);
 
 }

@@ -1,7 +1,7 @@
-layui.use(['table','layer'], function(){
+layui.use(['table','layer','jquery'], function(){
     var table = layui.table;
     var layer = layui.layer;
-    //第一个实例
+    var $ = layui.$;    //第一个实例
     table.render({
         elem: '#demo'
         ,url: '/op' //数据接口
@@ -40,7 +40,7 @@ layui.use(['table','layer'], function(){
                     maxmin: false,
                     anim: 1,
                     title:"添加用户",
-                    content: '/customer/Customer_Add',
+                    content: '/op6',
                     zIndex: layer.zIndex, //重点1
                     success: function(layero){
                         layer.setTop(layero); //重点2
@@ -61,14 +61,19 @@ layui.use(['table','layer'], function(){
             alert('显示详情');
         } else if(layEvent === 'del'){ //删除
 
-            alert("删除");
-            // layer.confirm('真的删除行么', function(index){
-            //     // obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-            //     // layer.close(index);
-            //     // //向服务端发送删除指令
-            //
-            //
-            // });
+            layer.confirm('确定要删除', function (index) {
+
+                $.post("/delCustomerId", {"customer_id": data.customer_id}, function () {
+
+                    table.reload('demo', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                    }); //只重载数据
+                    layer.close(index);
+                });
+
+            });
         } else if(layEvent === 'edit'){ //编辑
             alert("修改");
         }

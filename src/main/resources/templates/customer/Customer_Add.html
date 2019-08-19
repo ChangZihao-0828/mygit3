@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}"  media="all">
     <script th:src="@{'/layui/layui.js'}"></script>
-
+    <script th:src="@{'/customerjs/customer.js'}"></script>
 </head>
 <body>
 <form class="layui-form" action="" lay-filter="example" id="addFrm">
@@ -101,8 +101,8 @@
         //自定义验证规则
         form.verify({
             title: function(value){
-                if(value.length < 5){
-                    return '标题至少得5个字符啊';
+                if(value.length <3){
+                    return '至少得3个字符';
                 }
             }
             ,pass: [
@@ -122,9 +122,9 @@
         });
         //监听提交
         form.on('submit(demo1)', function(data){
-            $.ajax({
-                url:"/op1",
-                type:"get",
+            $.ajax({/supplieradd
+                url:"",
+                type:"post",
                 data:$("#addFrm").serialize(),
                 success:function () {
                     //layer.msg("添加成功!!!",function(){

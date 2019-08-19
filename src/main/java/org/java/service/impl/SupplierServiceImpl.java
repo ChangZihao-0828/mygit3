@@ -32,7 +32,18 @@ public class SupplierServiceImpl implements SupplierService {
     }
     @Transactional
     @Override
-    public void add(Supplier f) {
-        supplierMapper.insert(f);
+    public void add(Supplier e) {
+        supplierMapper.insert(e);
+    }
+
+    @Transactional
+    @Override
+    public int delSupplier(String supplierId) {
+        return supplierMapper.deleteByPrimaryKey(supplierId);
+    }
+
+    @Override
+    public void updateSupplier(Supplier e) {
+        supplierMapper.updateByPrimaryKeySelective(e);
     }
 }

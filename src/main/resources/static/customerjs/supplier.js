@@ -1,6 +1,7 @@
-layui.use(['table','layer'], function(){
+layui.use(['table','layer','jquery'], function(){
     var table = layui.table;
     var layer = layui.layer;
+    var $ = layui.$;
     //第一个实例
     table.render({
         elem: '#demo'
@@ -13,17 +14,30 @@ layui.use(['table','layer'], function(){
         ,loading:true
         ,cols: [[ //表头
 
-            {field: 'no',type:'checkbox', width:"10%",fixed: 'left',align:"center"}
+            {field: 'no',type:'checkbox', width:"5%",fixed: 'left',align:"center"}
             ,{field: 'supplierId', title: '供货商编号', width:"20%", sort: true, fixed: 'left',align:"center"}
             ,{field: 'supplierName', title: '供货商名称', width:"20%",align:"center"}
             ,{field: 'supplierContacts', title: '联系人', width:"10%", align:"center"}
-            ,{field: 'supplierCreditIimit', title: '信用额度', width:"20%",align:"center"}
-            ,{field: 'cz', title: '操作', width: "10%",align:"center",toolbar:"#barDemo"}
+            ,{field: 'supplierCreditiimit', title: '信用额度', width:"20%",align:"center"}
+            ,{field: 'cz', title: '操作', width: "20%",align:"center",toolbar:"#barDemo"}
 
         ]]
     });
 
+    $("#search").click(function(){
 
+        //获得输入框的内容
+        var mysearchsupplierId = $("#searchsupplierId").val();
+
+        table.reload('demo', {
+            where: { //设定异步数据接口的额外参数，任意设
+                searchsupplierId:mysearchsupplierId
+            }
+            ,page: {
+                curr: 1 //重新从第 1 页开始
+            }
+        }); //只重载数据
+    });
 
     /******监听工具条事件************/
     //监听表的工具条
@@ -39,8 +53,8 @@ layui.use(['table','layer'], function(){
                     area: ['500px','400px'],
                     maxmin: false,
                     anim: 1,
-                    title:"添加用户",
-                    content: '/customer/Customer_Add',
+                    title:"添加供应商",
+                    content: '/cg8',
                     zIndex: layer.zIndex, //重点1
                     success: function(layero){
                         layer.setTop(layero); //重点2
@@ -61,18 +75,65 @@ layui.use(['table','layer'], function(){
             alert('显示详情');
         } else if(layEvent === 'del'){ //删除
 
-            alert("删除");
-            // layer.confirm('真的删除行么', function(index){
-            //     // obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-            //     // layer.close(index);
-            //     // //向服务端发送删除指令
-            //
-            //
-            // });
-        } else if(layEvent === 'edit'){ //编辑
-            alert("修改");
+            layer.confirm('确定要删除', function(index){
+                $.ajax({
+                    //几个参数需要注意一下
+                    type: "post",//方法类型
+                    url: "/delSupplier",//url
+                    data:{"supplierId":data.supplierId},
+                    dataType:"json",
+                    async:false,
+                    success: function (result) {
+
+                        if (0==result ) {
+                            alert("删除失败");
+
+                        }else{
+                            layer.msg("成功!!!",function(){
+                                // 准备让父窗口刷新，并且关闭当前弹出的窗体
+                                window.parent.location.reload();
+                            })
+                        };
+                    }
+                })
+            });
+            } else if(layEvent === 'edit'){     /******修改数据********/
+        layer.open({
+            type: 2,
+            shade: true,
+            area: ['1000px', '440px'],
+            maxmin: false,
+            anim: 1,
+            title: "修改供应商信息",
+            content: '/cg8',
+            zIndex: layer.zIndex, //重点1
+            success: function (layero) {
+                layer.setTop(layero); //重点2
+                /*********弹出新窗体以后，给新窗中的控件赋值**********************/
+                    //-------------获得弹出层页面的body部份
+                var body = layui.layer.getChildFrame("body");
+
+                //给弹出层body中的表单控件赋值
+                body.find("[name='supplierId']").val(data.supplierId);
+                body.find("[name='supplierName']").val(data.supplierName);
+                body.find("[name='supplierPwd']").val(data.supplierPwd);
+                body.find("[name='supplierContacts']").val(data.supplierContacts);
+                body.find("[name='supplierCreditiimit']").val(data.supplierCreditiimit);
+                body.find("[name='supplierShortname']").val(data.supplierShortname);
+                body.find("[name='supplierTelephone']").val(data.supplierTelephone);
+                body.find("[name='supplierEmail']").val(data.supplierEmail);
+                body.find("[name='supplierAddress']").val(data.supplierAddress);
+            }
+        });
         }
-    });
+
+
+
+
+
+
+        });
+
 
 
 });//layui.use结束标记
