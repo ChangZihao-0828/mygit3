@@ -6,8 +6,15 @@ import org.java.entity.CustomerOrder;
 
 import java.util.List;
 
+/**
+ * @Auther: 昌子豪
+ * @Date: 2019/8/17 15:30
+ * @Description: Frighting!!!
+ */
+
 @Mapper
 public interface CustomerOrderMapper1 {
+
     int deleteByPrimaryKey(String customerOrderId);
 
     int insert(CustomerOrder record);
@@ -23,4 +30,7 @@ public interface CustomerOrderMapper1 {
     public List<CustomerOrder> getList(@Param("start") int start, @Param("rows") int rows);
 
     public int getCount();
+    public List<CustomerOrder> findCustomerOrder(@Param("start") int start, @Param("rows") int rows, @Param("customerOrderId") String customerOrderId);
+
+    public int getCustomerOrderCount(@Param("customerOrderId") String customerOrderId);
 }

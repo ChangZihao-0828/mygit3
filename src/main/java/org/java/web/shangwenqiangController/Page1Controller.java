@@ -18,4 +18,34 @@ public class Page1Controller {
         System.out.println("----###--");
         return "order/"+page;
     }
+    @GetMapping("/deliver/{page}")
+    public String deliver(@PathVariable("page") String page){
+
+        System.out.println("----###--");
+        return "deliver/"+page;
+    }
+    @GetMapping("/carDispatch/{page}")
+    public String carDispatch(@PathVariable("page") String page){
+
+        System.out.println("----###--");
+        return "carDispatch/"+page;
+    }
+    @GetMapping("/carDeployLine/{page}")
+    public String carDeployLine(@PathVariable("page") String page){
+
+        System.out.println("----###--");
+        return "carDeployLine/"+page;
+    }
+    @GetMapping("/carManager/{page}")
+    public String carManager(@PathVariable("page") String page){
+
+        System.out.println("----###--");
+        return "carManager/"+page;
+    }
+    @GetMapping("/carManagerIn/{page}")
+    public String carManagerIn(@PathVariable("page") String page){
+
+        System.out.println("----###--");
+        return "carManagerIn/"+page;
+    }
 }

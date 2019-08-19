@@ -15,4 +15,11 @@ public interface DeliverGoodsService {
     public List<DeliverGoods> findDeliverGoods(int page, int rows, String deliverGoodsId);
 
     public int getDeliverGoodsCount(String deliverGoodsId);
+
+    public void add(DeliverGoods d);
+
+    public void update(DeliverGoods d);
+
+    public void del(String deliverGoodsId);
+
 }

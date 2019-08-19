@@ -4,7 +4,15 @@ import org.java.entity.Supplier;
 
 import java.util.List;
 
+/**
+ * @Auther: 昌子豪
+ * @Date: 2019/8/17 15:23
+ * @Description: Frighting!!!
+ */
+
+
 public interface SupplierService {
+
     public List<Supplier> getList(int page, int rows);
 
     public int getCount();

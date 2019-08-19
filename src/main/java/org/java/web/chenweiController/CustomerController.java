@@ -14,6 +14,7 @@ import java.util.Map;
 
 @Controller
 public class CustomerController {
+
     @Autowired
     private CustomerService service;
 
@@ -33,7 +34,6 @@ public class CustomerController {
     }
     @RequestMapping("pl")//查看全部数据的的请求
     public String pl(){
-
 
         return "customer/Customer_Information_Management";
     }

@@ -20,6 +20,24 @@
     from car_dispatch
     where car_dispatch_id = #{carDispatchId,jdbcType=VARCHAR}
   </select>
+<select id="findCarDispatch" resultMap="BaseResultMap">
+select * from car_dispatch
+<where>
+    <if test="carDispatchId!=null and carDispatchId !=''">
+        and car_dispatch_id like '%${carDispatchId}%'
+    </if>
+</where>
+limit #{start},#{rows}
+</select>
+<select id="getCarDispatchCount" resultType="int">
+select count(*) from car_dispatch
+<where>
+    <if test="carDispatchId!=null and carDispatchId !=''">
+        and car_dispatch_id like '%${carDispatchId}%'
+    </if>
+</where>
+
+</select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from car_dispatch
     where car_dispatch_id = #{carDispatchId,jdbcType=VARCHAR}

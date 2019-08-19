@@ -8,8 +8,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+/**
+ * @Auther: 昌子豪
+ * @Date: 2019/8/17 15:24
+ * @Description: Frighting!!!
+ */
+
 @Service
 public class SupplierServiceImpl implements SupplierService {
+
     @Autowired
     private SupplierMapper supplierMapper;
     @Override
@@ -38,6 +46,4 @@ public class SupplierServiceImpl implements SupplierService {
     public void updateSupplier(Supplier e) {
         supplierMapper.updateByPrimaryKeySelective(e);
     }
-
-
 }

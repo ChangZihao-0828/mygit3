@@ -5,6 +5,7 @@ import org.java.entity.DeliverGoods;
 import org.java.service.DeliverGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,5 +29,23 @@ public class DeliverGoodsServiceImpl implements DeliverGoodsService {
     @Override
     public int getDeliverGoodsCount(String deliverGoodsId) {
         return mapper.getDeliverGoodsCount(deliverGoodsId);
+    }
+
+    @Transactional
+    @Override
+    public void add(DeliverGoods d) {
+          mapper.insert(d);
+    }
+
+    @Transactional
+    @Override
+    public void update(DeliverGoods d) {
+        mapper.updateByPrimaryKey(d);
+    }
+
+    @Transactional
+    @Override
+    public void del(String deliverGoodsId) {
+        mapper.deleteByPrimaryKey(deliverGoodsId);
     }
 }

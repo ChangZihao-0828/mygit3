@@ -22,6 +22,24 @@
     from purchase_order
     where purchase_order_id = #{purchaseOrderId,jdbcType=VARCHAR}
   </select>
+    <select id="findPurchaseOrder" resultMap="BaseResultMap">
+        select * from purchase_order
+        <where>
+            <if test="purchaseOrderId!=null and purchaseOrderId !=''">
+                and purchase_order_id like '%${purchaseOrderId}%'
+            </if>
+        </where>
+        limit #{start},#{rows}
+    </select>
+    <select id="getPurchaseOrderCount" resultType="int">
+        select count(*) from purchase_order
+        <where>
+            <if test="purchaseOrderId!=null and purchaseOrderId !=''">
+                and purchase_order_id like '%${purchaseOrderId}%'
+            </if>
+        </where>
+
+    </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from purchase_order
     where purchase_order_id = #{purchaseOrderId,jdbcType=VARCHAR}
