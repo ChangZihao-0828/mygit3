@@ -208,7 +208,7 @@ public class BusinessController {
     public void addCar(Car car) {
         System.out.println(car.getCarId());
 
-        if (String.valueOf(car.getCarId()).equals("")) {
+        if (car.getCarId()==null) {
 
             car.setCarId(null);
 
