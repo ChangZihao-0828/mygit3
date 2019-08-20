@@ -104,4 +104,11 @@
       processinstance_id = #{processinstanceId,jdbcType=VARCHAR}
     where prepare_goods_id = #{prepareGoodsId,jdbcType=VARCHAR}
   </update>
+  <select id="getList" resultMap="BaseResultMap">
+      select * from prepare_goods limit #{start},#{rows}
+  </select>
+  <!--查询总数-->
+  <select id="getCount" resultType="int">
+    select count(*) from prepare_goods
+  </select>
 </mapper>

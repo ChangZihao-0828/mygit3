@@ -67,4 +67,6 @@ public class PurchaseAppllyOrder  implements Serializable {
     public void setProcessinstanceId(String processinstanceId) {
         this.processinstanceId = processinstanceId == null ? null : processinstanceId.trim();
     }
+
+
 }

@@ -13,11 +13,12 @@ layui.use(['table','layer','jquery'], function(){
         ,loading:true
         ,cols: [[ //表头
 
-            {field: 'no',type:'checkbox', width:"10%",fixed: 'left',align:"center"}
-            ,{field: 'supplierId', title: '供货商编号', width:"20%", sort: true, fixed: 'left',align:"center"}
-            ,{field: 'supplierName', title: '供货商名称', width:"20%",align:"center"}
-            ,{field: 'supplierContacts', title: '联系人', width:"10%", align:"center"}
-            ,{field: 'supplierCreditIimit', title: '信用额度', width:"20%",align:"center"}
+            {field: 'no',type:'checkbox', width:"5%",fixed: 'left',align:"center"}
+            ,{field: 'purchaseOrderId', title: '采购订单编号', width:"10%", sort: true, fixed: 'left',align:"center"}
+            ,{field: 'purchaseSupplierId', title: '供货商名称', width:"20%",align:"center"}
+            ,{field: 'purchaseOrderBegintime', title: '采购日期', width:"10%", align:"center",sort: true,templet:'<div>{{ layui.util.toDateString(d.purchaseOrderBegintime, "yyyy-MM-dd") }}</div>'}
+            ,{field: 'purchaseUserId', title: '采购员', width:"20%",align:"center"}
+            ,{field: 'purchaseType', title: '状态', width:"20%",align:"center"}
             ,{field: 'cz', title: '操作', width: "10%",align:"center",toolbar:"#barDemo"}
 
         ]]
@@ -74,5 +75,34 @@ layui.use(['table','layer','jquery'], function(){
         }
     });
 
+    //指定日期转换格式
+    var format = function (time, format) {
+        var t = new Date(time);
+        var tf = function (i) {
+            return (i < 10 ? '0' : '') + i
+        };
+        return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+            switch (a) {
+                case 'yyyy':
+                    return tf(t.getFullYear());
+                    break;
+                case 'MM':
+                    return tf(t.getMonth() + 1);
+                    break;
+                case 'mm':
+                    return tf(t.getMinutes());
+                    break;
+                case 'dd':
+                    return tf(t.getDate());
+                    break;
+                case 'HH':
+                    return tf(t.getHours());
+                    break;
+                case 'ss':
+                    return tf(t.getSeconds());
+                    break;
+            }
+        })
 
+    }
 });//layui.use结束标记

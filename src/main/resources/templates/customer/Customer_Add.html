@@ -101,7 +101,7 @@
         //自定义验证规则
         form.verify({
             title: function(value){
-                if(value.length <3){
+                if(value.length <1){
                     return '至少得3个字符';
                 }
             }
@@ -121,16 +121,18 @@
             layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
         });
         //监听提交
+
         form.on('submit(demo1)', function(data){
-            $.ajax({/supplieradd
-                url:"",
-                type:"post",
+            $.ajax({
+                url:"/",
+                type:"get",
                 data:$("#addFrm").serialize(),
+
                 success:function () {
-                    //layer.msg("添加成功!!!",function(){
-                    //准备让父窗口刷新，并且关闭当前弹出的窗体
-                    window.parent.location.reload();
-                    //});
+                    layer.msg("添加成功!!!",function(){
+                        // 准备让父窗口刷新，并且关闭当前弹出的窗体
+                        window.parent.location.reload();
+                    });
                 }
             });
             return false;

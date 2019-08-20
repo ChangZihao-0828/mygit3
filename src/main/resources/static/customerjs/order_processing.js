@@ -17,7 +17,7 @@ layui.use(['table','layer','jquery'], function(){
             ,{field: 'customerOrderId', title: '订单编号', width:"20%", sort: true, fixed: 'left',align:"center"}
             ,{field: 'customerNameId', title: '客户名称', width:"20%",align:"center"}
             ,{field: 'customerOrderType', title: '订单类型', width:"10%", align:"center"}
-            ,{field: 'customerOrderTime', title: '订单日期', width:"20%",align:"center"}
+            ,{field: 'customerOrderTime', title: '订单日期', width:"20%",align:"center",sort: true,templet:'<div>{{ layui.util.toDateString(d.purchaseOrderBegintime, "yyyy-MM-dd") }}</div>'}
             ,{field: 'customerOrderState', title: '状态', width: "10%",align:"center"}
             ,{field: 'cz', title: '操作', width: "10%",align:"center",toolbar:"#barDemo"}
         ]]
@@ -52,6 +52,35 @@ layui.use(['table','layer','jquery'], function(){
             alert("修改");
         }
     });
+//指定日期转换格式
+    var format = function (time, format) {
+        var t = new Date(time);
+        var tf = function (i) {
+            return (i < 10 ? '0' : '') + i
+        };
+        return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+            switch (a) {
+                case 'yyyy':
+                    return tf(t.getFullYear());
+                    break;
+                case 'MM':
+                    return tf(t.getMonth() + 1);
+                    break;
+                case 'mm':
+                    return tf(t.getMinutes());
+                    break;
+                case 'dd':
+                    return tf(t.getDate());
+                    break;
+                case 'HH':
+                    return tf(t.getHours());
+                    break;
+                case 'ss':
+                    return tf(t.getSeconds());
+                    break;
+            }
+        })
 
+    }
 
 });//layui.use结束标记

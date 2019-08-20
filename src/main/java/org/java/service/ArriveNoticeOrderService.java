@@ -14,4 +14,7 @@ public interface ArriveNoticeOrderService {
     public List<ArriveNoticeOrder> findArriveNoticeOrder(int page, int rows, String arriveNoticeOrderId);
 
     public int getArriveNoticeOrderCount(String arriveNoticeOrderId);
+    public void add(ArriveNoticeOrder e);
+    public int delArriveNoticeOrder(String arriveNoticeOrderId);
+    public void updateArriveNoticeOrder(ArriveNoticeOrder e);
 }

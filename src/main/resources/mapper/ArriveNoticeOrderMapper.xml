@@ -122,4 +122,11 @@
       processinstance_id = #{processinstanceId,jdbcType=VARCHAR}
     where arrive_notice_order_id = #{arriveNoticeOrderId,jdbcType=VARCHAR}
   </update>
+  <select id="getList" resultMap="BaseResultMap">
+      select * from arrive_notice_order limit #{start},#{rows}
+  </select>
+  <!--查询总数-->
+  <select id="getCount" resultType="int">
+    select count(*) from arrive_notice_order
+  </select>
 </mapper>

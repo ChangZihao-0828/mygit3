@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface PurchaseOrderService {
     public List<PurchaseOrder> findPurchaseOrder(int page, int rows, String purchaseOrderId);
-
+    public void add(PurchaseOrder e);
     public int getPurchaseOrderCount(String purchaseOrderId);
+    public void updatePurchaseOrder(PurchaseOrder e);
+    public int delPurchaseOrder(String purchaseOrderId);
 }

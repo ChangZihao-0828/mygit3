@@ -9,14 +9,14 @@ layui.use(['table','layer','jquery'], function(){
         ,limit:5 //默认每一页显示的条数
         ,limits:[1,2,3,5,10,20,30,50]//提示的每页条数的列表
         ,toolbar:"#addDemo" //显示工具栏
-        ,title:"学员信息汇总" //设置导出文件时的标题
+        ,title:"采购申请" //设置导出文件时的标题
         ,loading:true
         ,cols: [[ //表头
 
             {field: 'no',type:'checkbox', width:"10%",fixed: 'left',align:"center"}
-            ,{field: 'purchaseAppllyOrderId', title: '供货商编号', width:"20%", sort: true, fixed: 'left',align:"center"}
-            ,{field: 'purchaseAppllyOrderBeginTime', title: '供货商名称', width:"20%",align:"center"}
-            ,{field: 'purchaseAppllyUserName', title: '联系人', width:"20%", align:"center"}
+            ,{field: 'purchaseAppllyOrderId', title: '采购申请单编号', width:"20%", sort: true, fixed: 'left',align:"center"}
+            ,{field: 'purchaseAppllyOrderBeginTime', title: '申请日期', width:"20%",align:"center",sort: true,templet:'<div>{{ layui.util.toDateString(d.purchaseAppllyOrderBeginTime, "yyyy-MM-dd") }}</div>'}
+            ,{field: 'purchaseAppllyUserName', title: '申请人', width:"20%", align:"center"}
             ,{field: 'cz', title: '操作', width: "20%",align:"center",toolbar:"#barDemo"}
 
         ]]
@@ -39,17 +39,96 @@ layui.use(['table','layer','jquery'], function(){
         } else if(layEvent === 'del'){ //删除
 
             alert("删除");
-            // layer.confirm('真的删除行么', function(index){
-            //     // obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-            //     // layer.close(index);
-            //     // //向服务端发送删除指令
-            //
-            //
-            // });
+
         } else if(layEvent === 'edit'){ //编辑
-            alert("修改");
+            layer.open({
+                type: 2,
+                shade: true,
+                area: ['1000px', '440px'],
+                maxmin: false,
+                anim: 1,
+                title: "修改供应商信息",
+                content: '/cg7',
+                zIndex: layer.zIndex, //重点1
+                success: function (layero) {
+                    layer.setTop(layero); //重点2
+                    /*********弹出新窗体以后，给新窗中的控件赋值**********************/
+                        //-------------获得弹出层页面的body部份
+                    var body = layui.layer.getChildFrame("body");
+
+                    //给弹出层body中的表单控件赋值
+                    body.find("[name='purchaseAppllyOrderId']").val(data.purchaseAppllyOrderId);
+                    body.find("[name='purchaseAppllyOrderBegintime']").val(format(data.purchaseAppllyOrderBegintime, 'yyyy-MM-dd'));
+                    body.find("[name='purchaseAppllyOrderEndtime']").val(format(data.purchaseAppllyOrderEndtime, 'yyyy-MM-dd'));
+                    body.find("[name='purchaseAppllyUserName']").val(data.purchaseAppllyUserName);
+                    body.find("[name='purchaseAppllyRemark']").val(data.purchaseAppllyRemark);
+
+
+                }
+            });
         }
+
+
+
+
+
+
     });
 
 
-});//layui.use结束标记
+    //指定日期转换格式
+    var format = function (time, format) {
+        var t = new Date(time);
+        var tf = function (i) {
+            return (i < 10 ? '0' : '') + i
+        };
+        return format.replace(/yyyy|MM|dd|HH|mm|ss/g, function (a) {
+            switch (a) {
+                case 'yyyy':
+                    return tf(t.getFullYear());
+                    break;
+                case 'MM':
+                    return tf(t.getMonth() + 1);
+                    break;
+                case 'mm':
+                    return tf(t.getMinutes());
+                    break;
+                case 'dd':
+                    return tf(t.getDate());
+                    break;
+                case 'HH':
+                    return tf(t.getHours());
+                    break;
+                case 'ss':
+                    return tf(t.getSeconds());
+                    break;
+            }
+        })
+
+    }
+    /******监听工具条事件************/
+    //监听表的工具条
+    //监听头工具栏事件
+    table.on('toolbar(test)', function(obj){
+        var checkStatus = table.checkStatus(obj.config.id)
+            ,data = checkStatus.data; //获取选中的数据
+        switch(obj.event){
+            case 'add':
+                layer.open({
+                    type: 2,
+                    shade: true,
+                    area: ['500px','400px'],
+                    maxmin: false,
+                    anim: 1,
+                    title:"添加采购申请",
+                    content: '/cg7',
+                    zIndex: layer.zIndex, //重点1
+                    success: function(layero){
+                        layer.setTop(layero); //重点2
+                    }
+                });
+                break;
+        };
+    });
+
+});

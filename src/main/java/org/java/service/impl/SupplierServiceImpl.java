@@ -23,7 +23,7 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public List<Supplier> getList(int page, int rows) {
         int start = (page-1)*rows;
-        return supplierMapper.getList(0,4);
+        return supplierMapper.getList(start,rows);
     }
 
     @Override

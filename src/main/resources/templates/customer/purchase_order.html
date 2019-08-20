@@ -2,12 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>订单接收</title>
+    <title>采购订单</title>
+
     <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}" media="all">
     <script th:src="@{'/layui/layui.js'}"></script>
-    <script th:src="@{'/customerjs/order_processing.js'}"></script>
+    <script th:src="@{'/customerjs/purchase_order.js'}"></script>
+
 </head>
 <body>
+<div style="margin-bottom: 5px;">
+
+    <!-- 示例-970 -->
+    <ins class="adsbygoogle" style="display:inline-block;width:970px;height:90px" data-ad-client="ca-pub-6111334333458862" data-ad-slot="3820120620"></ins>
+
+</div>
 
 <div align="right">
     <div class="layui-inline">
@@ -16,13 +24,20 @@
     </div>
     <button class="layui-btn" id="search">搜索</button>
 </div>
+<script type="text/html" id="addDemo">
+    <div class="layui-btn-group" style="float: right">
+        <button class="layui-btn  layui-btn-primary" lay-event="add">
+            添加
+        </button>
+    </div>
+</script>
 <table id="demo" lay-filter="test"></table>
+
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-
 
 
 </body>

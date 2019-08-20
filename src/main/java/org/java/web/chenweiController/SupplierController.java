@@ -1,7 +1,11 @@
 package org.java.web.chenweiController;
 
-import org.java.entity.Customer;
+import org.java.entity.PurchaseAppllyOrder;
+import org.java.entity.PurchaseOrder;
 import org.java.entity.Supplier;
+import org.java.service.PrepareGoodsService;
+import org.java.service.PurchaseAppllyOrderService;
+import org.java.service.PurchaseOrderService;
 import org.java.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +21,11 @@ import java.util.UUID;
 public class SupplierController {
     @Autowired
     private SupplierService supplierService;
+    @Autowired
+    private PurchaseAppllyOrderService purchaseAppllyOrderService;
+    @Autowired
+    private PurchaseOrderService purchaseOrderService;
+
 
     @ResponseBody
     @RequestMapping("sc")
@@ -30,7 +39,7 @@ public class SupplierController {
         map.put("msg", "");
         map.put("count", count);//总数
         map.put("data", list);
-
+        System.out.println(count);
         return map;
     }
 
@@ -98,7 +107,7 @@ public class SupplierController {
     @RequestMapping("/supplieradd")
     @ResponseBody //一定要添加此注解
     public void edit(Supplier e) {
-        if (e.getSupplierId()=="") {
+        if (e.getSupplierId() == "") {
             e.setSupplierId(String.valueOf(UUID.randomUUID()));
 
             supplierService.add(e);
@@ -110,9 +119,37 @@ public class SupplierController {
 
     }
 
-    @RequestMapping("/supplieradd1")
+    @RequestMapping("/purchaseappllyorderadd")
     @ResponseBody //一定要添加此注解
-    public void add(Supplier f) {
-    supplierService.add(f);
+    public void purchaseappllyorderadd(PurchaseAppllyOrder p) {
+        if (p.getPurchaseAppllyOrderId() == "") {
+            p.setPurchaseAppllyOrderId(String.valueOf(UUID.randomUUID()));
+
+            purchaseAppllyOrderService.add(p);
+        } else {
+            purchaseAppllyOrderService.update(p);
+
+        }
+
+    }
+
+    @RequestMapping("/purchaseorderadd")
+    @ResponseBody //一定要添加此注解
+    public void edit(PurchaseOrder e) {
+        if (e.getPurchaseOrderId() == "") {
+            e.setPurchaseOrderId(String.valueOf(UUID.randomUUID()));
+
+            purchaseOrderService.add(e);
+        } else {
+            purchaseOrderService.updatePurchaseOrder(e);
+
+        }
+
+    }
+    @RequestMapping("delPurchaseOrder")
+    @ResponseBody
+    public void delPurchaseOrder(String purchaseOrderId) {
+
+        purchaseOrderService.delPurchaseOrder(purchaseOrderId);
     }
 }

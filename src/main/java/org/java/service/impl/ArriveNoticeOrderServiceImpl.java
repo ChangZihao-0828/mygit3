@@ -5,6 +5,7 @@ import org.java.entity.ArriveNoticeOrder;
 import org.java.service.ArriveNoticeOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,9 +27,24 @@ public class ArriveNoticeOrderServiceImpl implements ArriveNoticeOrderService {
         return mapper.findArriveNoticeOrder(start,rows,arriveNoticeOrderId);
 
     }
-
+    @Transactional
     @Override
     public int getArriveNoticeOrderCount(String arriveNoticeOrderId) {
        return mapper.getArriveNoticeOrderCount(arriveNoticeOrderId);
+    }
+    @Transactional
+    @Override
+    public void add(ArriveNoticeOrder e) {
+        mapper.insert(e);
+    }
+    @Transactional
+    @Override
+    public int delArriveNoticeOrder(String arriveNoticeOrderId) {
+        return mapper.deleteByPrimaryKey(arriveNoticeOrderId);
+    }
+    @Transactional
+    @Override
+    public void updateArriveNoticeOrder(ArriveNoticeOrder e) {
+        mapper.updateByPrimaryKeySelective(e);
     }
 }

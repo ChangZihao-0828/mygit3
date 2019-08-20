@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>添加采购订单</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}"  media="all">
+    <script th:src="@{'/customerjs/purchase_order_add.js'}"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<form class="layui-form" action="" id="addFrm">
+    <div class="layui-form-item">
+        <label class="layui-form-label">供应商</label>
+        <div class="layui-inline">
+            <input type="text" name="purchaseSupplierId" lay-verify="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-inline">
+        <label class="layui-form-label">采购日期</label>
+        <div class="layui-inline">
+            <input type="text" name="purchaseOrderBegintime" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input" required="required" >
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">采购员</label>
+        <div class="layui-inline">
+            <input type="text" name="purchaseUserId" lay-verify="title" autocomplete="off" placeholder="采购员" class="layui-input">
+        </div>
+    </div>
+    
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+        </div>
+    </div>
+</form>
+<br>
+<h2>采购申请单</h2>
+<div>
+<table id="demo" lay-filter="test" >
+    <thead>
+    <tr>
+</table>
+</div>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+</script>
+<script>
+    layui.use(['form','jquery','layer', 'laydate'], function(){
+        var form = layui.form;
+        var $ = layui.$;
+        var layer = layui.layer;
+        var laydate = layui.laydate;
+        //准备添加数据
+        //要使用jquery发出ajax 请求
+        laydate.render({
+            elem: '#date'
+            ,trigger: 'click'
+        });
+
+        //日期时间选择器
+        laydate.render({
+            elem: '#test5'
+            ,type: 'datetime'
+            ,trigger: 'click'
+        });
+
+        //日期时间选择器
+        laydate.render({
+            elem: '#test6'
+            ,type: 'datetime'
+            ,trigger: 'click'
+        });
+
+        //监听提交
+
+        form.on('submit(demo1)', function(data){
+            $.ajax({
+                url:"/purchaseorderadd",
+                type:"get",
+                data:$("#addFrm").serialize(),
+
+                success:function () {
+                    layer.msg("添加成功!!!",function(){
+                        // 准备让父窗口刷新，并且关闭当前弹出的窗体
+                        window.parent.location.reload();
+                    });
+
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
