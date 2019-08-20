@@ -22,8 +22,11 @@ import java.util.List;
  */
 @Service
 public class prepareGoodsIServiceImpl implements PrepareGoodsService {
+
+
     @Autowired
     private PrepareGoodsMapper prepareGoodsMapper;
+
     @Override
     public List<PrepareGoods> getList(int page, int rows) {
         int start = (page-1)*rows;

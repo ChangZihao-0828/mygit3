@@ -8,10 +8,11 @@
     <result column="prepare_goods_user_id" jdbcType="VARCHAR" property="prepareGoodsUserId" />
     <result column="prepare_goods_status" jdbcType="VARCHAR" property="prepareGoodsStatus" />
     <result column="processinstance_id" jdbcType="VARCHAR" property="processinstanceId" />
+    <result column="prepare_goods_taskid" jdbcType="VARCHAR" property="prepareGoodsTaskid" />
   </resultMap>
   <sql id="Base_Column_List">
     prepare_goods_id, purchase_order_id, prepare_goods_time, prepare_goods_user_id, prepare_goods_status, 
-    processinstance_id
+    processinstance_id, prepare_goods_taskid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -26,10 +27,10 @@
   <insert id="insert" parameterType="org.java.entity.PrepareGoods">
     insert into prepare_goods (prepare_goods_id, purchase_order_id, 
       prepare_goods_time, prepare_goods_user_id, prepare_goods_status, 
-      processinstance_id)
+      processinstance_id, prepare_goods_taskid)
     values (#{prepareGoodsId,jdbcType=VARCHAR}, #{purchaseOrderId,jdbcType=VARCHAR}, 
       #{prepareGoodsTime,jdbcType=DATE}, #{prepareGoodsUserId,jdbcType=VARCHAR}, #{prepareGoodsStatus,jdbcType=VARCHAR}, 
-      #{processinstanceId,jdbcType=VARCHAR})
+      #{processinstanceId,jdbcType=VARCHAR}, #{prepareGoodsTaskid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.java.entity.PrepareGoods">
     insert into prepare_goods
@@ -52,6 +53,9 @@
       <if test="processinstanceId != null">
         processinstance_id,
       </if>
+      <if test="prepareGoodsTaskid != null">
+        prepare_goods_taskid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="prepareGoodsId != null">
@@ -71,6 +75,9 @@
       </if>
       <if test="processinstanceId != null">
         #{processinstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="prepareGoodsTaskid != null">
+        #{prepareGoodsTaskid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -92,6 +99,9 @@
       <if test="processinstanceId != null">
         processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
       </if>
+      <if test="prepareGoodsTaskid != null">
+        prepare_goods_taskid = #{prepareGoodsTaskid,jdbcType=VARCHAR},
+      </if>
     </set>
     where prepare_goods_id = #{prepareGoodsId,jdbcType=VARCHAR}
   </update>
@@ -101,9 +111,11 @@
       prepare_goods_time = #{prepareGoodsTime,jdbcType=DATE},
       prepare_goods_user_id = #{prepareGoodsUserId,jdbcType=VARCHAR},
       prepare_goods_status = #{prepareGoodsStatus,jdbcType=VARCHAR},
-      processinstance_id = #{processinstanceId,jdbcType=VARCHAR}
+      processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
+      prepare_goods_taskid = #{prepareGoodsTaskid,jdbcType=VARCHAR}
     where prepare_goods_id = #{prepareGoodsId,jdbcType=VARCHAR}
   </update>
+
   <select id="getList" resultMap="BaseResultMap">
       select * from prepare_goods limit #{start},#{rows}
   </select>
@@ -129,4 +141,6 @@
       </if>
     </where>
   </select>
+
+
 </mapper>

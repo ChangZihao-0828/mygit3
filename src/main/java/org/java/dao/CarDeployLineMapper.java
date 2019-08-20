@@ -2,11 +2,9 @@ package org.java.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.java.entity.ArriveNoticeOrder;
 import org.java.entity.CarDeployLine;
 
 import java.util.List;
-
 @Mapper
 public interface CarDeployLineMapper {
     int deleteByPrimaryKey(String carDeployLineId);
@@ -21,11 +19,11 @@ public interface CarDeployLineMapper {
 
     int updateByPrimaryKey(CarDeployLine record);
 
-    public List<CarDeployLine> findCarDeployLine(@Param("start") int start, @Param("rows") int rows, @Param("carDeployLineId") String carDeployLineId);
+    List<CarDeployLine> findCarDeployLine(@Param("start") Integer start, @Param("rows") Integer rows, @Param("carDeployLineId") String carDeployLineId);
 
-    public int getCarDeployLineCount(@Param("carDeployLineId") String carDeployLineId);
+    Integer getCarDeployLineCount(@Param("carDeployLineId") String carDeployLineId);
 
-    int updateCarFromSite(CarDeployLine record);
+    public void updateCarFromSite(CarDeployLine c);
 
-    int updateCarFromSiteIn(CarDeployLine record);
+    public void updateCarFromSiteIn(CarDeployLine c);
 }

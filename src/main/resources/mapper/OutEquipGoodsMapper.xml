@@ -9,10 +9,11 @@
     <result column="out_equip_goods_people" jdbcType="VARCHAR" property="outEquipGoodsPeople" />
     <result column="out_equip_goods_status" jdbcType="VARCHAR" property="outEquipGoodsStatus" />
     <result column="processinstance_id" jdbcType="VARCHAR" property="processinstanceId" />
+    <result column="out_equip_goods_taskid" jdbcType="VARCHAR" property="outEquipGoodsTaskid" />
   </resultMap>
   <sql id="Base_Column_List">
     out_equip_goods_id, out_goods_id, out_equip_goods_beginTime, out_equip_goods_endTime, 
-    out_equip_goods_people, out_equip_goods_status, processinstance_id
+    out_equip_goods_people, out_equip_goods_status, processinstance_id, out_equip_goods_taskid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -27,10 +28,12 @@
   <insert id="insert" parameterType="org.java.entity.OutEquipGoods">
     insert into out_equip_goods (out_equip_goods_id, out_goods_id, out_equip_goods_beginTime, 
       out_equip_goods_endTime, out_equip_goods_people, 
-      out_equip_goods_status, processinstance_id)
+      out_equip_goods_status, processinstance_id, 
+      out_equip_goods_taskid)
     values (#{outEquipGoodsId,jdbcType=VARCHAR}, #{outGoodsId,jdbcType=VARCHAR}, #{outEquipGoodsBegintime,jdbcType=DATE}, 
       #{outEquipGoodsEndtime,jdbcType=DATE}, #{outEquipGoodsPeople,jdbcType=VARCHAR}, 
-      #{outEquipGoodsStatus,jdbcType=VARCHAR}, #{processinstanceId,jdbcType=VARCHAR})
+      #{outEquipGoodsStatus,jdbcType=VARCHAR}, #{processinstanceId,jdbcType=VARCHAR}, 
+      #{outEquipGoodsTaskid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.java.entity.OutEquipGoods">
     insert into out_equip_goods
@@ -56,6 +59,9 @@
       <if test="processinstanceId != null">
         processinstance_id,
       </if>
+      <if test="outEquipGoodsTaskid != null">
+        out_equip_goods_taskid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="outEquipGoodsId != null">
@@ -78,6 +84,9 @@
       </if>
       <if test="processinstanceId != null">
         #{processinstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="outEquipGoodsTaskid != null">
+        #{outEquipGoodsTaskid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -102,6 +111,9 @@
       <if test="processinstanceId != null">
         processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
       </if>
+      <if test="outEquipGoodsTaskid != null">
+        out_equip_goods_taskid = #{outEquipGoodsTaskid,jdbcType=VARCHAR},
+      </if>
     </set>
     where out_equip_goods_id = #{outEquipGoodsId,jdbcType=VARCHAR}
   </update>
@@ -112,9 +124,11 @@
       out_equip_goods_endTime = #{outEquipGoodsEndtime,jdbcType=DATE},
       out_equip_goods_people = #{outEquipGoodsPeople,jdbcType=VARCHAR},
       out_equip_goods_status = #{outEquipGoodsStatus,jdbcType=VARCHAR},
-      processinstance_id = #{processinstanceId,jdbcType=VARCHAR}
+      processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
+      out_equip_goods_taskid = #{outEquipGoodsTaskid,jdbcType=VARCHAR}
     where out_equip_goods_id = #{outEquipGoodsId,jdbcType=VARCHAR}
   </update>
+
   <select id="findOutEquipGoods" resultMap="BaseResultMap">
     select * from out_equip_goods
     <where>

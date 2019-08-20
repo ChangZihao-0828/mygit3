@@ -5,7 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.util.Date;
 
-public class CustomerOrder   implements Serializable {
+public class CustomerOrder implements Serializable {
     private String customerOrderId;
 
     private String customerOrderType;
@@ -41,6 +41,10 @@ public class CustomerOrder   implements Serializable {
     private String customerOrderSmr;
 
     private String processinstanceId;
+
+    private String customerOrderPrice;
+
+    private String customerOrderTaskid;
 
     public String getCustomerOrderId() {
         return customerOrderId;
@@ -176,5 +180,21 @@ public class CustomerOrder   implements Serializable {
 
     public void setProcessinstanceId(String processinstanceId) {
         this.processinstanceId = processinstanceId == null ? null : processinstanceId.trim();
+    }
+
+    public String getCustomerOrderPrice() {
+        return customerOrderPrice;
+    }
+
+    public void setCustomerOrderPrice(String customerOrderPrice) {
+        this.customerOrderPrice = customerOrderPrice == null ? null : customerOrderPrice.trim();
+    }
+
+    public String getCustomerOrderTaskid() {
+        return customerOrderTaskid;
+    }
+
+    public void setCustomerOrderTaskid(String customerOrderTaskid) {
+        this.customerOrderTaskid = customerOrderTaskid == null ? null : customerOrderTaskid.trim();
     }
 }

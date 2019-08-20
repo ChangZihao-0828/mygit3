@@ -15,7 +15,7 @@ layui.use(['table', 'layer', 'jquery'], function () {
         , cols: [
             [ //表头
 
-                {field: 'no', type: 'checkbox', width: "3%", fixed: 'left', align: "center"}
+                {field: 'no', type: 'checkbox', width: "2%", fixed: 'left', align: "center"}
                 , {field: 'carId', title: '编号', width: "11%", sort: true, fixed: 'left', align: "center"}
                 , {field: 'carTypeId', title: '车辆编号', width: "11%", align: "center"}
                 , {field: 'carBrand', title: '车牌号', width: "11%", align: "center"}

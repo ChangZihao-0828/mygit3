@@ -7,9 +7,11 @@
     <result column="take_goods_people" jdbcType="VARCHAR" property="takeGoodsPeople" />
     <result column="take_goods_remark" jdbcType="VARCHAR" property="takeGoodsRemark" />
     <result column="processinstance_id" jdbcType="VARCHAR" property="processinstanceId" />
+    <result column="take_goods_taskid" jdbcType="VARCHAR" property="takeGoodsTaskid" />
   </resultMap>
   <sql id="Base_Column_List">
-    take_goods_id, out_goods_id, take_goods_people, take_goods_remark, processinstance_id
+    take_goods_id, out_goods_id, take_goods_people, take_goods_remark, processinstance_id, 
+    take_goods_taskid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -23,9 +25,11 @@
   </delete>
   <insert id="insert" parameterType="org.java.entity.TakeGoods">
     insert into take_goods (take_goods_id, out_goods_id, take_goods_people, 
-      take_goods_remark, processinstance_id)
+      take_goods_remark, processinstance_id, take_goods_taskid
+      )
     values (#{takeGoodsId,jdbcType=VARCHAR}, #{outGoodsId,jdbcType=VARCHAR}, #{takeGoodsPeople,jdbcType=VARCHAR}, 
-      #{takeGoodsRemark,jdbcType=VARCHAR}, #{processinstanceId,jdbcType=VARCHAR})
+      #{takeGoodsRemark,jdbcType=VARCHAR}, #{processinstanceId,jdbcType=VARCHAR}, #{takeGoodsTaskid,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="org.java.entity.TakeGoods">
     insert into take_goods
@@ -45,6 +49,9 @@
       <if test="processinstanceId != null">
         processinstance_id,
       </if>
+      <if test="takeGoodsTaskid != null">
+        take_goods_taskid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="takeGoodsId != null">
@@ -61,6 +68,9 @@
       </if>
       <if test="processinstanceId != null">
         #{processinstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="takeGoodsTaskid != null">
+        #{takeGoodsTaskid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -79,6 +89,9 @@
       <if test="processinstanceId != null">
         processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
       </if>
+      <if test="takeGoodsTaskid != null">
+        take_goods_taskid = #{takeGoodsTaskid,jdbcType=VARCHAR},
+      </if>
     </set>
     where take_goods_id = #{takeGoodsId,jdbcType=VARCHAR}
   </update>
@@ -87,7 +100,8 @@
     set out_goods_id = #{outGoodsId,jdbcType=VARCHAR},
       take_goods_people = #{takeGoodsPeople,jdbcType=VARCHAR},
       take_goods_remark = #{takeGoodsRemark,jdbcType=VARCHAR},
-      processinstance_id = #{processinstanceId,jdbcType=VARCHAR}
+      processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
+      take_goods_taskid = #{takeGoodsTaskid,jdbcType=VARCHAR}
     where take_goods_id = #{takeGoodsId,jdbcType=VARCHAR}
   </update>
   <select id="findTakeGoods" resultMap="BaseResultMap">

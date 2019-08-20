@@ -14,12 +14,12 @@ layui.use(['table','layer','jquery'], function(){
         ,loading:true
         ,cols: [[ //表头
 
-            {field: 'no',type:'checkbox', width:"5%",fixed: 'left',align:"center"}
+            {field: 'no',type:'checkbox', width:"10%",fixed: 'left',align:"center"}
             ,{field: 'prepareGoodsId', title: '备货单号', width:"20%", sort: true, fixed: 'left',align:"center"}
             ,{field: 'purchaseOrderId', title: '采购订单', width:"20%",align:"center"}
             ,{field: 'prepareGoodsTime', title: '备货日期', width:"10%", align:"center",sort: true,templet:'<div>{{ layui.util.toDateString(d.prepareGoodsTime, "yyyy-MM-dd") }}</div>'}
-            ,{field: 'prepareGoodsUserId', title: '备货人', width:"20%",align:"center"}
-            ,{field: 'prepareGoodsStatus', title: '状态', width:"20%",align:"center"}
+            ,{field: 'prepareGoodsUserId', title: '备货人', width:"10%",align:"center"}
+            ,{field: 'prepareGoodsStatus', title: '状态', width:"10%",align:"center"}
             ,{field: 'cz', title: '操作', width: "20%",align:"center",toolbar:"#barDemo"}
 
         ]]

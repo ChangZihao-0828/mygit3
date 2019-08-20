@@ -41,6 +41,8 @@ public class CarManagerController {
         List<Car> list = carManagerService.findCarManager(page,limit,carId);//集合
         int count = carManagerService.getCarManagerCount(carId);//总数
 
+        System.out.println(count+","+list);
+
         map.put("code", 0);//状态正常
         map.put("msg","" );
         map.put("count",count );//总数

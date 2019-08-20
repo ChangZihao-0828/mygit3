@@ -3,7 +3,6 @@ package org.java.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-
 import java.util.Date;
 
 public class PurchaseOrder implements Serializable {
@@ -26,6 +25,10 @@ public class PurchaseOrder implements Serializable {
     private String processinstanceId;
 
     private String purchaseUserId;
+
+    private String purchasePrice;
+
+    private String purchaseTaskid;
 
     public String getPurchaseOrderId() {
         return purchaseOrderId;
@@ -97,5 +100,21 @@ public class PurchaseOrder implements Serializable {
 
     public void setPurchaseUserId(String purchaseUserId) {
         this.purchaseUserId = purchaseUserId == null ? null : purchaseUserId.trim();
+    }
+
+    public String getPurchasePrice() {
+        return purchasePrice;
+    }
+
+    public void setPurchasePrice(String purchasePrice) {
+        this.purchasePrice = purchasePrice == null ? null : purchasePrice.trim();
+    }
+
+    public String getPurchaseTaskid() {
+        return purchaseTaskid;
+    }
+
+    public void setPurchaseTaskid(String purchaseTaskid) {
+        this.purchaseTaskid = purchaseTaskid == null ? null : purchaseTaskid.trim();
     }
 }

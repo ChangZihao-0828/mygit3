@@ -8,6 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface CustomerOrderMapper {
+
     int deleteByPrimaryKey(String customerOrderId);
 
     int insert(CustomerOrder record);
@@ -23,4 +24,7 @@ public interface CustomerOrderMapper {
     public List<CustomerOrder> findCustomerOrder(@Param("start") int start, @Param("rows") int rows, @Param("customerOrderId") String customerOrderId);
 
     public int getCustomerOrderCount(@Param("customerOrderId") String customerOrderId);
+
+    CustomerOrder selectByProcessinstanceId(@Param("processinstanceId") String processinstanceId);
+
 }

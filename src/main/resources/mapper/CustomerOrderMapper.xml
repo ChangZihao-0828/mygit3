@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.java.dao.CustomerOrderMapper1">
+<mapper namespace="org.java.dao.CustomerOrderMapper">
   <resultMap id="BaseResultMap" type="org.java.entity.CustomerOrder">
     <id column="customer_order_id" jdbcType="VARCHAR" property="customerOrderId" />
     <result column="customer_order_type" jdbcType="VARCHAR" property="customerOrderType" />
@@ -19,38 +19,49 @@
     <result column="customer_order_DPTR" jdbcType="VARCHAR" property="customerOrderDptr" />
     <result column="customer_order_SMR" jdbcType="VARCHAR" property="customerOrderSmr" />
     <result column="processinstance_id" jdbcType="VARCHAR" property="processinstanceId" />
+    <result column="customer_order_price" jdbcType="VARCHAR" property="customerOrderPrice" />
+    <result column="customer_order_taskid" jdbcType="VARCHAR" property="customerOrderTaskid" />
   </resultMap>
+
   <sql id="Base_Column_List">
     customer_order_id, customer_order_type, customer_order_declaration, customer_getGoodsTime,
     customer_order_linkman, customer_order_address, customer_order_name_id, customer_order_getGoodsType,
     customer_order_modeOfPayment, customer_order_state, customer_order_time, customer_order_rests,
     customer_order_order_remark, customer_orderPackR, customer_order_DPTR, customer_order_SMR,
-    processinstance_id
+    processinstance_id, customer_order_price, customer_order_taskid
   </sql>
+  <select id="getList" resultMap="BaseResultMap">
+      select * from customer_order limit #{start},#{rows}
+  </select>
+  <!--查询总数-->
+  <select id="getCount" resultType="int">
+    select count(*) from customer_order
+  </select>
+
+  <select id="findCustomerOrder" resultMap="BaseResultMap">
+    select * from customer_order
+    <where>
+      <if test="customerOrderId!=null and customerOrderId !=''">
+        and customer_order_id like '%${customerOrderId}%'
+      </if>
+    </where>
+    limit #{start},#{rows}
+  </select>
+  <select id="getCustomerOrderCount" resultType="int">
+    select count(*) from customer_order
+    <where>
+      <if test="customerOrderId!=null and customerOrderId !=''">
+        and customer_order_id like '%${customerOrderId}%'
+      </if>
+    </where>
+
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from customer_order
-    where customer_order_id = #{customer_order_id,jdbcType=VARCHAR}
+    where customer_order_id = #{customerOrderId,jdbcType=VARCHAR}
   </select>
-    <select id="findCustomerOrder" resultMap="BaseResultMap">
-        select * from customer_order
-        <where>
-            <if test="customerOrderId!=null and customerOrderId !=''">
-                and customer_order_id like '%${customerOrderId}%'
-            </if>
-        </where>
-        limit #{start},#{rows}
-    </select>
-    <select id="getCustomerOrderCount" resultType="int">
-        select count(*) from customer_order
-        <where>
-            <if test="customerOrderId!=null and customerOrderId !=''">
-                and customer_order_id like '%${customerOrderId}%'
-            </if>
-        </where>
-
-    </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from customer_order
     where customer_order_id = #{customerOrderId,jdbcType=VARCHAR}
@@ -63,7 +74,8 @@
       customer_order_modeOfPayment, customer_order_state,
       customer_order_time, customer_order_rests, customer_order_order_remark,
       customer_orderPackR, customer_order_DPTR,
-      customer_order_SMR, processinstance_id)
+      customer_order_SMR, processinstance_id, customer_order_price,
+      customer_order_taskid)
     values (#{customerOrderId,jdbcType=VARCHAR}, #{customerOrderType,jdbcType=VARCHAR},
       #{customerOrderDeclaration,jdbcType=VARCHAR}, #{customerGetgoodstime,jdbcType=DATE},
       #{customerOrderLinkman,jdbcType=VARCHAR}, #{customerOrderAddress,jdbcType=VARCHAR},
@@ -71,7 +83,8 @@
       #{customerOrderModeofpayment,jdbcType=VARCHAR}, #{customerOrderState,jdbcType=VARCHAR},
       #{customerOrderTime,jdbcType=DATE}, #{customerOrderRests,jdbcType=VARCHAR}, #{customerOrderOrderRemark,jdbcType=VARCHAR},
       #{customerOrderpackr,jdbcType=VARCHAR}, #{customerOrderDptr,jdbcType=VARCHAR},
-      #{customerOrderSmr,jdbcType=VARCHAR}, #{processinstanceId,jdbcType=VARCHAR})
+      #{customerOrderSmr,jdbcType=VARCHAR}, #{processinstanceId,jdbcType=VARCHAR}, #{customerOrderPrice,jdbcType=VARCHAR},
+      #{customerOrderTaskid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.java.entity.CustomerOrder">
     insert into customer_order
@@ -127,6 +140,12 @@
       <if test="processinstanceId != null">
         processinstance_id,
       </if>
+      <if test="customerOrderPrice != null">
+        customer_order_price,
+      </if>
+      <if test="customerOrderTaskid != null">
+        customer_order_taskid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="customerOrderId != null">
@@ -179,6 +198,12 @@
       </if>
       <if test="processinstanceId != null">
         #{processinstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerOrderPrice != null">
+        #{customerOrderPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="customerOrderTaskid != null">
+        #{customerOrderTaskid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -233,6 +258,12 @@
       <if test="processinstanceId != null">
         processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
       </if>
+      <if test="customerOrderPrice != null">
+        customer_order_price = #{customerOrderPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="customerOrderTaskid != null">
+        customer_order_taskid = #{customerOrderTaskid,jdbcType=VARCHAR},
+      </if>
     </set>
     where customer_order_id = #{customerOrderId,jdbcType=VARCHAR}
   </update>
@@ -253,14 +284,10 @@
       customer_orderPackR = #{customerOrderpackr,jdbcType=VARCHAR},
       customer_order_DPTR = #{customerOrderDptr,jdbcType=VARCHAR},
       customer_order_SMR = #{customerOrderSmr,jdbcType=VARCHAR},
-      processinstance_id = #{processinstanceId,jdbcType=VARCHAR}
+      processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
+      customer_order_price = #{customerOrderPrice,jdbcType=VARCHAR},
+      customer_order_taskid = #{customerOrderTaskid,jdbcType=VARCHAR}
     where customer_order_id = #{customerOrderId,jdbcType=VARCHAR}
   </update>
-  <select id="getList" resultMap="BaseResultMap">
-      select * from customer_order limit #{start},#{rows}
-  </select>
-  <!--查询总数-->
-  <select id="getCount" resultType="int">
-    select count(*) from customer_order
-  </select>
+
 </mapper>

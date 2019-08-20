@@ -28,7 +28,7 @@
             elem: '#demo'
             , url: '/initDeliverGoods' //数据接口
             , page: true //开启分页
-            , limit: 5 //默认每一页显示的条数
+            , limit: 10 //默认每一页显示的条数
             , limits: [1, 2, 3, 5, 10, 20, 30, 50]//提示的每页条数的列表
             , toolbar: "#addDemo" //显示工具栏
             , title: "配送任务单" //设置导出文件时的标题
@@ -36,19 +36,18 @@
             , cols: [
                 [ //表头
 
-                {field: 'no', type: 'checkbox', width: "3%", fixed: 'left', align: "center"}
-                , {field: 'deliverGoodsId', title: '配送任务编号', width: "19%", sort: true, fixed: 'left', align: "center"}
-                , {field: 'userId', title: '配送员编号', width: "19%", align: "center"}
+                {field: 'deliverGoodsId', title: '配送任务编号', width: "20%", sort: true, fixed: 'left', align: "center"}
+                , {field: 'userId', title: '配送员编号', width: "20%", align: "center"}
                 , {
                     field: 'DeliverDate',
                     title: '配送日期',
-                    width: "19%",
+                    width: "20%",
                     sort: true,
                     align: "center",
                     templet: '<div>{{ layui.util.toDateString(d.bir, "yyyy-MM-dd") }}</div>'
                 }
 
-                , {field: 'customerOrderId', title: '订单编号', width: "19%", sort: true, align: "center"}
+                , {field: 'customerOrderId', title: '订单编号', width: "20%", sort: true, align: "center"}
                 , {field: 'customerId', title: '客户编号', width: "20%", sort: true, align: "center"}
             ]
             ]

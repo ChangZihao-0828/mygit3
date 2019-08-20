@@ -11,10 +11,11 @@
     <result column="car_mileage" jdbcType="VARCHAR" property="carMileage" />
     <result column="car_price" jdbcType="VARCHAR" property="carPrice" />
     <result column="processinstance_id" jdbcType="VARCHAR" property="processinstanceId" />
+    <result column="car_deploy_line_taskid" jdbcType="VARCHAR" property="carDeployLineTaskid" />
   </resultMap>
   <sql id="Base_Column_List">
     car_deploy_line_id, car_id, deliver_goods_id, car_from_site, car_to_site, car_dispatch_date, 
-    car_mileage, car_price, processinstance_id
+    car_mileage, car_price, processinstance_id, car_deploy_line_taskid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -22,24 +23,6 @@
     from car_deploy_line
     where car_deploy_line_id = #{carDeployLineId,jdbcType=VARCHAR}
   </select>
-<select id="findCarDeployLine" resultMap="BaseResultMap">
-select * from car_deploy_line
-<where>
-    <if test="carDeployLineId!=null and carDeployLineId !=''">
-        and car_deploy_line_id like '%${carDeployLineId}%'
-    </if>
-</where>
-limit #{start},#{rows}
-</select>
-<select id="getCarDeployLineCount" resultType="int">
-select count(*) from car_deploy_line
-<where>
-    <if test="carDeployLineId!=null and carDeployLineId !=''">
-        and car_deploy_line_id like '%${carDeployLineId}%'
-    </if>
-</where>
-
-</select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from car_deploy_line
     where car_deploy_line_id = #{carDeployLineId,jdbcType=VARCHAR}
@@ -47,12 +30,12 @@ select count(*) from car_deploy_line
   <insert id="insert" parameterType="org.java.entity.CarDeployLine">
     insert into car_deploy_line (car_deploy_line_id, car_id, deliver_goods_id, 
       car_from_site, car_to_site, car_dispatch_date, 
-      car_mileage, car_price, processinstance_id
-      )
+      car_mileage, car_price, processinstance_id, 
+      car_deploy_line_taskid)
     values (#{carDeployLineId,jdbcType=VARCHAR}, #{carId,jdbcType=INTEGER}, #{deliverGoodsId,jdbcType=VARCHAR}, 
       #{carFromSite,jdbcType=VARCHAR}, #{carToSite,jdbcType=VARCHAR}, #{carDispatchDate,jdbcType=DATE}, 
-      #{carMileage,jdbcType=VARCHAR}, #{carPrice,jdbcType=VARCHAR}, #{processinstanceId,jdbcType=VARCHAR}
-      )
+      #{carMileage,jdbcType=VARCHAR}, #{carPrice,jdbcType=VARCHAR}, #{processinstanceId,jdbcType=VARCHAR}, 
+      #{carDeployLineTaskid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.java.entity.CarDeployLine">
     insert into car_deploy_line
@@ -84,6 +67,9 @@ select count(*) from car_deploy_line
       <if test="processinstanceId != null">
         processinstance_id,
       </if>
+      <if test="carDeployLineTaskid != null">
+        car_deploy_line_taskid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="carDeployLineId != null">
@@ -103,7 +89,7 @@ select count(*) from car_deploy_line
       </if>
       <if test="carDispatchDate != null">
         #{carDispatchDate,jdbcType=DATE},
-      </if>lias
+      </if>
       <if test="carMileage != null">
         #{carMileage,jdbcType=VARCHAR},
       </if>
@@ -112,6 +98,9 @@ select count(*) from car_deploy_line
       </if>
       <if test="processinstanceId != null">
         #{processinstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="carDeployLineTaskid != null">
+        #{carDeployLineTaskid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -142,6 +131,9 @@ select count(*) from car_deploy_line
       <if test="processinstanceId != null">
         processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
       </if>
+      <if test="carDeployLineTaskid != null">
+        car_deploy_line_taskid = #{carDeployLineTaskid,jdbcType=VARCHAR},
+      </if>
     </set>
     where car_deploy_line_id = #{carDeployLineId,jdbcType=VARCHAR}
   </update>
@@ -154,15 +146,35 @@ select count(*) from car_deploy_line
       car_dispatch_date = #{carDispatchDate,jdbcType=DATE},
       car_mileage = #{carMileage,jdbcType=VARCHAR},
       car_price = #{carPrice,jdbcType=VARCHAR},
-      processinstance_id = #{processinstanceId,jdbcType=VARCHAR}
+      processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
+      car_deploy_line_taskid = #{carDeployLineTaskid,jdbcType=VARCHAR}
     where car_deploy_line_id = #{carDeployLineId,jdbcType=VARCHAR}
   </update>
-    <update id="updateCarFromSite" parameterType="org.java.entity.CarDeployLine">
+
+  <select id="findCarDeployLine" resultMap="BaseResultMap">
+    select * from car_deploy_line
+    <where>
+      <if test="carDeployLineId!=null and carDeployLineId !=''">
+        and car_deploy_line_id like '%${carDeployLineId}%'
+      </if>
+    </where>
+    limit #{start},#{rows}
+  </select>
+  <select id="getCarDeployLineCount" resultType="int">
+    select count(*) from car_deploy_line
+    <where>
+      <if test="carDeployLineId!=null and carDeployLineId !=''">
+        and car_deploy_line_id like '%${carDeployLineId}%'
+      </if>
+    </where>
+  </select>
+
+  <update id="updateCarFromSite" parameterType="org.java.entity.CarDeployLine">
     update car_deploy_line set car_from_site = #{carFromSite,jdbcType=VARCHAR}
 where car_deploy_line_id = #{carDeployLineId,jdbcType=VARCHAR}
-  </update><update id="updateCarFromSiteIn" parameterType="org.java.entity.CarDeployLine">
+  </update>
+  <update id="updateCarFromSiteIn" parameterType="org.java.entity.CarDeployLine">
     update car_deploy_line set car_to_site = #{carToSite,jdbcType=VARCHAR}
 where car_deploy_line_id = #{carDeployLineId,jdbcType=VARCHAR}
   </update>
-
 </mapper>

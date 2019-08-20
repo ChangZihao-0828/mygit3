@@ -5,7 +5,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.util.Date;
 
-public class CarDeployLine  implements Serializable {
+public class CarDeployLine implements Serializable {
+
     private String carDeployLineId;
 
     private Integer carId;
@@ -24,6 +25,8 @@ public class CarDeployLine  implements Serializable {
     private String carPrice;
 
     private String processinstanceId;
+
+    private String carDeployLineTaskid;
 
     public String getCarDeployLineId() {
         return carDeployLineId;
@@ -95,5 +98,13 @@ public class CarDeployLine  implements Serializable {
 
     public void setProcessinstanceId(String processinstanceId) {
         this.processinstanceId = processinstanceId == null ? null : processinstanceId.trim();
+    }
+
+    public String getCarDeployLineTaskid() {
+        return carDeployLineTaskid;
+    }
+
+    public void setCarDeployLineTaskid(String carDeployLineTaskid) {
+        this.carDeployLineTaskid = carDeployLineTaskid == null ? null : carDeployLineTaskid.trim();
     }
 }

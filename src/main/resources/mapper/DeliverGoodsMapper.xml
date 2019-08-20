@@ -8,9 +8,11 @@
     <result column="customer_order_id" jdbcType="VARCHAR" property="customerOrderId" />
     <result column="Customer_id" jdbcType="VARCHAR" property="customerId" />
     <result column="processinstance_id" jdbcType="VARCHAR" property="processinstanceId" />
+    <result column="deliver_goods_taskid" jdbcType="VARCHAR" property="deliverGoodsTaskid" />
   </resultMap>
   <sql id="Base_Column_List">
-    deliver_goods_id, Deliver_date, User_id, customer_order_id, Customer_id, processinstance_id
+    deliver_goods_id, Deliver_date, User_id, customer_order_id, Customer_id, processinstance_id, 
+    deliver_goods_taskid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -18,35 +20,17 @@
     from deliver_goods
     where deliver_goods_id = #{deliverGoodsId,jdbcType=VARCHAR}
   </select>
-<select id="findDeliverGoods" resultMap="BaseResultMap">
-select * from deliver_goods
-<where>
-    <if test="deliverGoodsId!=null and deliverGoodsId !=''">
-        and deliver_goods_id like '%${deliverGoodsId}%'
-    </if>
-</where>
-limit #{start},#{rows}
-</select>
-<select id="getDeliverGoodsCount" resultType="int">
-select count(*) from deliver_goods
-<where>
-    <if test="deliverGoodsId!=null and deliverGoodsId !=''">
-        and deliver_goods_id like '%${deliverGoodsId}%'
-    </if>
-</where>
-
-</select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from deliver_goods
     where deliver_goods_id = #{deliverGoodsId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="org.java.entity.DeliverGoods">
     insert into deliver_goods (deliver_goods_id, Deliver_date, User_id, 
-      customer_order_id, Customer_id, processinstance_id
-      )
+      customer_order_id, Customer_id, processinstance_id, 
+      deliver_goods_taskid)
     values (#{deliverGoodsId,jdbcType=VARCHAR}, #{deliverDate,jdbcType=DATE}, #{userId,jdbcType=VARCHAR}, 
-      #{customerOrderId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{processinstanceId,jdbcType=VARCHAR}
-      )
+      #{customerOrderId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{processinstanceId,jdbcType=VARCHAR}, 
+      #{deliverGoodsTaskid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.java.entity.DeliverGoods">
     insert into deliver_goods
@@ -69,6 +53,9 @@ select count(*) from deliver_goods
       <if test="processinstanceId != null">
         processinstance_id,
       </if>
+      <if test="deliverGoodsTaskid != null">
+        deliver_goods_taskid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="deliverGoodsId != null">
@@ -88,6 +75,9 @@ select count(*) from deliver_goods
       </if>
       <if test="processinstanceId != null">
         #{processinstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverGoodsTaskid != null">
+        #{deliverGoodsTaskid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -109,6 +99,9 @@ select count(*) from deliver_goods
       <if test="processinstanceId != null">
         processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
       </if>
+      <if test="deliverGoodsTaskid != null">
+        deliver_goods_taskid = #{deliverGoodsTaskid,jdbcType=VARCHAR},
+      </if>
     </set>
     where deliver_goods_id = #{deliverGoodsId,jdbcType=VARCHAR}
   </update>
@@ -118,7 +111,27 @@ select count(*) from deliver_goods
       User_id = #{userId,jdbcType=VARCHAR},
       customer_order_id = #{customerOrderId,jdbcType=VARCHAR},
       Customer_id = #{customerId,jdbcType=VARCHAR},
-      processinstance_id = #{processinstanceId,jdbcType=VARCHAR}
+      processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
+      deliver_goods_taskid = #{deliverGoodsTaskid,jdbcType=VARCHAR}
     where deliver_goods_id = #{deliverGoodsId,jdbcType=VARCHAR}
   </update>
+  <select id="findDeliverGoods" resultMap="BaseResultMap">
+    select * from deliver_goods
+    <where>
+      <if test="deliverGoodsId!=null and deliverGoodsId !=''">
+        and deliver_goods_id like '%${deliverGoodsId}%'
+      </if>
+    </where>
+    limit #{start},#{rows}
+  </select>
+  <select id="getDeliverGoodsCount" resultType="int">
+    select count(*) from deliver_goods
+    <where>
+      <if test="deliverGoodsId!=null and deliverGoodsId !=''">
+        and deliver_goods_id like '%${deliverGoodsId}%'
+      </if>
+    </where>
+
+  </select>
+
 </mapper>

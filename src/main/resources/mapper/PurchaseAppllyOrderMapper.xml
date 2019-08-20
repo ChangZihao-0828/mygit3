@@ -8,10 +8,13 @@
     <result column="purchase_applly_user_name" jdbcType="VARCHAR" property="purchaseAppllyUserName" />
     <result column="purchase_applly_remark" jdbcType="VARCHAR" property="purchaseAppllyRemark" />
     <result column="processinstance_id" jdbcType="VARCHAR" property="processinstanceId" />
+    <result column="purchase_applly_price" jdbcType="VARCHAR" property="purchaseAppllyPrice" />
+    <result column="purchase_applly_taskid" jdbcType="VARCHAR" property="purchaseAppllyTaskid" />
   </resultMap>
   <sql id="Base_Column_List">
     purchase_applly_order_id, purchase_applly_order_beginTime, purchase_applly_order_endTime, 
-    purchase_applly_user_name, purchase_applly_remark, processinstance_id
+    purchase_applly_user_name, purchase_applly_remark, processinstance_id, purchase_applly_price, 
+    purchase_applly_taskid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -23,6 +26,7 @@
     delete from purchase_applly_order
     where purchase_applly_order_id = #{purchaseAppllyOrderId,jdbcType=VARCHAR}
   </delete>
+
   <select id="findPurchaseAppllyOrder" resultMap="BaseResultMap">
     select * from purchase_applly_order
     <where>
@@ -44,11 +48,13 @@
   <insert id="insert" parameterType="org.java.entity.PurchaseAppllyOrder">
     insert into purchase_applly_order (purchase_applly_order_id, purchase_applly_order_beginTime, 
       purchase_applly_order_endTime, purchase_applly_user_name, 
-      purchase_applly_remark, processinstance_id
+      purchase_applly_remark, processinstance_id, 
+      purchase_applly_price, purchase_applly_taskid
       )
     values (#{purchaseAppllyOrderId,jdbcType=VARCHAR}, #{purchaseAppllyOrderBegintime,jdbcType=DATE}, 
       #{purchaseAppllyOrderEndtime,jdbcType=DATE}, #{purchaseAppllyUserName,jdbcType=VARCHAR}, 
-      #{purchaseAppllyRemark,jdbcType=VARCHAR}, #{processinstanceId,jdbcType=VARCHAR}
+      #{purchaseAppllyRemark,jdbcType=VARCHAR}, #{processinstanceId,jdbcType=VARCHAR}, 
+      #{purchaseAppllyPrice,jdbcType=VARCHAR}, #{purchaseAppllyTaskid,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="org.java.entity.PurchaseAppllyOrder">
@@ -72,6 +78,12 @@
       <if test="processinstanceId != null">
         processinstance_id,
       </if>
+      <if test="purchaseAppllyPrice != null">
+        purchase_applly_price,
+      </if>
+      <if test="purchaseAppllyTaskid != null">
+        purchase_applly_taskid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="purchaseAppllyOrderId != null">
@@ -91,6 +103,12 @@
       </if>
       <if test="processinstanceId != null">
         #{processinstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseAppllyPrice != null">
+        #{purchaseAppllyPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseAppllyTaskid != null">
+        #{purchaseAppllyTaskid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -112,6 +130,12 @@
       <if test="processinstanceId != null">
         processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
       </if>
+      <if test="purchaseAppllyPrice != null">
+        purchase_applly_price = #{purchaseAppllyPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseAppllyTaskid != null">
+        purchase_applly_taskid = #{purchaseAppllyTaskid,jdbcType=VARCHAR},
+      </if>
     </set>
     where purchase_applly_order_id = #{purchaseAppllyOrderId,jdbcType=VARCHAR}
   </update>
@@ -121,7 +145,9 @@
       purchase_applly_order_endTime = #{purchaseAppllyOrderEndtime,jdbcType=DATE},
       purchase_applly_user_name = #{purchaseAppllyUserName,jdbcType=VARCHAR},
       purchase_applly_remark = #{purchaseAppllyRemark,jdbcType=VARCHAR},
-      processinstance_id = #{processinstanceId,jdbcType=VARCHAR}
+      processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
+      purchase_applly_price = #{purchaseAppllyPrice,jdbcType=VARCHAR},
+      purchase_applly_taskid = #{purchaseAppllyTaskid,jdbcType=VARCHAR}
     where purchase_applly_order_id = #{purchaseAppllyOrderId,jdbcType=VARCHAR}
   </update>
 </mapper>

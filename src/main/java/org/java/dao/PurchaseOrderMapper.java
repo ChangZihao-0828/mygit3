@@ -2,6 +2,7 @@ package org.java.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.java.entity.PrepareGoods;
 import org.java.entity.PurchaseOrder;
 
 import java.util.List;

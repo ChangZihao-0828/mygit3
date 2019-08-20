@@ -1,11 +1,12 @@
 package org.java.entity;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class ArriveNoticeOrder  implements Serializable {
+public class ArriveNoticeOrder implements Serializable {
     private String arriveNoticeOrderId;
 
     private String inGoodsId;
@@ -18,6 +19,8 @@ public class ArriveNoticeOrder  implements Serializable {
     private String arriveNoticeOrderStatus;
 
     private String processinstanceId;
+
+    private String arriveNoticeOrderTaskid;
 
     public String getArriveNoticeOrderId() {
         return arriveNoticeOrderId;
@@ -65,5 +68,13 @@ public class ArriveNoticeOrder  implements Serializable {
 
     public void setProcessinstanceId(String processinstanceId) {
         this.processinstanceId = processinstanceId == null ? null : processinstanceId.trim();
+    }
+
+    public String getArriveNoticeOrderTaskid() {
+        return arriveNoticeOrderTaskid;
+    }
+
+    public void setArriveNoticeOrderTaskid(String arriveNoticeOrderTaskid) {
+        this.arriveNoticeOrderTaskid = arriveNoticeOrderTaskid == null ? null : arriveNoticeOrderTaskid.trim();
     }
 }

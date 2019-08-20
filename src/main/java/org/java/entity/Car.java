@@ -1,6 +1,9 @@
 package org.java.entity;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import java.io.Serializable;
+
 
 public class Car  implements Serializable {
     private Integer carId;

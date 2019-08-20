@@ -25,8 +25,8 @@ public interface CarMapper {
 
     Integer findCarCount(@Param("id") Integer searchCarId);
 
-    List<Car> findCarManager(int start, int rows, Integer carId);
+    List<Car> findCarManager(@Param("start")int start,@Param("rows") int rows,@Param("carId") Integer carId);
 
-    int getCarManagerCount(Integer carId);
+    int getCarManagerCount(@Param("carId")Integer carId);
 
 }
