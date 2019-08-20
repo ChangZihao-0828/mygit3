@@ -3,9 +3,10 @@ package org.java.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.java.entity.PrepareGoods;
-import org.java.entity.Supplier;
+import org.java.entity.Warehouse;
 
 import java.util.List;
+
 @Mapper
 public interface PrepareGoodsMapper {
     int deleteByPrimaryKey(String prepareGoodsId);
@@ -22,4 +23,12 @@ public interface PrepareGoodsMapper {
     public List<PrepareGoods> getList(@Param("start") int start, @Param("rows") int rows);
 
     public int getCount();
+
+    List<PrepareGoods> findPrepareGoods(@Param("start") Integer start, @Param("rows") Integer rows, @Param("id") String searchPrepareGoodsId);
+
+    Integer findPrepareGoodsCount(@Param("id") String searchPrepareGoodsId);
+
+    List<PrepareGoods> findPrepareGoods2(@Param("start") Integer start, @Param("rows") Integer rows, @Param("id") String searchPrepareGoodsId);
+
+    Integer findPrepareGoodsCount2(@Param("id") String searchPrepareGoodsId);
 }

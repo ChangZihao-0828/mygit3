@@ -90,4 +90,21 @@
       processinstance_id = #{processinstanceId,jdbcType=VARCHAR}
     where take_goods_id = #{takeGoodsId,jdbcType=VARCHAR}
   </update>
+  <select id="findTakeGoods" resultMap="BaseResultMap">
+    select * from take_goods
+    <where>
+      <if test="id!=null and id !=''">
+        and take_goods_id like '%${id}%'
+      </if>
+    </where>
+    limit #{start},#{rows}
+  </select>
+  <select id="findTakeGoodsCount" resultType="java.lang.Integer">
+    select count(*) from take_goods
+    <where>
+      <if test="id!=null and id !=''">
+        and take_goods_id like '%${id}%'
+      </if>
+    </where>
+  </select>
 </mapper>

@@ -111,4 +111,22 @@
   <select id="getCount" resultType="int">
     select count(*) from prepare_goods
   </select>
+
+  <select id="findPrepareGoods" resultMap="BaseResultMap">
+    select * from prepare_goods
+    <where>
+      <if test="id!=null and id !=''">
+        and prepare_goods_id like '%${id}%'
+      </if>
+    </where>
+    limit #{start},#{rows}
+  </select>
+  <select id="findPrepareGoodsCount" resultType="java.lang.Integer">
+    select count(*) from prepare_goods
+    <where>
+      <if test="id!=null and id !=''">
+        and prepare_goods_id like '%${id}%'
+      </if>
+    </where>
+  </select>
 </mapper>

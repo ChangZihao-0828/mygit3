@@ -126,4 +126,22 @@
       Warehouse_manager = #{warehouseManager,jdbcType=VARCHAR}
     where warehouse_id = #{warehouseId,jdbcType=VARCHAR}
   </update>
+
+  <select id="findWarehouse" resultMap="BaseResultMap">
+    select * from warehouse
+    <where>
+      <if test="id!=null and id !=''">
+        and warehouse_id like '%${id}%'
+      </if>
+    </where>
+    limit #{start},#{rows}
+  </select>
+  <select id="findWarehouseCount" resultType="java.lang.Integer">
+    select count(*) from warehouse
+    <where>
+      <if test="id!=null and id !=''">
+        and warehouse_id like '%${id}%'
+      </if>
+    </where>
+  </select>
 </mapper>

@@ -10,41 +10,38 @@
 <br>
 <h1>&nbsp;&nbsp;&nbsp;添加出库装卸单</h1>
 <br/>
-<form class="layui-form" action="" method="post">
+<form class="layui-form" id="addFrm">
     <table align="center" width="100%">
         <tr >
             <td colspan="2" align="center"><h2>基础信息</h2><hr/></td><td colspan="2" align="center"><h2>检查内容</h2><hr/></td>
         </tr>
         <tr>
+            <td align="center" width="15%">出库装卸单编号:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td width="35%"><div class="layui-input-inline">
+                <input type="text" name="outEquipGoodsId" lay-verify="title" autocomplete="off" placeholder="自动生成" class="layui-input" readonly="readonly">
+            </div><br/><br/></td>
+
+            <td align="center" width="15%">装卸人:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td width="35%"><div class="layui-input-inline">
+                <input type="text" name="outEquipGoodsPeople" lay-verify="title" autocomplete="off" placeholder="" class="layui-input">
+            </div><br/><br/></td>
+        </tr>
+        <tr>
             <td align="center" width="15%">出库作业单编号:&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td width="35%"><div class="layui-input-inline">
-                <input type="text" name="matter_check_id" lay-verify="title" autocomplete="off" placeholder="请输入" class="layui-input">
+                <input type="text" name="outGoodsId" lay-verify="title" autocomplete="off" placeholder="请输入" class="layui-input" readonly="readonly">
             </div><br/><br/></td>
             <td align="center" width="15%">开始时间：&nbsp;&nbsp;</td>
             <td width="35%"><div class="layui-input-inline">
-                <input type="text" name="date" id="date" lay-verify="date" placeholder="年/月/日" autocomplete="off" class="layui-input">
+                <input type="text" name="outEquipGoodsBegintime" class="layui-input" id="date" placeholder="yyyy-MM-dd">
             </div><br/><br/></td>
         </tr>
-        <tr>
-            <td align="center" width="15%">装载重量:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td width="35%"><div class="layui-input-inline">
-                <input type="text" name="matter_check_id" lay-verify="title" autocomplete="off" placeholder="请输入" class="layui-input">
-            </div><br/><br/></td>
-            <td align="center" width="15%">装载数量:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td width="35%"><div class="layui-input-inline">
-                <input type="text" name="temperature_check" lay-verify="title" autocomplete="off" class="layui-input">
-            </div><br/><br/></td>
-        </tr>
-
         <tr>
             <td align="center" width="15%">结束时间：&nbsp;&nbsp;</td>
             <td width="35%"><div class="layui-input-inline">
-                <input type="text" name="date" id="date" lay-verify="date" placeholder="年/月/日" autocomplete="off" class="layui-input">
+                <input type="text" name="outEquipGoodsEndtime" class="layui-input" id="date1" placeholder="yyyy-MM-dd">
             </div><br/><br/></td>
-            <td align="center" width="15%">装卸人：&nbsp;&nbsp;</td>
-            <td width="35%"><div class="layui-input-inline">
-                <input type="text" name="temperature_check" lay-verify="title" sautocomplete="off" class="layui-input">
-            </div><br/><br/></td>
+            <td align="center" width="15%"></td><td align="center" width="35%"></td>
         </tr>
 
         <tr>
@@ -60,15 +57,21 @@
     </table>
 </form>
 <script>
-    layui.use(['form', 'layedit', 'laydate'], function() {
+    layui.use(['form', 'layedit', 'laydate','jquery'], function() {
         var form = layui.form
             , layer = layui.layer
             , layedit = layui.layedit
-            , laydate = layui.laydate;
+            , laydate = layui.laydate
+            , $ = layui.$;
 
         //日期
         laydate.render({
             elem: '#date'
+            ,trigger: 'click'
+        });
+
+        laydate.render({
+            elem: '#date1'
             ,trigger: 'click'
         });
 
@@ -88,9 +91,18 @@
 
         //监听提交
         form.on('submit(demo1)', function(data){
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })
+            $.ajax({
+                url:"/addDeliveryUnloading",
+                type:"post",
+                data:$("#addFrm").serialize(),
+                success:function () {
+                    alert("添加成功");
+                    //layer.msg("添加成功!!!",function(){
+                    //准备让父窗口刷新，并且关闭当前弹出的窗体
+                    window.parent.location.reload();
+                    //});
+                }
+            });
             return false;
         });
 

@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public SysUserinfo login(String username) {
-        System.out.println(username);
+
         return sysUserinfoMapper.login(username);
     }
 }

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Title</title>
+    <link th:href="@{'/layui/css/layui.css'}" type="text/css" rel="stylesheet">
+    <script th:src="@{'/layui/layui.js'}" type="text/javascript"></script>
+</head>
+<body>
+<form method="post" th:action="@{'/createOrder'}" class="layui-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label">订单类型：</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" lay-verify="title" autocomplete="off" placeholder="请输入名称" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">报关：</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" lay-verify="title" autocomplete="off" placeholder="请输入名称" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">提货日期：</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" lay-verify="title" autocomplete="off" placeholder="请输入名称" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">联系人：</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" lay-verify="title" autocomplete="off" placeholder="请输入名称" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">收货地址：</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" lay-verify="title" autocomplete="off" placeholder="请输入名称" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">采购名称：</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" lay-verify="title" autocomplete="off" placeholder="请输入名称" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">客户名称：</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" lay-verify="title" autocomplete="off" placeholder="请输入名称" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">提货方式：</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" lay-verify="title" autocomplete="off" placeholder="请输入名称" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">付款方式：</label>
+        <div class="layui-input-block">
+            <input type="text" name="price" lay-verify="title" autocomplete="off" placeholder="请输入金额" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">订单状态：</label>
+        <div class="layui-input-block">
+            <input type="text" name="price" lay-verify="title" autocomplete="off" placeholder="请输入金额" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">订单日期：</label>
+        <div class="layui-input-block">
+            <input type="text" name="price" lay-verify="title" autocomplete="off" placeholder="请输入金额" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">其他要求：</label>
+        <div class="layui-input-block">
+            <input type="text" name="price" lay-verify="title" autocomplete="off" placeholder="请输入金额" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">包装要求</label>
+        <div class="layui-input-block">
+            <input type="text" name="price" lay-verify="title" autocomplete="off" placeholder="请输入金额" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">配送运输要求：</label>
+        <div class="layui-input-block">
+            <input type="text" name="price" lay-verify="title" autocomplete="off" placeholder="请输入金额" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">库存管理要求：</label>
+        <div class="layui-input-block">
+            <input type="text" name="price" lay-verify="title" autocomplete="off" placeholder="请输入金额" class="layui-input" required>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">备注：</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入内容" class="layui-textarea" name="content"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" type="submit">立即提交</button>
+        </div>
+    </div>
+
+    </table>
+</form>
+</body>
+</html>

@@ -157,4 +157,22 @@
       purchase_user_id = #{purchaseUserId,jdbcType=VARCHAR}
     where purchase_order_id = #{purchaseOrderId,jdbcType=VARCHAR}
   </update>
+
+  <select id="findPurchaseOrder2" resultMap="BaseResultMap">
+    select * from purchase_order
+    <where>
+      <if test="id!=null and id !=''">
+        and purchase_order_id like '%${id}%'
+      </if>
+    </where>
+    limit #{start},#{rows}
+  </select>
+  <select id="findPurchaseOrderCount2" resultType="java.lang.Integer">
+    select count(*) from purchase_order
+    <where>
+      <if test="id!=null and id !=''">
+        and purchase_order_id like '%${id}%'
+      </if>
+    </where>
+  </select>
 </mapper>

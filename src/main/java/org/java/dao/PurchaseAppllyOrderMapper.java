@@ -20,9 +20,8 @@ public interface PurchaseAppllyOrderMapper {
 
     int updateByPrimaryKey(PurchaseAppllyOrder record);
 
-    int findPurchaseAppllyOrder(String purchaseAppllyOrderId);
-
     public List<PurchaseAppllyOrder> findPurchaseAppllyOrder(@Param("start") int start, @Param("rows") int rows, @Param("purchaseAppllyUserName") Integer purchaseAppllyUserName);
 
     public int getCount(@Param("purchaseAppllyUserName") Integer purchaseAppllyUserName);
+
 }

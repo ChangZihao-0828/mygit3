@@ -36,7 +36,7 @@ layui.use(['table', 'layer', 'jquery'], function () {
                 templet: '<div>{{ layui.util.toDateString(d.deliverDate, "yyyy-MM-dd") }}</div>'
             }
                 , {field: 'carDispatchStatus', title: '状态', width: "15%", sort: true, align: "center"}
-                , {field: 'op', title: '操作', width: "18%", align: "center", toolbar: "#barDemo"}
+                , {field: 'op', title: '操作', width: "17%", align: "center", toolbar: "#barDemo"}
             ]
         ]
     });

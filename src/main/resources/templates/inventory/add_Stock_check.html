@@ -4,8 +4,40 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}" media="all">
+    <link rel="stylesheet" th:href="@{'/css/bootstrap.min.css'}">
     <script th:src="@{'/layui/layui.js'}"></script>
     <script th:src="@{'/inventoryjs/Stock_check.js'}"></script>
+    <script th:src="@{'/js/jquery-1.12.4.js'}"></script>
+    <script th:src="@{'/js/bootstrap.js'}"></script>
+    <script th:src="@{'/js/vue.js'}"></script>
+    <script>
+        window.onload=function(){
+            new Vue({
+                el:'#box',
+                data:{
+                    myData:[],
+                    matterId:'',
+                    nowIndex:-100
+                },
+                methods:{
+                    add:function(){
+                        this.myData.push({
+                            matterId:this.matterId,
+                        });
+
+                        this.matterId='';
+                    },
+                    deleteMsg:function(n){
+                        if(n==-2){
+                            this.myData=[];
+                        }else{
+                            this.myData.splice(n,1);
+                        }
+                    }
+                }
+            });
+        };
+    </script>
 </head>
 <body>
 <br>
@@ -50,36 +82,79 @@
     </table>
     <br/>
     <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>物料详情</b></h4><hr/>
+    <div class="container" id="box">
+        <form role="form">
+            <div class="form-group">
+                <label for="matterId">物料编号:</label>
+                <input type="text" id="matterId" class="form-control" placeholder="输入用户名" v-model="matterId">
+            </div>
+            <div class="form-group">
+                <input type="button" value="添加" class="btn btn-primary" v-on:click="add()">
+            </div>
+        </form>
+        <hr>
         <table class="layui-table" lay-size="lg" width="80%">
             <colgroup>
-                <col width="150">
-                <col width="150">
-                <col width="150">
-                <col width="150">
-                <col width="150">
-                <col>
+            <col width="150">
+            <col width="150">
+            <col width="150">
+            <col width="150">
+            <col width="150">
+            <col width="150">
+            <col>
             </colgroup>
             <thead>
             <tr>
-                <th>物料编号</th>
-                <th>物料名称</th>
-                <th>物料规格</th>
-                <th>物料重量</th>
-                <th>物料数量</th>
-                <th>盘点数</th>
+                <th class="text-center">物料编号</th>
+                <th class="text-center">物料名称</th>
+                <th class="text-center">物料规格</th>
+                <th class="text-center">物料重量</th>
+                <th class="text-center">物料数量</th>
+                <th class="text-center">盘点数</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr class="text-center" v-for="item in myData">
+                <td>{{$index+1}}</td>
+                <td>{{item.matterId}}</td>
+                <td>{{item.matterId}}</td>
+                <td>{{item.matterId}}</td>
+                <td>{{item.matterId}}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#layer" v-on:click="nowIndex=$index">删除</button>
+                </td>
+            </tr>
+            <tr v-show="myData.length!=0">
+                <td colspan="6" class="text-right">
+                    <button class="btn btn-danger btn-sm" v-on:click="nowIndex=-2" data-toggle="modal" data-target="#layer" >删除全部</button>
+                </td>
+            </tr>
+            <tr v-show="myData.length==0">
+                <td colspan="6" class="text-center text-muted">
+                    <p>暂无数据....</p>
+                </td>
             </tr>
             </tbody>
         </table>
+
+        <!--模态框 弹出框-->
+        <div role="dialog" class="modal fade bs-example-modal-sm" id="layer">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                        <h4 class="modal-title">确认删除么?</h4>
+                    </div>
+                    <div class="modal-body text-right">
+                        <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                        <button data-dismiss="modal" class="btn btn-danger btn-sm" v-on:click="deleteMsg(nowIndex)">确认</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <table width="100%">
         <tr>
             <td align="center">

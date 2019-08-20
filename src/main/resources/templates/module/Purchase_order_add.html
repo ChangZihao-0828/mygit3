@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>table模块快速使用</title>
+    <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}" media="all">
+    <script th:src="@{'/layui/layui.js'}"></script>
+    <script th:src="@{'/my.js'}"></script>
+</head>
+<body style="margin-left: 70px;margin-top: 10px">
+<Br>
+<form class="layui-form" id="addFrm"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">编号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="purchaseOrderId" placeholder="请输入编号"  readonly  lay-verify="readonly" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">供货商编号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="purchaseSupplierId" placeholder="请输入供货商编号" required  lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">开始时间</label>
+        <div class="layui-input-inline">
+            <input type="date" name="purchaseOrderBegintime"  autocomplete="off" required class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">结束时间</label>
+        <div class="layui-input-inline">
+            <input type="date" name="purchaseOrderEndtime"  autocomplete="off" required class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">采购申请单编号</label>
+        <div class="layui-input-inline">
+            <input type="number" name="purchaseAppllyOrderId" placeholder="请输入采购申请单编号" required lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">客户编号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="customerId" placeholder="请输入客户编号" required lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">订单状态型</label>
+        <div class="layui-input-inline">
+            <select name="purchaseType" lay-verify="required" lay-search="" required="required">
+                <option value="1" th:required="required">状态1</option>
+                <option value="2">状态2</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">流程实例id</label>
+        <div class="layui-input-inline">
+            <input type="text" name="processinstanceId" placeholder="请输流程实例id" required lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">使用者id</label>
+        <div class="layui-input-inline">
+            <input type="text" name="purchaseUserId" placeholder="请输使用者id" required lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+    <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+</form>
+<script src="layui.js"></script>
+<script>
+    layui.use(['form','jquery','layer'], function(){
+        var form = layui.form;
+        var $ = layui.$;
+        var layer = layui.layer;
+        //准备添加数据
+        //要使用jquery发出ajax 请求
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            $.ajax({
+                url:"/addPurchaseOrder",
+                type:"get",
+                data:$("#addFrm").serialize(),
+                success:function () {
+                    //layer.msg("添加成功!!!",function(){
+                    //准备让父窗口刷新，并且关闭当前弹出的窗体
+                    window.parent.location.reload();
+                    //});
+                }
+            });
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
+</body>
+</html>

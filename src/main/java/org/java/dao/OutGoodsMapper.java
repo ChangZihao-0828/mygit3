@@ -1,7 +1,12 @@
 package org.java.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.java.entity.OutGoods;
+import org.java.entity.WarehouseCheck;
+
+import java.util.List;
+
 @Mapper
 public interface OutGoodsMapper {
     int deleteByPrimaryKey(String outGoodsId);
@@ -15,4 +20,8 @@ public interface OutGoodsMapper {
     int updateByPrimaryKeySelective(OutGoods record);
 
     int updateByPrimaryKey(OutGoods record);
+
+    List<OutGoods> findOutGoods(@Param("start") Integer start, @Param("rows") Integer rows, @Param("id") String searchDeliveryReceivingId,@Param("outGoodsStatus") String outGoodsStatus);
+
+    Integer findOutGoodsCount(@Param("id") String searchDeliveryReceivingId,@Param("outGoodsStatus") String outGoodsStatus);
 }

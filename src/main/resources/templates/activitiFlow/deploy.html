@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Title</title>
+    <link th:href="@{'/layui/css/layui.css'}" type="text/css" rel="stylesheet">
+    <script th:src="@{'/layui/layui.js'}" type="text/javascript"></script>
+</head>
+<body>
+    <form th:action="@{'/deploye'}" method="post" enctype="multipart/form-data">
+        <input type="file" class="layui-btn" name="bpmn">上传bpmn文件
+        <input type="file" class="layui-btn layui-btn-danger"name="png">上传png图片
+        <div class="layui-inline layui-word-aux">
+            这里以限制 10MB 为例
+        </div><br/><br/>
+        <input type="submit" class="layui-btn" value="开始上传">
+    </form>
+</body>
+</html>

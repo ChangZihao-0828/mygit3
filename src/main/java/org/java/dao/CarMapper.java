@@ -2,8 +2,8 @@ package org.java.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.java.entity.ArriveNoticeOrder;
 import org.java.entity.Car;
+import org.java.entity.Warehouse;
 
 import java.util.List;
 
@@ -21,8 +21,12 @@ public interface CarMapper {
 
     int updateByPrimaryKey(Car record);
 
-    public List<Car> findCarManager(@Param("start") int start, @Param("rows") int rows, @Param("carId") Integer carId);
+    List<Car> findCar(@Param("start") Integer start, @Param("rows") Integer rows, @Param("id") Integer searchCarId);
 
-    public int getCarManagerCount(@Param("carId") Integer carId);
+    Integer findCarCount(@Param("id") Integer searchCarId);
+
+    List<Car> findCarManager(int start, int rows, Integer carId);
+
+    int getCarManagerCount(Integer carId);
 
 }

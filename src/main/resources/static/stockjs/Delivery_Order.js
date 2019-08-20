@@ -1,26 +1,21 @@
-layui.use('table', function(){
+layui.use(['table','layer','jquery'], function(){
     var table = layui.table;
-
+    var layer = layui.layer;
+    var $ = layui.$;
     //第一个实例
     table.render({
         elem: '#demo'
-        ,url: '/init' //数据接口
+        ,url: '/deliveryOrder' //数据接口
         ,page: true //开启分页
-        ,limit:5 //默认每一页显示的条数
+        ,limit:10 //默认每一页显示的条数
         ,limits:[1,2,3,5,10,20,30,50]//提示的每页条数的列表
         ,toolbar:"#addDemo"//显示工具栏
         ,title:"仓库检查记录汇总" //设置导出文件时的标题
         ,loading:true
         ,cols: [[ //表头
-            {field: 'out_goods_id', title: '编号', width:"20%", sort: true, fixed: 'left',align:"center"}
-            ,{field: 'warehouse_id', title: '仓库编号', width:"20%", sort: true, fixed: 'left',align:"center"}
-            ,{field: 'customer_order_id', title: '订单编号', width:"20%", sort: true, fixed: 'left',align:"center"}
-
-            ,{field: 'out_goods_time', title: '出库日期', width:"10%",align:"center", sort: true,templet:'<div>{{ layui.util.toDateString(d.bir, "yyyy-MM-dd") }}</div>'}
-            ,{field: 'out_goods_status', title: '状态', width:"10%",align:"center"}
-            ,{field: 'processinstance_id', title: '流程实列id', width: "10%",align:"center"}
-
-            , {field: 'op', title: '操作', width: "10%", align: "center", toolbar: "#barDemo"}
+            {field: 'outGoodsId', title: '出库作业单', width:"35%", sort: true, fixed: 'left',align:"center"}
+            ,{field: 'outGoodsStatus', title: '状态', width:"35%",align:"center"}
+            , {field: 'op', title: '操作', width: "30%", align: "center", toolbar: "#barDemo"}
         ]]
     });
 
@@ -76,9 +71,9 @@ layui.use('table', function(){
 
         if (layEvent === 'del') { //删除
 
-            layer.confirm('真的删除行么', function (index) {
+            layer.confirm('是否确认出库？', function (index) {
 
-                $.post("/del", {"id": data.id}, function () {
+                $.post("/addDeliveryOrder", {"id": data.outGoodsId}, function () {
 
                     table.reload('demo', {
                         page: {

@@ -115,4 +115,21 @@
       processinstance_id = #{processinstanceId,jdbcType=VARCHAR}
     where out_equip_goods_id = #{outEquipGoodsId,jdbcType=VARCHAR}
   </update>
+  <select id="findOutEquipGoods" resultMap="BaseResultMap">
+    select * from out_equip_goods
+    <where>
+      <if test="id!=null and id !=''">
+        and out_equip_goods_id like '%${id}%'
+      </if>
+    </where>
+    limit #{start},#{rows}
+  </select>
+  <select id="findOutEquipGoodsCount" resultType="java.lang.Integer">
+    select count(*) from out_equip_goods
+    <where>
+      <if test="id!=null and id !=''">
+        and out_equip_goods_id like '%${id}%'
+      </if>
+    </where>
+  </select>
 </mapper>

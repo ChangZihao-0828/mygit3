@@ -2,7 +2,6 @@ package org.java.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.java.entity.PurchaseAppllyOrder;
 import org.java.entity.PurchaseOrder;
 
 import java.util.List;
@@ -24,6 +23,10 @@ public interface PurchaseOrderMapper {
     public List<PurchaseOrder> findPurchaseOrder(@Param("start") int start, @Param("rows") int rows, @Param("purchaseOrderId") String purchaseOrderId);
 
     public int getPurchaseOrderCount(@Param("purchaseOrderId") String purchaseOrderId);
+
+    List<PurchaseOrder> findPurchaseOrder2(@Param("start") Integer start, @Param("rows") Integer rows, @Param("id") String searchPurchaseOrderId);
+
+    Integer findPurchaseOrderCount2(@Param("id") String searchPurchaseOrderId);
 
 
 }
