@@ -5,7 +5,7 @@
     <id column="purchase_applly_order_id" jdbcType="VARCHAR" property="purchaseAppllyOrderId" />
     <result column="purchase_applly_order_beginTime" jdbcType="DATE" property="purchaseAppllyOrderBegintime" />
     <result column="purchase_applly_order_endTime" jdbcType="DATE" property="purchaseAppllyOrderEndtime" />
-    <result column="purchase_applly_user_name" jdbcType="INTEGER" property="purchaseAppllyUserName" />
+    <result column="purchase_applly_user_name" jdbcType="VARCHAR" property="purchaseAppllyUserName" />
     <result column="purchase_applly_remark" jdbcType="VARCHAR" property="purchaseAppllyRemark" />
     <result column="processinstance_id" jdbcType="VARCHAR" property="processinstanceId" />
   </resultMap>
@@ -19,35 +19,35 @@
     from purchase_applly_order
     where purchase_applly_order_id = #{purchaseAppllyOrderId,jdbcType=VARCHAR}
   </select>
-    <select id="findPurchaseAppllyOrder" resultMap="BaseResultMap">
-        select * from purchase_applly_order
-        <where>
-        <if test="purchaseAppllyUserName!=null and purchaseAppllyUserName !=''">
-            and purchase_applly_user_name like '%${purchaseAppllyUserName}%'
-        </if>
-        </where>
-         limit #{start},#{rows}
-    </select>
-    <select id="getCount" resultType="int">
-        select count(*) from purchase_applly_order
-        <where>
-            <if test="purchaseAppllyUserName!=null and purchaseAppllyUserName !=''">
-                and purchase_applly_user_name like '%${purchaseAppllyUserName}%'
-            </if>
-        </where>
-
-    </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from purchase_applly_order
     where purchase_applly_order_id = #{purchaseAppllyOrderId,jdbcType=VARCHAR}
   </delete>
+  <select id="findPurchaseAppllyOrder" resultMap="BaseResultMap">
+    select * from purchase_applly_order
+    <where>
+      <if test="purchaseAppllyUserName!=null and purchaseAppllyUserName !=''">
+        and purchase_applly_user_name like '%${purchaseAppllyUserName}%'
+      </if>
+    </where>
+    limit #{start},#{rows}
+  </select>
+  <select id="getCount" resultType="int">
+    select count(*) from purchase_applly_order
+    <where>
+      <if test="purchaseAppllyUserName!=null and purchaseAppllyUserName !=''">
+        and purchase_applly_user_name like '%${purchaseAppllyUserName}%'
+      </if>
+    </where>
+
+  </select>
   <insert id="insert" parameterType="org.java.entity.PurchaseAppllyOrder">
     insert into purchase_applly_order (purchase_applly_order_id, purchase_applly_order_beginTime, 
       purchase_applly_order_endTime, purchase_applly_user_name, 
       purchase_applly_remark, processinstance_id
       )
     values (#{purchaseAppllyOrderId,jdbcType=VARCHAR}, #{purchaseAppllyOrderBegintime,jdbcType=DATE}, 
-      #{purchaseAppllyOrderEndtime,jdbcType=DATE}, #{purchaseAppllyUserName,jdbcType=INTEGER}, 
+      #{purchaseAppllyOrderEndtime,jdbcType=DATE}, #{purchaseAppllyUserName,jdbcType=VARCHAR}, 
       #{purchaseAppllyRemark,jdbcType=VARCHAR}, #{processinstanceId,jdbcType=VARCHAR}
       )
   </insert>
@@ -84,7 +84,7 @@
         #{purchaseAppllyOrderEndtime,jdbcType=DATE},
       </if>
       <if test="purchaseAppllyUserName != null">
-        #{purchaseAppllyUserName,jdbcType=INTEGER},
+        #{purchaseAppllyUserName,jdbcType=VARCHAR},
       </if>
       <if test="purchaseAppllyRemark != null">
         #{purchaseAppllyRemark,jdbcType=VARCHAR},
@@ -104,7 +104,7 @@
         purchase_applly_order_endTime = #{purchaseAppllyOrderEndtime,jdbcType=DATE},
       </if>
       <if test="purchaseAppllyUserName != null">
-        purchase_applly_user_name = #{purchaseAppllyUserName,jdbcType=INTEGER},
+        purchase_applly_user_name = #{purchaseAppllyUserName,jdbcType=VARCHAR},
       </if>
       <if test="purchaseAppllyRemark != null">
         purchase_applly_remark = #{purchaseAppllyRemark,jdbcType=VARCHAR},
@@ -119,7 +119,7 @@
     update purchase_applly_order
     set purchase_applly_order_beginTime = #{purchaseAppllyOrderBegintime,jdbcType=DATE},
       purchase_applly_order_endTime = #{purchaseAppllyOrderEndtime,jdbcType=DATE},
-      purchase_applly_user_name = #{purchaseAppllyUserName,jdbcType=INTEGER},
+      purchase_applly_user_name = #{purchaseAppllyUserName,jdbcType=VARCHAR},
       purchase_applly_remark = #{purchaseAppllyRemark,jdbcType=VARCHAR},
       processinstance_id = #{processinstanceId,jdbcType=VARCHAR}
     where purchase_applly_order_id = #{purchaseAppllyOrderId,jdbcType=VARCHAR}

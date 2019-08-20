@@ -49,9 +49,15 @@ public class pageController {
     }
 
 
-    @GetMapping("/activiti/{page}")
-    public String activity(@PathVariable String page){
+    @GetMapping("/activitiFlow/{page}")
+    public String activityFlow(@PathVariable String page){
 
         return "/activitiFlow/"+page;
+    }
+
+    @GetMapping("/activitiOrder/{page}")
+    public String activityOrder(@PathVariable String page){
+
+        return "/activitiOrder/"+page;
     }
 }
