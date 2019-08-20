@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 public interface CustomerService {
-    public List<Customer> getList(int page, int rows);
+    public List<Customer> getList(int page, int rows,String searchcustomerid);
 
-    public int getCount();
-
+    public int getCount(String searchcustomerid);
+    public void updateCustomer(Customer e);
     public void add(Customer f);
     public void delCustomer(String customer_id);
 

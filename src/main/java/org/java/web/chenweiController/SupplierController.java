@@ -28,18 +28,18 @@ public class SupplierController {
 
 
     @ResponseBody
-    @RequestMapping("sc")
-    public Map getList(Integer page, Integer limit) {
+    @RequestMapping("sc")//获得supplier的数据
+    public Map<String,Object> getList(Integer page, Integer limit, String searchsupplierId) {
         Map map = new HashMap();
 
-        List<Supplier> list = supplierService.getList(page, limit);//集合
-        int count = supplierService.getCount();//总数
+        List<Supplier> list = supplierService.getList(page, limit,searchsupplierId);//集合
+        int count = supplierService.findsupplierCount(searchsupplierId);//总数
 
         map.put("code", 0);//状态正常
         map.put("msg", "");
         map.put("count", count);//总数
         map.put("data", list);
-        System.out.println(count);
+
         return map;
     }
 
@@ -146,7 +146,7 @@ public class SupplierController {
         }
 
     }
-    @RequestMapping("delPurchaseOrder")
+    @RequestMapping("delPurchaseOrder1")
     @ResponseBody
     public void delPurchaseOrder(String purchaseOrderId) {
 

@@ -140,10 +140,20 @@
     where supplier_id = #{supplierId,jdbcType=VARCHAR}
   </update>
   <select id="getList" resultMap="BaseResultMap">
-      select * from supplier limit #{start},#{rows}
+      select * from supplier <where>
+    <if test="id!=null and id !=''">
+      and supplier_id like '%${id}%'
+    </if>
+  </where>
+    limit #{start},#{rows}
   </select>
   <!--查询总数-->
-  <select id="getCount" resultType="int">
+  <select id="findsupplierCount" resultType="int">
     select count(*) from supplier
+    <where>
+      <if test="id!=null and id !=''">
+        and supplier_id like '%${id}%'
+      </if>
+    </where>
   </select>
 </mapper>

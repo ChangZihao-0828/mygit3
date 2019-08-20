@@ -31,10 +31,10 @@ public class prepareGoodController {
 
     @ResponseBody
     @RequestMapping("PrepareGoods")
-    public Map getList(Integer page, Integer limit) {
+    public Map getList(Integer page, Integer limit,String prepareGoodsId) {
         Map map = new HashMap();
 
-        List<PrepareGoods> list = prepareGoodsService.getList(page, limit);//集合
+        List<PrepareGoods> list = prepareGoodsService.getList(page, limit,prepareGoodsId);//集合
         int count = prepareGoodsService.getCount();//总数
 
         map.put("code", 0);//状态正常
@@ -45,11 +45,11 @@ public class prepareGoodController {
         return map;
     }
 
-    @RequestMapping("delPrepareGoods")
+    @RequestMapping("delPrepareGoods1")
     @ResponseBody
-    public void delPrepareGoods(String prepareGoodsId) {
+    public void delPrepareGoods1(String prepareGoodsId) {
 
-        prepareGoodsService.delPrepareGoods(prepareGoodsId);
+        prepareGoodsService.delPrepareGoods1(prepareGoodsId);
     }
     @RequestMapping("PrepareGoodsadd")
     @ResponseBody //一定要添加此注解

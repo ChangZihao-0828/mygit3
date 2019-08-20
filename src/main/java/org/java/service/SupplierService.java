@@ -13,9 +13,10 @@ import java.util.List;
 
 public interface SupplierService {
 
-    public List<Supplier> getList(int page, int rows);
+    public List<Supplier> getList(int page, int rows,String searchsupplierId);
     public int getCount();
     public void add(Supplier e);
     public int delSupplier(String supplierId);
     public void updateSupplier(Supplier e);
+    public Integer findsupplierCount(String searchsupplierId);
 }

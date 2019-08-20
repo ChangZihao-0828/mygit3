@@ -21,10 +21,12 @@ public class SupplierServiceImpl implements SupplierService {
     @Autowired
     private SupplierMapper supplierMapper;
     @Override
-    public List<Supplier> getList(int page, int rows) {
+    public List<Supplier> getList(int page, int rows,String searchsupplierId) {
         int start = (page-1)*rows;
-        return supplierMapper.getList(start,rows);
+        return supplierMapper.getList(start,rows,searchsupplierId);
     }
+
+
 
     @Override
     public int getCount() {
@@ -45,5 +47,10 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public void updateSupplier(Supplier e) {
         supplierMapper.updateByPrimaryKeySelective(e);
+    }
+
+    @Override
+    public Integer findsupplierCount(String searchsupplierId) {
+        return supplierMapper.findsupplierCount(searchsupplierId) ;
     }
 }

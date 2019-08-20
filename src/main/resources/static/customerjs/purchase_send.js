@@ -71,9 +71,43 @@ layui.use(['table','layer','jquery'], function(){
             //
             // });
         } else if(layEvent === 'edit'){ //编辑
-            alert("修改");
+            layer.open({
+                type: 2,
+                shade: true,
+                area: ['1000px', '440px'],
+                maxmin: false,
+                anim: 1,
+                title: "修改供应商信息",
+                content: '/cg9',
+                zIndex: layer.zIndex, //重点1
+                success: function (layero) {
+                    layer.setTop(layero); //重点2
+                    /*********弹出新窗体以后，给新窗中的控件赋值**********************/
+                        //-------------获得弹出层页面的body部份
+                    var body = layui.layer.getChildFrame("body");
+
+                    //给弹出层body中的表单控件赋值
+                    body.find("[name='supplierId']").val(data.supplierId);
+                    body.find("[name='supplierName']").val(data.supplierName);
+                    body.find("[name='supplierPwd']").val(data.supplierPwd);
+                    body.find("[name='supplierContacts']").val(data.supplierContacts);
+                    body.find("[name='supplierCreditiimit']").val(data.supplierCreditiimit);
+                    body.find("[name='supplierShortname']").val(data.supplierShortname);
+                    body.find("[name='supplierTelephone']").val(data.supplierTelephone);
+                    body.find("[name='supplierEmail']").val(data.supplierEmail);
+                    body.find("[name='supplierAddress']").val(data.supplierAddress);
+                }
+            });
         }
+
+
+
+
+
+
     });
+
+
 
     //指定日期转换格式
     var format = function (time, format) {

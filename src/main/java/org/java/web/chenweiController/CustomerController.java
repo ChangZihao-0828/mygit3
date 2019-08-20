@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 public class CustomerController {
@@ -21,10 +22,10 @@ public class CustomerController {
 
     @ResponseBody
     @RequestMapping("op")//显示数据库全部数据的请求
-    public Map getList(Integer page,Integer limit){
+    public Map getList(Integer page,Integer limit,String searchcustomerid){
         Map map = new HashMap();
-        List<Customer> list =service.getList(page,limit);//集合
-        int count =service.getCount();//总数
+        List<Customer> list =service.getList(page,limit,searchcustomerid);//集合
+        int count =service.getCount(searchcustomerid);//总数
         map.put("code", 0);//状态正常
         map.put("msg","" );
         map.put("count",count );//总数
@@ -69,6 +70,20 @@ public class CustomerController {
     public String delCustomer(String customer_id){
        service.delCustomer(customer_id);
        return "redirect:/p1";
+    }
+    @RequestMapping("/customeradd")
+    @ResponseBody //一定要添加此注解
+    public void edit(Customer e) {
+        if (e.getCustomer_id() == "") {
+            e.setCustomer_id(String.valueOf(UUID.randomUUID()));
+
+            service.add(e);
+        } else {
+           service.updateCustomer(e);
+
+        }
+
+
     }
 
 

@@ -63,7 +63,21 @@ layui.use(['table','layer','jquery'], function(){
                 break;
         };
     });
+    /*******给搜索按钮绑定事件*************/
+    $("#search").click(function(){
 
+        //获得输入框的内容
+        var mySearchMatterCheckId = $("#searchMatterCheckId").val();
+
+        table.reload('demo', {
+            where: { //设定异步数据接口的额外参数，任意设
+                searchMatterCheckId:mySearchMatterCheckId
+            }
+            ,page: {
+                curr: 1 //重新从第 1 页开始
+            }
+        }); //只重载数据
+    });
 
     //监听行工具条
     table.on('tool(test)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"

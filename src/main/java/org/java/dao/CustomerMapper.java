@@ -15,7 +15,7 @@ public interface CustomerMapper {
     Customer selectByPrimaryKey(String customer_id);
     int updateByPrimaryKeySelective(Customer record);
     int updateByPrimaryKey(Customer record);
-    public int getCount();
-    public List<Customer> getList(@Param("start") int start, @Param("rows") int rows);
+    int getCount(@Param("id") String searchcustomerid);
+    List<Customer> getList(@Param("start") int start, @Param("rows") int rows,@Param("id") String searchcustomerid);
 
 }

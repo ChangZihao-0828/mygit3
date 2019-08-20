@@ -24,8 +24,9 @@ import java.util.List;
 public class prepareGoodsIServiceImpl implements PrepareGoodsService {
     @Autowired
     private PrepareGoodsMapper prepareGoodsMapper;
+
     @Override
-    public List<PrepareGoods> getList(int page, int rows) {
+    public List<PrepareGoods> getList(int page, int rows, String prepareGoodsId) {
         int start = (page-1)*rows;
         return prepareGoodsMapper.getList(0,4);
     }
@@ -41,7 +42,7 @@ public class prepareGoodsIServiceImpl implements PrepareGoodsService {
     }
     @Transactional
     @Override
-    public int delPrepareGoods(String prepareGoodsId) {
+    public int delPrepareGoods1(String prepareGoodsId) {
         return prepareGoodsMapper.deleteByPrimaryKey(prepareGoodsId);
     }
     @Transactional

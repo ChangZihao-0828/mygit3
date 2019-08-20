@@ -19,7 +19,8 @@ public interface SupplierMapper {
     int updateByPrimaryKeySelective(Supplier record);
 
     int updateByPrimaryKey(Supplier record);
-    public List<Supplier> getList(@Param("start") int start, @Param("rows") int rows);
+     List<Supplier> getList(@Param("start") int start, @Param("rows") int rows,@Param("id") String searchsupplierId);
+    Integer findsupplierCount(@Param("id") String searchsupplierId);
+     int getCount();
 
-    public int getCount();
 }

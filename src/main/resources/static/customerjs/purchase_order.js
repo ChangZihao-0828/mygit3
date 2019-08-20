@@ -80,8 +80,8 @@ layui.use(['table','layer','jquery'], function(){
                 $.ajax({
                     //几个参数需要注意一下
                     type: "post",//方法类型
-                    url: "/delSupplier",//url
-                    data:{"supplierId":data.supplierId},
+                    url: "/delPurchaseOrder",//url
+                    data:{"purchaseOrderId":data.purchaseOrderId},
                     dataType:"json",
                     async:false,
                     success: function (result) {
@@ -106,7 +106,7 @@ layui.use(['table','layer','jquery'], function(){
             maxmin: false,
             anim: 1,
             title: "修改供应商信息",
-            content: '/cg8',
+            content: '/cg9',
             zIndex: layer.zIndex, //重点1
             success: function (layero) {
                 layer.setTop(layero); //重点2

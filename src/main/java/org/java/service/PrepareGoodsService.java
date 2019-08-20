@@ -16,9 +16,9 @@ import java.util.List;
  *  
  */
 public interface PrepareGoodsService {
-    public List<PrepareGoods> getList(int page, int rows);
+    public List<PrepareGoods> getList(int page, int rows,String seachsupplierId);
     public int getCount();
     public void add(PrepareGoods e);
-    public int delPrepareGoods(String prepareGoodsId);
+    public int delPrepareGoods1(String prepareGoodsId);
     public void updateSupplier(PrepareGoods e);
 }

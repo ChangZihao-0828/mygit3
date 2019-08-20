@@ -17,14 +17,19 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerMapper customerMapper;
 
     @Override
-    public List<Customer> getList(int page, int rows) {
+    public List<Customer> getList(int page, int rows,String searchcustomerid) {
         int start = (page-1)*rows;
-        return customerMapper.getList(0,4);
+        return customerMapper.getList(0,4,searchcustomerid);
     }
 
     @Override
-    public int getCount() {
-        return customerMapper.getCount();
+    public int getCount(String searchcustomerid) {
+        return customerMapper.getCount(searchcustomerid);
+    }
+
+    @Override
+    public void updateCustomer(Customer e) {
+        customerMapper.updateByPrimaryKeySelective(e);
     }
 
     @Transactional
