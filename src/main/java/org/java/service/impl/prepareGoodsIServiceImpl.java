@@ -22,6 +22,8 @@ import java.util.List;
  */
 @Service
 public class prepareGoodsIServiceImpl implements PrepareGoodsService {
+
+
     @Autowired
     private PrepareGoodsMapper prepareGoodsMapper;
 

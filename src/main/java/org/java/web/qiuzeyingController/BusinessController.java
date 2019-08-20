@@ -272,7 +272,7 @@ public class BusinessController {
 
     }
 
-    @RequestMapping("/delPurchaseOrder")
+    @RequestMapping("/delPurchaseOrder1")
     @ResponseBody
     public void delPurchaseOrder(String purchaseOrderId) {
 
@@ -320,7 +320,7 @@ public class BusinessController {
 
     }
 
-    @RequestMapping("/delPrepareGoods")
+    @RequestMapping("/delPrepareGoods1")
     @ResponseBody
     public void delPrepareGoods(String prepareGoodsId) {
 

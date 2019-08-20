@@ -67,7 +67,9 @@ public class CarDeployLineServiceImpl implements CarDeployLineService {
     @Override
     public void UpdateCarFromSite(CarDeployLine c) {
         mapper.updateCarFromSite(c);
-    }@Transactional
+    }
+
+    @Transactional
     @Override
     public void UpdateCarFromSiteIn(CarDeployLine c) {
         mapper.updateCarFromSiteIn(c);

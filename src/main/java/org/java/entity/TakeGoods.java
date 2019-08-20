@@ -2,7 +2,7 @@ package org.java.entity;
 
 import java.io.Serializable;
 
-public class TakeGoods  implements Serializable {
+public class TakeGoods implements Serializable {
     private String takeGoodsId;
 
     private String outGoodsId;
@@ -12,6 +12,8 @@ public class TakeGoods  implements Serializable {
     private String takeGoodsRemark;
 
     private String processinstanceId;
+
+    private String takeGoodsTaskid;
 
     public String getTakeGoodsId() {
         return takeGoodsId;
@@ -51,5 +53,13 @@ public class TakeGoods  implements Serializable {
 
     public void setProcessinstanceId(String processinstanceId) {
         this.processinstanceId = processinstanceId == null ? null : processinstanceId.trim();
+    }
+
+    public String getTakeGoodsTaskid() {
+        return takeGoodsTaskid;
+    }
+
+    public void setTakeGoodsTaskid(String takeGoodsTaskid) {
+        this.takeGoodsTaskid = takeGoodsTaskid == null ? null : takeGoodsTaskid.trim();
     }
 }

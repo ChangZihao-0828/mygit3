@@ -30,10 +30,12 @@ import java.util.List;
  */
 @Service
 public class CarManagerServiceImpl implements CarManagerService {
+
     @Autowired
     private CarMapper mapper;
     @Override
     public List<Car> findCarManager(int page, int rows, Integer carId) {
+
         int start = (page-1)*rows;
 
         return mapper.findCarManager(start,rows,carId);
@@ -41,6 +43,7 @@ public class CarManagerServiceImpl implements CarManagerService {
 
     @Override
     public int getCarManagerCount(Integer carId) {
+
         return mapper.getCarManagerCount(carId);
     }
 

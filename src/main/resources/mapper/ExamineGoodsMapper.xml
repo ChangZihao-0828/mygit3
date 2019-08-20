@@ -9,10 +9,12 @@
     <result column="examine_goods_time" jdbcType="DATE" property="examineGoodsTime" />
     <result column="examine_goods_remark" jdbcType="VARCHAR" property="examineGoodsRemark" />
     <result column="processinstance_id" jdbcType="VARCHAR" property="processinstanceId" />
+    <result column="examine_goods_status" jdbcType="VARCHAR" property="examineGoodsStatus" />
+    <result column="examine_goods_taskid" jdbcType="VARCHAR" property="examineGoodsTaskid" />
   </resultMap>
   <sql id="Base_Column_List">
     examine_goods_id, in_goods_id, in_equip_goods_id, examine_goods_people, examine_goods_time, 
-    examine_goods_remark, processinstance_id
+    examine_goods_remark, processinstance_id, examine_goods_status, examine_goods_taskid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -27,10 +29,12 @@
   <insert id="insert" parameterType="org.java.entity.ExamineGoods">
     insert into examine_goods (examine_goods_id, in_goods_id, in_equip_goods_id, 
       examine_goods_people, examine_goods_time, examine_goods_remark, 
-      processinstance_id)
+      processinstance_id, examine_goods_status, 
+      examine_goods_taskid)
     values (#{examineGoodsId,jdbcType=VARCHAR}, #{inGoodsId,jdbcType=VARCHAR}, #{inEquipGoodsId,jdbcType=VARCHAR}, 
       #{examineGoodsPeople,jdbcType=VARCHAR}, #{examineGoodsTime,jdbcType=DATE}, #{examineGoodsRemark,jdbcType=VARCHAR}, 
-      #{processinstanceId,jdbcType=VARCHAR})
+      #{processinstanceId,jdbcType=VARCHAR}, #{examineGoodsStatus,jdbcType=VARCHAR}, 
+      #{examineGoodsTaskid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.java.entity.ExamineGoods">
     insert into examine_goods
@@ -56,6 +60,12 @@
       <if test="processinstanceId != null">
         processinstance_id,
       </if>
+      <if test="examineGoodsStatus != null">
+        examine_goods_status,
+      </if>
+      <if test="examineGoodsTaskid != null">
+        examine_goods_taskid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="examineGoodsId != null">
@@ -78,6 +88,12 @@
       </if>
       <if test="processinstanceId != null">
         #{processinstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="examineGoodsStatus != null">
+        #{examineGoodsStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="examineGoodsTaskid != null">
+        #{examineGoodsTaskid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -102,6 +118,12 @@
       <if test="processinstanceId != null">
         processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
       </if>
+      <if test="examineGoodsStatus != null">
+        examine_goods_status = #{examineGoodsStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="examineGoodsTaskid != null">
+        examine_goods_taskid = #{examineGoodsTaskid,jdbcType=VARCHAR},
+      </if>
     </set>
     where examine_goods_id = #{examineGoodsId,jdbcType=VARCHAR}
   </update>
@@ -112,7 +134,9 @@
       examine_goods_people = #{examineGoodsPeople,jdbcType=VARCHAR},
       examine_goods_time = #{examineGoodsTime,jdbcType=DATE},
       examine_goods_remark = #{examineGoodsRemark,jdbcType=VARCHAR},
-      processinstance_id = #{processinstanceId,jdbcType=VARCHAR}
+      processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
+      examine_goods_status = #{examineGoodsStatus,jdbcType=VARCHAR},
+      examine_goods_taskid = #{examineGoodsTaskid,jdbcType=VARCHAR}
     where examine_goods_id = #{examineGoodsId,jdbcType=VARCHAR}
   </update>
 </mapper>

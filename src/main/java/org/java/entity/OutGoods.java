@@ -5,7 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.io.Serializable;
 import java.util.Date;
 
-public class OutGoods  implements Serializable {
+public class OutGoods implements Serializable {
     private String outGoodsId;
 
     private String warehouseId;
@@ -18,6 +18,8 @@ public class OutGoods  implements Serializable {
     private String outGoodsStatus;
 
     private String processinstanceId;
+
+    private String outGoodsTaskid;
 
     public String getOutGoodsId() {
         return outGoodsId;
@@ -65,5 +67,13 @@ public class OutGoods  implements Serializable {
 
     public void setProcessinstanceId(String processinstanceId) {
         this.processinstanceId = processinstanceId == null ? null : processinstanceId.trim();
+    }
+
+    public String getOutGoodsTaskid() {
+        return outGoodsTaskid;
+    }
+
+    public void setOutGoodsTaskid(String outGoodsTaskid) {
+        this.outGoodsTaskid = outGoodsTaskid == null ? null : outGoodsTaskid.trim();
     }
 }

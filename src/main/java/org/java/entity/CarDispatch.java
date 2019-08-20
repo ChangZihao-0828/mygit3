@@ -22,6 +22,8 @@ public class CarDispatch  implements Serializable {
 
     private String processinstanceId;
 
+    private String carDispatchTaskid;
+
     public String getCarDispatchId() {
         return carDispatchId;
     }
@@ -76,5 +78,13 @@ public class CarDispatch  implements Serializable {
 
     public void setProcessinstanceId(String processinstanceId) {
         this.processinstanceId = processinstanceId == null ? null : processinstanceId.trim();
+    }
+
+    public String getCarDispatchTaskid() {
+        return carDispatchTaskid;
+    }
+
+    public void setCarDispatchTaskid(String carDispatchTaskid) {
+        this.carDispatchTaskid = carDispatchTaskid == null ? null : carDispatchTaskid.trim();
     }
 }

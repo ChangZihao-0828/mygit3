@@ -3,10 +3,8 @@ package org.java.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.java.entity.TakeGoods;
-import org.java.entity.WarehouseCheck;
 
 import java.util.List;
-
 @Mapper
 public interface TakeGoodsMapper {
     int deleteByPrimaryKey(String takeGoodsId);

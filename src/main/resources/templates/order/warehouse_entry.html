@@ -28,7 +28,7 @@
             elem: '#demo'
             , url: '/initWarehouseEntry' //数据接口
             , page: true //开启分页
-            , limit: 5 //默认每一页显示的条数
+            , limit: 10 //默认每一页显示的条数
             , limits: [1, 2, 3, 5, 10, 20, 30, 50]//提示的每页条数的列表
             , toolbar: "#addDemo" //显示工具栏
             , title: "入库作业单" //设置导出文件时的标题
@@ -36,18 +36,19 @@
             , cols: [
                 [ //表头
 
-                {field: 'no', type: 'checkbox', width: "3%", fixed: 'left', align: "center"}
-                , {field: 'inGoodsId', title: '入库作业编号', width: "30%", sort: true, fixed: 'left', align: "center"}
-                , {
+                    {field: 'inGoodsId', title: '入库作业编号', width: "30%", sort: true, fixed: 'left', align: "center"}
+                    , {field: 'prepareGoodsId', title: '备货单编号', width: "30%", sort: true, align: "center"}
+                    , {field: 'warehouseId', title: '仓库编号', width: "20%", align: "center"}
+                    , {
                     field: 'inGoodsInTime',
                     title: '入库时间',
-                    width: "10%",
+                    width: "20%",
                     sort: true,
                     align: "center",
                     templet: '<div>{{ layui.util.toDateString(d.bir, "yyyy-MM-dd") }}</div>'
                 }
-                , {field: 'warehouseId', title: '仓库编号', width: "30%", align: "center"}
-                , {field: 'prepareGoodsId', title: '备货单编号', width: "30%", sort: true, align: "center"}
+
+
             ]
             ]
         });

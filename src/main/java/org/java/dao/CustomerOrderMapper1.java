@@ -27,10 +27,11 @@ public interface CustomerOrderMapper1 {
 
     int updateByPrimaryKey(CustomerOrder record);
 
-    public List<CustomerOrder> getList(@Param("start") int start, @Param("rows") int rows);
-
-    public int getCount();
     public List<CustomerOrder> findCustomerOrder(@Param("start") int start, @Param("rows") int rows, @Param("customerOrderId") String customerOrderId);
 
     public int getCustomerOrderCount(@Param("customerOrderId") String customerOrderId);
+
+    public List<CustomerOrder> getList(@Param("start") int start, @Param("rows") int rows);
+
+    public int getCount();
 }

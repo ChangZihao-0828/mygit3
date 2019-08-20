@@ -2,10 +2,18 @@ package org.java.web.activitiController;
 
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.TaskService;
+import org.java.entity.CustomerOrder;
+import org.java.service.CustomerOrderService;
+import org.java.service.CustomerOrderService1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * @Auther: 昌子豪
@@ -29,16 +37,19 @@ public class OrderController {
     @Autowired
     private HistoryService historyService;
 
-//
-//    @PostMapping("createOrder")
-//    public String createOrder(@RequestParam Map<String,Object> map){
-//
-//        infService.createOrder(map);
-//
-//        return "redirect:showPersonTask";
-//
-//    }
-//
+    @Autowired
+    private CustomerOrderService1 customerOrderService1;
+
+
+    @PostMapping("createOrder")
+    public String createOrder(CustomerOrder customerOrder){
+
+        customerOrderService1.add(customerOrder);
+
+        return "redirect:showPersonTask";
+
+    }
+
 //    @GetMapping("showPersonTask")
 //    public String showPersonTask(Model model){
 //

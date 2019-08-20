@@ -2,9 +2,10 @@ package org.java.entity;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class PurchaseAppllyOrder {
+public class PurchaseAppllyOrder implements Serializable {
     private String purchaseAppllyOrderId;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -18,6 +19,10 @@ public class PurchaseAppllyOrder {
     private String purchaseAppllyRemark;
 
     private String processinstanceId;
+
+    private String purchaseAppllyPrice;
+
+    private String purchaseAppllyTaskid;
 
     public String getPurchaseAppllyOrderId() {
         return purchaseAppllyOrderId;
@@ -67,5 +72,19 @@ public class PurchaseAppllyOrder {
         this.processinstanceId = processinstanceId == null ? null : processinstanceId.trim();
     }
 
+    public String getPurchaseAppllyPrice() {
+        return purchaseAppllyPrice;
+    }
 
+    public void setPurchaseAppllyPrice(String purchaseAppllyPrice) {
+        this.purchaseAppllyPrice = purchaseAppllyPrice == null ? null : purchaseAppllyPrice.trim();
+    }
+
+    public String getPurchaseAppllyTaskid() {
+        return purchaseAppllyTaskid;
+    }
+
+    public void setPurchaseAppllyTaskid(String purchaseAppllyTaskid) {
+        this.purchaseAppllyTaskid = purchaseAppllyTaskid == null ? null : purchaseAppllyTaskid.trim();
+    }
 }

@@ -8,10 +8,11 @@
     <result column="arrive_notice_order_deliver_goods_man" jdbcType="VARCHAR" property="arriveNoticeOrderDeliverGoodsMan" />
     <result column="arrive_notice_order_status" jdbcType="VARCHAR" property="arriveNoticeOrderStatus" />
     <result column="processinstance_id" jdbcType="VARCHAR" property="processinstanceId" />
+    <result column="arrive_notice_order_taskid" jdbcType="VARCHAR" property="arriveNoticeOrderTaskid" />
   </resultMap>
   <sql id="Base_Column_List">
     arrive_notice_order_id, in_goods_id, in_goods_arrived_date, arrive_notice_order_deliver_goods_man, 
-    arrive_notice_order_status, processinstance_id
+    arrive_notice_order_status, processinstance_id, arrive_notice_order_taskid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -19,24 +20,6 @@
     from arrive_notice_order
     where arrive_notice_order_id = #{arriveNoticeOrderId,jdbcType=VARCHAR}
   </select>
-    <select id="findArriveNoticeOrder" resultMap="BaseResultMap">
-        select * from arrive_notice_order
-        <where>
-            <if test="arriveNoticeOrderId!=null and arriveNoticeOrderId !=''">
-                and arrive_notice_order_id like '%${arriveNoticeOrderId}%'
-            </if>
-        </where>
-        limit #{start},#{rows}
-    </select>
-    <select id="getArriveNoticeOrderCount" resultType="int">
-        select count(*) from arrive_notice_order
-        <where>
-            <if test="arriveNoticeOrderId!=null and arriveNoticeOrderId !=''">
-                and arrive_notice_order_id like '%${arriveNoticeOrderId}%'
-            </if>
-        </where>
-
-    </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from arrive_notice_order
     where arrive_notice_order_id = #{arriveNoticeOrderId,jdbcType=VARCHAR}
@@ -44,10 +27,12 @@
   <insert id="insert" parameterType="org.java.entity.ArriveNoticeOrder">
     insert into arrive_notice_order (arrive_notice_order_id, in_goods_id, in_goods_arrived_date, 
       arrive_notice_order_deliver_goods_man, arrive_notice_order_status, 
-      processinstance_id)
+      processinstance_id, arrive_notice_order_taskid
+      )
     values (#{arriveNoticeOrderId,jdbcType=VARCHAR}, #{inGoodsId,jdbcType=VARCHAR}, #{inGoodsArrivedDate,jdbcType=DATE}, 
       #{arriveNoticeOrderDeliverGoodsMan,jdbcType=VARCHAR}, #{arriveNoticeOrderStatus,jdbcType=VARCHAR}, 
-      #{processinstanceId,jdbcType=VARCHAR})
+      #{processinstanceId,jdbcType=VARCHAR}, #{arriveNoticeOrderTaskid,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="org.java.entity.ArriveNoticeOrder">
     insert into arrive_notice_order
@@ -70,6 +55,9 @@
       <if test="processinstanceId != null">
         processinstance_id,
       </if>
+      <if test="arriveNoticeOrderTaskid != null">
+        arrive_notice_order_taskid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="arriveNoticeOrderId != null">
@@ -89,6 +77,9 @@
       </if>
       <if test="processinstanceId != null">
         #{processinstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveNoticeOrderTaskid != null">
+        #{arriveNoticeOrderTaskid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -110,6 +101,9 @@
       <if test="processinstanceId != null">
         processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
       </if>
+      <if test="arriveNoticeOrderTaskid != null">
+        arrive_notice_order_taskid = #{arriveNoticeOrderTaskid,jdbcType=VARCHAR},
+      </if>
     </set>
     where arrive_notice_order_id = #{arriveNoticeOrderId,jdbcType=VARCHAR}
   </update>
@@ -119,14 +113,27 @@
       in_goods_arrived_date = #{inGoodsArrivedDate,jdbcType=DATE},
       arrive_notice_order_deliver_goods_man = #{arriveNoticeOrderDeliverGoodsMan,jdbcType=VARCHAR},
       arrive_notice_order_status = #{arriveNoticeOrderStatus,jdbcType=VARCHAR},
-      processinstance_id = #{processinstanceId,jdbcType=VARCHAR}
+      processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
+      arrive_notice_order_taskid = #{arriveNoticeOrderTaskid,jdbcType=VARCHAR}
     where arrive_notice_order_id = #{arriveNoticeOrderId,jdbcType=VARCHAR}
   </update>
-  <select id="getList" resultMap="BaseResultMap">
-      select * from arrive_notice_order limit #{start},#{rows}
+
+  <select id="findArriveNoticeOrder" resultMap="BaseResultMap">
+    select * from arrive_notice_order
+    <where>
+      <if test="arriveNoticeOrderId!=null and arriveNoticeOrderId !=''">
+        and arrive_notice_order_id like '%${arriveNoticeOrderId}%'
+      </if>
+    </where>
+    limit #{start},#{rows}
   </select>
-  <!--查询总数-->
-  <select id="getCount" resultType="int">
+  <select id="getArriveNoticeOrderCount" resultType="int">
     select count(*) from arrive_notice_order
+    <where>
+      <if test="arriveNoticeOrderId!=null and arriveNoticeOrderId !=''">
+        and arrive_notice_order_id like '%${arriveNoticeOrderId}%'
+      </if>
+    </where>
+
   </select>
 </mapper>

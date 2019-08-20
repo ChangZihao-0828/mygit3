@@ -23,5 +23,4 @@ public interface PurchaseAppllyOrderMapper {
     public List<PurchaseAppllyOrder> findPurchaseAppllyOrder(@Param("start") int start, @Param("rows") int rows, @Param("purchaseAppllyUserName") Integer purchaseAppllyUserName);
 
     public int getCount(@Param("purchaseAppllyUserName") Integer purchaseAppllyUserName);
-
 }

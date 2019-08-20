@@ -7,9 +7,12 @@
     <result column="warehouse_id" jdbcType="VARCHAR" property="warehouseId" />
     <result column="prepare_goods_id" jdbcType="VARCHAR" property="prepareGoodsId" />
     <result column="processinstance_id" jdbcType="VARCHAR" property="processinstanceId" />
+    <result column="in_goods_status" jdbcType="VARCHAR" property="inGoodsStatus" />
+    <result column="in_goods_taskid" jdbcType="VARCHAR" property="inGoodsTaskid" />
   </resultMap>
   <sql id="Base_Column_List">
-    in_goods_id, in_goods_inTime, warehouse_id, prepare_goods_id, processinstance_id
+    in_goods_id, in_goods_inTime, warehouse_id, prepare_goods_id, processinstance_id, 
+    in_goods_status, in_goods_taskid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -17,34 +20,17 @@
     from in_goods
     where in_goods_id = #{inGoodsId,jdbcType=VARCHAR}
   </select>
-<select id="findInGoods" resultMap="BaseResultMap">
-select * from  in_goods
-<where>
-    <if test="inGoodsId!=null and inGoodsId !=''">
-        and in_goods_id like '%${inGoodsId}%'
-    </if>
-</where>
-limit #{start},#{rows}
-</select>
-<select id="getInGoodsCount" resultType="int">
-select count(*) from  in_goods
-<where>
-    <if test="inGoodsId!=null and inGoodsId !=''">
-        and in_goods_id like '%${inGoodsId}%'
-    </if>
-</where>
-
-</select>
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from in_goods
     where in_goods_id = #{inGoodsId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="org.java.entity.InGoods">
     insert into in_goods (in_goods_id, in_goods_inTime, warehouse_id, 
-      prepare_goods_id, processinstance_id)
+      prepare_goods_id, processinstance_id, in_goods_status, 
+      in_goods_taskid)
     values (#{inGoodsId,jdbcType=VARCHAR}, #{inGoodsIntime,jdbcType=DATE}, #{warehouseId,jdbcType=VARCHAR}, 
-      #{prepareGoodsId,jdbcType=VARCHAR}, #{processinstanceId,jdbcType=VARCHAR})
+      #{prepareGoodsId,jdbcType=VARCHAR}, #{processinstanceId,jdbcType=VARCHAR}, #{inGoodsStatus,jdbcType=VARCHAR}, 
+      #{inGoodsTaskid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.java.entity.InGoods">
     insert into in_goods
@@ -64,6 +50,12 @@ select count(*) from  in_goods
       <if test="processinstanceId != null">
         processinstance_id,
       </if>
+      <if test="inGoodsStatus != null">
+        in_goods_status,
+      </if>
+      <if test="inGoodsTaskid != null">
+        in_goods_taskid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="inGoodsId != null">
@@ -80,6 +72,12 @@ select count(*) from  in_goods
       </if>
       <if test="processinstanceId != null">
         #{processinstanceId,jdbcType=VARCHAR},
+      </if>
+      <if test="inGoodsStatus != null">
+        #{inGoodsStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="inGoodsTaskid != null">
+        #{inGoodsTaskid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -98,6 +96,12 @@ select count(*) from  in_goods
       <if test="processinstanceId != null">
         processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
       </if>
+      <if test="inGoodsStatus != null">
+        in_goods_status = #{inGoodsStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="inGoodsTaskid != null">
+        in_goods_taskid = #{inGoodsTaskid,jdbcType=VARCHAR},
+      </if>
     </set>
     where in_goods_id = #{inGoodsId,jdbcType=VARCHAR}
   </update>
@@ -106,7 +110,28 @@ select count(*) from  in_goods
     set in_goods_inTime = #{inGoodsIntime,jdbcType=DATE},
       warehouse_id = #{warehouseId,jdbcType=VARCHAR},
       prepare_goods_id = #{prepareGoodsId,jdbcType=VARCHAR},
-      processinstance_id = #{processinstanceId,jdbcType=VARCHAR}
+      processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
+      in_goods_status = #{inGoodsStatus,jdbcType=VARCHAR},
+      in_goods_taskid = #{inGoodsTaskid,jdbcType=VARCHAR}
     where in_goods_id = #{inGoodsId,jdbcType=VARCHAR}
   </update>
+
+  <select id="findInGoods" resultMap="BaseResultMap">
+    select * from  in_goods
+    <where>
+      <if test="inGoodsId!=null and inGoodsId !=''">
+        and in_goods_id like '%${inGoodsId}%'
+      </if>
+    </where>
+    limit #{start},#{rows}
+  </select>
+  <select id="getInGoodsCount" resultType="int">
+    select count(*) from  in_goods
+    <where>
+      <if test="inGoodsId!=null and inGoodsId !=''">
+        and in_goods_id like '%${inGoodsId}%'
+      </if>
+    </where>
+
+  </select>
 </mapper>

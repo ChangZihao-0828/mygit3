@@ -23,6 +23,7 @@ public class CustomerOrderController1 {
         Map map = new HashMap();
         List<CustomerOrder> list =customerOrderService1.getList(page,limit);//集合
         int count =customerOrderService1.getCount();//总数
+        System.out.println(list+"+"+count);
         map.put("code", 0);//状态正常
         map.put("msg","" );
         map.put("count",count );//总数

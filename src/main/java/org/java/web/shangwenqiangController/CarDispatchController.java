@@ -1,6 +1,5 @@
 package org.java.web.shangwenqiangController;
 
-import org.java.dao.CarDispatchMapper;
 import org.java.entity.CarDispatch;
 import org.java.service.CarDispatchService;
 import org.springframework.beans.factory.annotation.Autowired;
