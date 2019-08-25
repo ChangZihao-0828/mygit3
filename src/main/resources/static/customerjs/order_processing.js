@@ -15,7 +15,7 @@ layui.use(['table','layer','jquery'], function(){
 
             {field: 'no',type:'checkbox', width:"5%",fixed: 'left',align:"center"}
             ,{field: 'customerOrderId', title: '订单编号', width:"20%", sort: true, fixed: 'left',align:"center"}
-            ,{field: 'customerNameId', title: '客户名称', width:"20%",align:"center"}
+            ,{field: 'customerOrderNameId', title: '客户名称', width:"20%",align:"center"}
             ,{field: 'customerOrderType', title: '订单类型', width:"10%", align:"center"}
             ,{field: 'customerOrderTime', title: '订单日期', width:"20%",align:"center",sort: true,templet:'<div>{{ layui.util.toDateString(d.purchaseOrderBegintime, "yyyy-MM-dd") }}</div>'}
             ,{field: 'customerOrderState', title: '状态', width: "10%",align:"center"}

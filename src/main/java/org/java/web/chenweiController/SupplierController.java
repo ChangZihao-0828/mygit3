@@ -9,6 +9,8 @@ import org.java.service.PurchaseOrderService;
 import org.java.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -122,8 +124,8 @@ public class SupplierController {
     @RequestMapping("/purchaseappllyorderadd")
     @ResponseBody //一定要添加此注解
     public void purchaseappllyorderadd(PurchaseAppllyOrder p) {
+
         if (p.getPurchaseAppllyOrderId() == "") {
-            p.setPurchaseAppllyOrderId(String.valueOf(UUID.randomUUID()));
 
             purchaseAppllyOrderService.add(p);
         } else {
@@ -146,10 +148,18 @@ public class SupplierController {
         }
 
     }
-    @RequestMapping("delPurchaseOrder1")
+    @RequestMapping("delPurchaseOrder")
     @ResponseBody
     public void delPurchaseOrder(String purchaseOrderId) {
 
         purchaseOrderService.delPurchaseOrder(purchaseOrderId);
+    }
+
+    @PostMapping("agreePurchaseApplyOrder")
+    @ResponseBody
+    public void agreePurchaseApplyOrder(String purchaseAppllyTaskid,String purchaseAppllyPrice){
+
+        purchaseAppllyOrderService.submitPurchaseApplyOrder(purchaseAppllyTaskid,purchaseAppllyPrice);
+
     }
 }

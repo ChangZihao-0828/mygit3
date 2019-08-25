@@ -35,7 +35,7 @@
             <Td th:text="${l.resourceName}"></Td>
             <Td th:text="${l.diagramResourceName}"></Td>
             <Td>
-                <button type="button" class="layui-btn layui-btn-danger" th:href="@{|/del/${l.deploymentId}|}" onclick="return confirm('你确定要删除吗?')">删除</button>
+                <<a type="button" class="layui-btn layui-btn-danger" th:href="@{|/del/${l.deploymentId}|}" onclick="return confirm('你确定要删除吗?')">删除</a>
             </Td>
         </tr>
         </tbody>

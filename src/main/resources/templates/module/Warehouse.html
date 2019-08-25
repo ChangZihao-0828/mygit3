@@ -100,8 +100,8 @@
 
                         body.find("[name='warehouseId']").val(data.warehouseId);
                         body.find("[name='warehouseName']").val(data.warehouseName);
-                        body.find("[name='warehouseArea']").val(data.warehouseArea)
-                        body.find("[value='"+data.warehouseType+"']").attr("checked",true);
+                        body.find("[name='warehouseArea']").val(data.warehouseArea);
+                        body.find("[name='warehouseType']").val(data.warehouseType);
                         body.find("[name='warehouseAddress']").val(data.warehouseAddress);
                         body.find("[value='"+data.warehouseEnable+"']").attr("checked",true);
                         body.find("[name='warehouseBuildDate']").val(format(data.warehouseBuildDate,'yyyy-MM-dd'));
@@ -121,7 +121,7 @@
                     layer.open({
                         type: 2,
                         shade: true,
-                        area: ['500px','400px'],
+                        area: ['1000px','400px'],
                         anim: 1,
                         title:"添加仓库",
                         content: '/forward/Warehouse_add',

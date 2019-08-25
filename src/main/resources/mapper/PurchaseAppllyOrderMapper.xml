@@ -150,4 +150,7 @@
       purchase_applly_taskid = #{purchaseAppllyTaskid,jdbcType=VARCHAR}
     where purchase_applly_order_id = #{purchaseAppllyOrderId,jdbcType=VARCHAR}
   </update>
+  <select id="findByProcessinstanceId" resultMap="BaseResultMap">
+    select * from purchase_applly_order where processinstance_id=#{processinstanceId}
+  </select>
 </mapper>

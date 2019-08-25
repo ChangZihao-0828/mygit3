@@ -77,6 +77,10 @@ public interface BusinessService {
 
     public void updatePrepareGoods(PrepareGoods prepareGoods);
 
+    public List<WarehouserType> findWarehouserType();
 
+    public List<Warehouse> findAll();
+
+    public WarehouserType selectByPrimaryKey(Integer warehouserTypeId);
 
 }

@@ -4,15 +4,9 @@ import org.java.entity.*;
 import org.java.service.BusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @Author：邱泽英
@@ -28,7 +22,6 @@ public class BusinessController {
     @GetMapping("/forward/{page}")
     public String forward(@PathVariable("page") String page) {
 
-        System.out.println(page);
         return "module/" + page;
     }
 
@@ -48,23 +41,24 @@ public class BusinessController {
         map.put("count", count);//总数
         map.put("data", warehouse);
 
-        System.out.println(warehouse);
-        System.out.println(map);
         return map;
     }
 
     @GetMapping("/addWarehouse")
     @ResponseBody
-    public void addWarehouse(Warehouse warehouse) {
-        System.out.println(warehouse.getWarehouseId());
+    public void addWarehouse(Warehouse warehouse,String province,String city,String district) {
 
         if (warehouse.getWarehouseId() == "") {
 
             warehouse.setWarehouseId(String.valueOf(UUID.randomUUID()));
 
+            warehouse.setWarehouseAddress(province+city+district);
+
             businessService.addWarehouse(warehouse);
 
         } else {
+
+            warehouse.setWarehouseAddress(province+city+district);
 
             businessService.updateWarehouse(warehouse);
 
@@ -89,8 +83,6 @@ public class BusinessController {
 
         Integer count = businessService.findWarehouseRegionCount(searchWarehouseRegionId);
 
-        System.out.println(count);
-
         Map map = new HashMap();
 
         map.put("code", 0);//状态正常
@@ -98,15 +90,12 @@ public class BusinessController {
         map.put("count", count);//总数
         map.put("data", warehouseRegion);
 
-        System.out.println(warehouseRegion);
-        System.out.println(map);
         return map;
     }
 
     @GetMapping("/addWarehouseRegion")
     @ResponseBody
     public void addWarehouseRegion(WarehouseRegion warehouseRegion) {
-        System.out.println(warehouseRegion.getWarehouseRegionId());
 
         if (warehouseRegion.getWarehouseRegionId() == "") {
 
@@ -139,8 +128,6 @@ public class BusinessController {
 
         Integer count = businessService.findWarehousePositionCount(searchWarehousePositionId);
 
-        System.out.println(count);
-
         Map map = new HashMap();
 
         map.put("code", 0);//状态正常
@@ -148,15 +135,12 @@ public class BusinessController {
         map.put("count", count);//总数
         map.put("data", warehousePosition);
 
-        System.out.println(warehousePosition);
-        System.out.println(map);
         return map;
     }
 
     @GetMapping("/addWarehousePosition")
     @ResponseBody
     public void addWarehousePosition(WarehousePosition warehousePosition) {
-        System.out.println(warehousePosition.getWarehousePositionId());
 
         if (warehousePosition.getWarehousePositionId() == "") {
 
@@ -189,8 +173,6 @@ public class BusinessController {
 
         Integer count = businessService.findCarCount(searchCarId);
 
-        System.out.println(count);
-
         Map map = new HashMap();
 
         map.put("code", 0);//状态正常
@@ -198,15 +180,12 @@ public class BusinessController {
         map.put("count", count);//总数
         map.put("data", car);
 
-        System.out.println(car);
-        System.out.println(map);
         return map;
     }
 
     @GetMapping("/addCar")
     @ResponseBody
     public void addCar(Car car) {
-        System.out.println(car.getCarId());
 
         if (car.getCarId()==null) {
 
@@ -239,8 +218,6 @@ public class BusinessController {
 
         Integer count = businessService.findPurchaseOrderCount2(searchPurchaseOrderId);
 
-        System.out.println(count);
-
         Map map = new HashMap();
 
         map.put("code", 0);//状态正常
@@ -248,15 +225,12 @@ public class BusinessController {
         map.put("count", count);//总数
         map.put("data", purchaseOrder);
 
-        System.out.println(purchaseOrder);
-        System.out.println(map);
         return map;
     }
 
     @GetMapping("/addPurchaseOrder")
     @ResponseBody
     public void addPurchaseOrder(PurchaseOrder purchaseOrder) {
-        System.out.println(purchaseOrder.getPurchaseOrderId());
 
         if (purchaseOrder.getPurchaseOrderId() == "") {
 
@@ -296,15 +270,12 @@ public class BusinessController {
         map.put("count", count);//总数
         map.put("data", prepareGood);
 
-        System.out.println(prepareGood);
-        System.out.println(map);
         return map;
     }
 
     @GetMapping("/addPrepareGoods")
     @ResponseBody
     public void addPrepareGoods(PrepareGoods prepareGoods) {
-        System.out.println(prepareGoods.getPrepareGoodsId());
 
         if (prepareGoods.getPrepareGoodsId() == "") {
 
@@ -326,5 +297,48 @@ public class BusinessController {
 
         businessService.delPrepareGoods(prepareGoodsId);
 
+    }
+
+    @GetMapping("/findWarehouseType")
+    @ResponseBody
+    public List<Map<String,Object>> findWarehouseType(){
+
+        List<WarehouserType> list =  businessService.findWarehouserType();
+
+        List<Map<String,Object>> l = new ArrayList<Map<String, Object>>();
+
+        for (WarehouserType t:list){
+
+            Map<String,Object> map = new HashMap<String, Object>();
+
+            map.put("state",t.getWarehousertypeState());
+
+            l.add(map);
+
+        }
+        System.out.println(l);
+        return l;
+    }
+
+    @GetMapping("/findWarehouse")
+    @ResponseBody
+    public List<Map> findWarehouse(){
+
+        List<Warehouse> list =  businessService.findAll();
+
+        List<Map> l = new ArrayList<Map>();
+
+        for (Warehouse t:list){
+
+            Map m = new HashMap();
+
+            m.put("name",t.getWarehouseName());
+            m.put("id",t.getWarehouseId());
+
+            l.add(m);
+
+        }
+
+        return l;
     }
 }

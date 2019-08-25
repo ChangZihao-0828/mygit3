@@ -2,6 +2,9 @@ package org.java.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.java.entity.WarehouserType;
+
+import java.util.List;
+
 @Mapper
 public interface WarehouserTypeMapper {
     int deleteByPrimaryKey(Integer warehouserTypeId);
@@ -15,4 +18,6 @@ public interface WarehouserTypeMapper {
     int updateByPrimaryKeySelective(WarehouserType record);
 
     int updateByPrimaryKey(WarehouserType record);
+
+    List<WarehouserType> findWarehouserType();
 }

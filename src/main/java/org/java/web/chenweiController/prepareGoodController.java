@@ -5,6 +5,7 @@ import org.java.entity.Supplier;
 import org.java.service.PrepareGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -45,7 +46,7 @@ public class prepareGoodController {
         return map;
     }
 
-    @RequestMapping("delPrepareGoods1")
+    @RequestMapping("delPrepareGoods")
     @ResponseBody
     public void delPrepareGoods1(String prepareGoodsId) {
 
@@ -66,4 +67,6 @@ public class prepareGoodController {
 
         return "customer/arrival_advice";
     }
+
+
 }

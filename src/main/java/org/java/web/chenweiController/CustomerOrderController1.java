@@ -5,6 +5,7 @@ import org.java.entity.CustomerOrder;
 import org.java.service.CustomerOrderService1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,12 +24,19 @@ public class CustomerOrderController1 {
         Map map = new HashMap();
         List<CustomerOrder> list =customerOrderService1.getList(page,limit);//集合
         int count =customerOrderService1.getCount();//总数
-        System.out.println(list+"+"+count);
         map.put("code", 0);//状态正常
         map.put("msg","" );
         map.put("count",count );//总数
         map.put("data",list );
 
         return map;
+    }
+
+    @PostMapping("acceptCustomerOrder")
+    @ResponseBody
+    private void acceptCustomerOrder(CustomerOrder customerOrder){
+
+        customerOrderService1.acceptCustomerOrder(customerOrder);
+
     }
 }

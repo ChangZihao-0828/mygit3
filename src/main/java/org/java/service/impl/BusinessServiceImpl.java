@@ -34,6 +34,9 @@ public class BusinessServiceImpl implements BusinessService {
     @Autowired
     private PrepareGoodsMapper prepareGoodsMapper;
 
+    @Autowired
+    private WarehouserTypeMapper warehouserTypeMapper;
+
     //仓库管理-------------------------------------------------------------------------
     @Override
     public List<Warehouse> findWarehouse(Integer page, Integer rows, String searchWarehouseId) {
@@ -211,5 +214,22 @@ public class BusinessServiceImpl implements BusinessService {
     @Override
     public void updatePrepareGoods(PrepareGoods prepareGoods) {
         prepareGoodsMapper.updateByPrimaryKey(prepareGoods);
+    }
+
+    @Override
+    public List<WarehouserType> findWarehouserType() {
+
+        return warehouserTypeMapper.findWarehouserType();
+    }
+
+    @Override
+    public List<Warehouse> findAll() {
+        return warehouseMapper.findAll();
+    }
+
+    @Override
+    public WarehouserType selectByPrimaryKey(Integer warehouserTypeId) {
+
+        return warehouserTypeMapper.selectByPrimaryKey(warehouserTypeId);
     }
 }

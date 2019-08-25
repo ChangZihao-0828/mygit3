@@ -1,5 +1,8 @@
 package org.java.service;
 
+import org.java.entity.CustomerOrder;
+import org.java.entity.PurchaseAppllyOrder;
+
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +15,18 @@ import java.util.Map;
 
 public interface ActivityService {
 
-    public List<Map<String,Object>> showPersonTask();
+    public List<CustomerOrder> showPersonTask();
+
+    public List<CustomerOrder> showProcessInstance();
+
+    public List<PurchaseAppllyOrder> showProcessInstance2();
+
+    public Map<String,Object> showActiveMap(String processinstanceId);
+
+    public void submitOrder(String taskid,String price);
+
+    public List<CustomerOrder> showCliamTask();
+
+    public void claimTask(String taskId);
 
 }

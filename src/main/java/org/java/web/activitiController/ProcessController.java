@@ -96,8 +96,6 @@ public class ProcessController {
 
         repositoryService.deleteDeployment(deploymentId,true);
 
-        System.out.println("删除成功");
-
         return "redirect:/processDefinition";
 
     }

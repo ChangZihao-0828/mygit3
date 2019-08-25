@@ -18,6 +18,7 @@ import java.util.List;
 public class InGoodsServiceImpl implements InGoodsService {
     @Autowired
     private InGoodsMapper mapper;
+
     @Override
     public List<InGoods> findInGoods(int page, int rows, String inGoodsId) {
         //        计算开始下标

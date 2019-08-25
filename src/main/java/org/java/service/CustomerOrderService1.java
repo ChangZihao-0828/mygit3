@@ -18,4 +18,6 @@ public interface CustomerOrderService1 {
     public int getCount();
 
     public void add(CustomerOrder f);
+
+    public void acceptCustomerOrder(CustomerOrder customerOrder);
 }

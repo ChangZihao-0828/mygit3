@@ -19,11 +19,11 @@
     <tr>
         <th>序号</th>
         <th>流程实例编号</th>
-        <th>客户订单编号</th>
+        <th>采购订单编号</th>
         <th>订单金额</th>
-        <th>提货日期</th>
-        <th>客户编号</th>
-        <th>订单日期</th>
+        <th>开始日期</th>
+        <th>申请人</th>
+        <th>结束日期</th>
         <th>当前任务阶段</th>
         <th>查看流程图</th>
         <th>查看历史任务</th>
@@ -39,7 +39,7 @@
         <td th:text="${#dates.format(l.createtime,'yyyy-MM-dd')}"></td>
         <td th:text="${l.username}"></td>
         <td th:text="${#dates.format(l.endtime,'yyyy-MM-dd')}"></td>
-        <td th:text="${l.defkey}"></td>
+        <td>1234</td>
         <td><a th:href="@{|/showActiveMap/${l.processinstanceid}|}" class="layui-btn">查看流程图</a></td>
         <td><a th:href="@{|/showHistoryTask/${l.processinstanceid}|}" class="layui-btn layui-btn-normal">查看历史任务</a></td>
         <td><a class="layui-btn layui-btn-danger" th:href="@{|/delProcessInstance/${l.processinstanceid}|}">删除</a></td>

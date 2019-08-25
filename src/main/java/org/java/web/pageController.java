@@ -1,6 +1,7 @@
 package org.java.web;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.java.entity.SysUserinfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * @Auther: 昌子豪
@@ -59,5 +62,25 @@ public class pageController {
     public String activityOrder(@PathVariable String page){
 
         return "/activitiOrder/"+page;
+    }
+
+    @GetMapping("/")
+    public String first(HttpSession session){
+        System.out.println("--------first-------------");
+        //获得认证成功的主体
+//        Subject subject = SecurityUtils.getSubject();
+//
+//        //从主体获得用户的主要凭证（就是认证方法，返回的SimpleAuthencationInfo对象的第一个参数，map）
+//        Map map = (Map) subject.getPrincipal();
+//
+//        //获得用户名与菜单，存放在session中
+//        String username = (String) map.get("username");
+//        //获得菜单
+//        List<Map> menus = (List<Map>) map.get("menus");
+//
+//        session.setAttribute("user", username);
+//        session.setAttribute("menus",menus );
+
+        return "/index";
     }
 }

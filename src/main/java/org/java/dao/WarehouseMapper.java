@@ -24,4 +24,6 @@ public interface WarehouseMapper {
 
     Integer findWarehouseCount(@Param("id") String searchWarehouseId);
 
+    List<Warehouse> findAll();
+
 }

@@ -1,7 +1,6 @@
 package org.java.service.impl;
 
 import org.java.dao.CustomerOrderMapper;
-import org.java.dao.CustomerOrderMapper1;
 import org.java.entity.CustomerOrder;
 import org.java.service.CustomerOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ import java.util.List;
 @Service
 public class CustomerOrderServiceImpl implements CustomerOrderService {
     @Autowired
-    private CustomerOrderMapper1 mapper;
+    private CustomerOrderMapper mapper;
     @Override
     public List<CustomerOrder> findCustomerOrder(int page, int rows, String customerOrderId) {
         int start = (page - 1) * rows;

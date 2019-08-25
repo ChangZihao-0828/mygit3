@@ -24,14 +24,33 @@ public class PurchaseAppllyOrderController {
     @GetMapping("/initPurchaseAppllyOrder")
     public Map findPurchaseAppllyOrder(Integer page ,Integer limit ,Integer purchaseAppllyUserName){
          Map map = new HashMap();
+
         List<PurchaseAppllyOrder> list = purchaseAppllyOrderService.findPurchaseAppllyOrder(page,limit,purchaseAppllyUserName);
+
         int count =purchaseAppllyOrderService.getCount(purchaseAppllyUserName);
 
         map.put("code",0);
         map.put("msg","");
         map.put("count",count);
         map.put("data",list);
-        System.out.println(purchaseAppllyUserName);
+
+        return map;
+
+    }
+
+    @GetMapping("/initPurchaseAppllyOrderAll")
+    public Map findPurchaseAppllyOrderAll(Integer page ,Integer limit ,Integer purchaseAppllyUserName){
+        Map map = new HashMap();
+
+        List<PurchaseAppllyOrder> list = purchaseAppllyOrderService.findPurchaseAppllyOrderAll(page,limit,purchaseAppllyUserName);
+
+        int count =purchaseAppllyOrderService.findCount(purchaseAppllyUserName);
+
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data",list);
+
         return map;
 
     }

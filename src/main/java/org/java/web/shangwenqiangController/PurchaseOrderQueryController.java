@@ -1,6 +1,8 @@
 package org.java.web.shangwenqiangController;
 
+import org.java.entity.PurchaseAppllyOrder;
 import org.java.entity.PurchaseOrder;
+import org.java.service.PurchaseAppllyOrderService;
 import org.java.service.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,9 @@ public class PurchaseOrderQueryController {
     @Autowired
     private PurchaseOrderService purchaseOrderService;
 
+    @Autowired
+    private PurchaseAppllyOrderService purchaseAppllyOrderService;
+
     @GetMapping("/initPurchaseOrder")
     public Map findPurchaseOrder(Integer page , Integer limit , String purchaseOrderId){
         Map map = new HashMap();
@@ -32,6 +37,23 @@ public class PurchaseOrderQueryController {
         map.put("count",count);
         map.put("data",list);
         System.out.println(purchaseOrderId);
+        return map;
+
+    }
+
+    @GetMapping("/findGroupPurchaseApplyOrder")
+    public Map findGroupPurchaseApplyOrder(Integer page , Integer limit , String purchaseOrderId){
+        Map map = new HashMap();
+
+        List<PurchaseAppllyOrder> list = purchaseAppllyOrderService.findGroupPurchaseApplyOrder();
+
+        int count =purchaseAppllyOrderService.findGroupPurchaseApplyOrderCount();
+
+        map.put("code",0);
+        map.put("msg","");
+        map.put("count",count);
+        map.put("data",list);
+
         return map;
 
     }
