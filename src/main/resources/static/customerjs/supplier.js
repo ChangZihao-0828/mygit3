@@ -140,14 +140,5 @@ layui.use(['table','layer','jquery'], function(){
             }
         });
         }
-
-
-
-
-
-
         });
-
-
-
 });//layui.use结束标记

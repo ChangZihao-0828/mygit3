@@ -3,19 +3,19 @@ layui.use(['table','layer','jquery'], function(){
     var layer = layui.layer;
     var $ = layui.$;
     table.render({
-        elem: '#demo'
+        elem: '#demo1'
         ,url: '/initPurchaseAppllyOrder' //数据接口
         ,page: true //开启分页
         ,limit:5 //默认每一页显示的条数
         ,limits:[1,2,3,5,10,20,30,50]//提示的每页条数的列表
-        ,toolbar:"#addDemo" //显示工具栏
+        ,toolbar:"#addDemo1" //显示工具栏
         ,title:"采购申请" //设置导出文件时的标题
         ,loading:true
         ,cols: [[ //表头
 
             {field: 'no',type:'checkbox', width:"10%",fixed: 'left',align:"center"}
-            ,{field: 'purchaseAppllyOrderId', title: '采购申请单编号', width:"20%", sort: true, fixed: 'left',align:"center"}
-            ,{field: 'purchaseAppllyOrderBeginTime', title: '申请日期', width:"20%",align:"center",sort: true,templet:'<div>{{ layui.util.toDateString(d.purchaseAppllyOrderBeginTime, "yyyy-MM-dd") }}</div>'}
+            ,{field: 'purchaseAppllyOrderId', title: '采购申请单编号', width:"30%", sort: true, fixed: 'left',align:"center"}
+            ,{field: 'purchaseAppllyOrderBeginTime', title: '申请日期', width:"30%",align:"center",sort: true,templet:'<div>{{ layui.util.toDateString(d.purchaseAppllyOrderBeginTime, "yyyy-MM-dd") }}</div>'}
             ,{field: 'purchaseAppllyUserName', title: '申请人', width:"20%", align:"center"}
             ,{field: 'cz', title: '操作', width: "20%",align:"center",toolbar:"#barDemo"}
 

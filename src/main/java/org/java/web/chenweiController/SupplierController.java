@@ -146,7 +146,7 @@ public class SupplierController {
         }
 
     }
-    @RequestMapping("delPurchaseOrder1")
+    @RequestMapping("delPurchaseOrder")
     @ResponseBody
     public void delPurchaseOrder(String purchaseOrderId) {
 
