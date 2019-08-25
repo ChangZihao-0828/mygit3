@@ -22,4 +22,15 @@ public interface PurchaseAppllyOrderService {
     public void update(PurchaseAppllyOrder p);
 
     public void del(String purchaseAppllyOrderId);
+
+    public void submitPurchaseApplyOrder(String id,String price);
+
+    public List<PurchaseAppllyOrder> findPurchaseAppllyOrderAll(int page, int rows, Integer purchaseAppllyUserName);
+
+    public int findCount(Integer purchaseAppllyUserName);
+
+    public List<PurchaseAppllyOrder> findGroupPurchaseApplyOrder();
+
+    public int findGroupPurchaseApplyOrderCount();
+
 }

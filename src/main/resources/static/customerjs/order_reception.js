@@ -13,14 +13,14 @@ layui.use(['table','layer','jquery'], function(){
         ,loading:true
         ,cols: [[ //表头
 
-            {field: 'no',type:'checkbox', width:"5%",fixed: 'left',align:"center"}
-            ,{field: 'customerOrderId', title: '订单编号', width:"20%", sort: true, fixed: 'left',align:"center"}
-            ,{field: 'customerNameId', title: '客户名称', width:"10%",align:"center"}
+            {field: 'customerOrderId', title: '订单编号', width:"20%", sort: true, fixed: 'left',align:"center"}
+            ,{field: 'customerOrderNameId', title: '客户名称', width:"10%",align:"center"}
             ,{field: 'customerOrderType', title: '订单类型', width:"10%", align:"center"}
-            ,{field: 'customerOrderTime', title: '订单日期', width:"20%",align:"center" ,sort: true,templet:'<div>{{ layui.util.toDateString(d.customerOrderTime, "yyyy-MM-dd") }}</div>'}
-            ,{field: 'customerOrderDeclaration', title: '报关', width: "10%",align:"center"}
+            ,{field: 'customerOrderTime', title: '订单日期', width:"15%",align:"center" ,sort: true,templet:'<div>{{ layui.util.toDateString(d.customerOrderTime, "yyyy-MM-dd") }}</div>'}
+            ,{field: 'customerOrderPrice', title: '订单价格', width: "10%",align:"center"}
+            ,{field: 'customerOrderTaskid', title: '任务编号', width: "10%",align:"center"}
             ,{field: 'customerOrderState', title: '状态', width: "10%",align:"center"}
-            ,{field: 'cz', title: '操作', width: "10%",align:"center",toolbar:"#barDemo"}
+            ,{field: 'cz', title: '操作', width: "15%",align:"center",toolbar:"#barDemo"}
         ]]
     });
 
@@ -51,7 +51,20 @@ layui.use(['table','layer','jquery'], function(){
             //
             // });
         } else if(layEvent === 'edit'){ //编辑
-            alert("修改");
+
+            layer.confirm('真的接收吗？', function (index) {
+
+                $.post("/acceptCustomerOrder", {"customerOrderTaskid": data.customerOrderTaskid,"customerOrderPrice":data.customerOrderPrice,"customerOrderId":data.customerOrderId}, function () {
+
+                    table.reload('demo', {
+                        page: {
+                            curr: 1 //重新从第 1 页开始
+                        }
+                    }); //只重载数据
+                    layer.close(index);
+                });
+                //
+            });
         }
     });
 

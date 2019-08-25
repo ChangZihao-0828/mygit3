@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class CustomerOrder implements Serializable {
+
     private String customerOrderId;
 
     private String customerOrderType;

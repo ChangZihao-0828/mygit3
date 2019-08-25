@@ -5,7 +5,7 @@ layui.use(['table','layer','jquery'], function(){
     //第一个实例
     table.render({
         elem: '#demo'
-        ,url: '/initPurchaseOrder' //数据接口
+        ,url: '/findGroupPurchaseApplyOrder' //数据接口
         ,page: true //开启分页
         ,limit:5 //默认每一页显示的条数
         ,limits:[1,2,3,5,10,20,30,50]//提示的每页条数的列表
@@ -14,13 +14,12 @@ layui.use(['table','layer','jquery'], function(){
         ,loading:true
         ,cols: [[ //表头
 
-            {field: 'no',type:'checkbox', width:"5%",fixed: 'left',align:"center"}
-            ,{field: 'purchaseOrderId', title: '采购订单编号', width:"10%", sort: true, fixed: 'left',align:"center"}
-            ,{field: 'purchaseSupplierId', title: '供应商名称', width:"20%",align:"center"}
-            ,{field: 'purchaseOrderBegintime', title: '采购日期', width:"10%", align:"center",sort: true,templet:'<div>{{ layui.util.toDateString(d.purchaseOrderBegintime, "yyyy-MM-dd") }}</div>'}
-            ,{field: 'purchaseUserId', title: '采购员', width:"20%",align:"center"}
-            ,{field: 'purchaseType', title: '状态', width:"10%",align:"center"}
-            ,{field: 'cz', title: '操作', width: "20%",align:"center",toolbar:"#barDemo"}
+            {field: 'purchaseAppllyOrderId', title: '采购申请单编号', width:"20%", sort: true,align:"center"}
+            ,{field: 'purchaseAppllyOrderBeginTime', title: '申请日期', width:"10%",align:"center",sort: true,templet:'<div>{{ layui.util.toDateString(d.purchaseAppllyOrderBeginTime, "yyyy-MM-dd") }}</div>'}
+            ,{field: 'purchaseAppllyUserName', title: '申请人', width:"10%", align:"center"}
+            ,{field: 'purchaseAppllyPrice', title: '价格', width:"10%", align:"center"}
+            ,{field: 'purchaseAppllyTaskid', title: '任务编号', width:"20%", align:"center"}
+            ,{field: 'cz', title: '操作', width: "30%",align:"center",toolbar:"#barDemo"}
 
         ]]
     });

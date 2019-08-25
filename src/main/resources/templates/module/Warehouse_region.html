@@ -52,7 +52,7 @@
                 ,{field: 'warehouseRegionId', title: '编号', width:"10%", sort: true, fixed: 'left',align:"center"}
                 ,{field: 'warehouseRegionName', title: '名称', width:"20%", sort: true, align:"center"}
                 ,{field: 'warehouseRegionArea', title: '面积', width:"15%", sort: true, align:"center"}
-                ,{field: 'warehouseId', title: '所属仓库编号', width:"10%",align:"center"}
+                ,{field: 'warehouseId', title: '所属仓库', width:"10%",align:"center"}
                 ,{field: 'warehouseRegionBuildDate', title: '创建时间', width:"20%", sort: true, align:"center",templet:'<div>{{ layui.util.toDateString(d.warehouseRegionBuildDate, "yyyy-MM-dd") }}</div>'}
                 ,{field: 'op', title: '操作', width:"20%",align:"center", toolbar:"#barDemo"}
             ]]
@@ -94,11 +94,11 @@
                         layer.setTop(layero); //重点2
 
                         var body = layui.layer.getChildFrame("body");
-
                         body.find("[name='warehouseRegionId']").val(data.warehouseRegionId);
                         body.find("[name='warehouseRegionName']").val(data.warehouseRegionName);
                         body.find("[name='warehouseRegionArea']").val(data.warehouseRegionArea);
                         body.find("[name='warehouseId']").val(data.warehouseId);
+                        form.render("select");
                         body.find("[name='warehouseRegionBuildDate']").val(format(data.warehouseRegionBuildDate,'yyyy-MM-dd'));
                     }
                 });

@@ -1,13 +1,21 @@
 package org.java.service.impl;
 
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
+import org.activiti.engine.task.TaskQuery;
+import org.apache.shiro.SecurityUtils;
 import org.java.dao.PurchaseAppllyOrderMapper;
 import org.java.entity.PurchaseAppllyOrder;
+import org.java.entity.SysUserinfo;
 import org.java.service.PurchaseAppllyOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * @Title:
@@ -18,7 +26,87 @@ import java.util.List;
 @Service
 public class PurchaseAppllyOrderServiceImpl implements PurchaseAppllyOrderService {
     @Autowired
-    private PurchaseAppllyOrderMapper Mapper;
+    private PurchaseAppllyOrderMapper mapper;
+
+    @Autowired
+    private IdentityService identityService;
+
+    @Autowired
+    private RuntimeService runtimeService;
+
+    @Autowired
+    private TaskService taskService;
+
+
+    @Override
+    public List<PurchaseAppllyOrder> findGroupPurchaseApplyOrder() {
+
+        SysUserinfo user = (SysUserinfo) SecurityUtils.getSubject().getPrincipal();
+
+        TaskQuery query = taskService.createTaskQuery();
+
+        query.taskCandidateUser(user.getUserName());
+
+        List<Task> taskList = query.list();
+
+        List<PurchaseAppllyOrder> list = new ArrayList<PurchaseAppllyOrder>();
+
+        for (Task t:taskList){
+
+            String processInstanceId = t.getProcessInstanceId();
+
+            PurchaseAppllyOrder purchaseAppllyOrder = mapper.findByProcessinstanceId(processInstanceId);
+
+            if (purchaseAppllyOrder!=null){
+
+                purchaseAppllyOrder.setPurchaseAppllyTaskid(t.getId());
+
+                list.add(purchaseAppllyOrder);
+            }
+
+        }
+
+        return list;
+    }
+
+    @Override
+    public int findGroupPurchaseApplyOrderCount() {
+
+        SysUserinfo user = (SysUserinfo) SecurityUtils.getSubject().getPrincipal();
+
+        TaskQuery query = taskService.createTaskQuery();
+
+        query.taskCandidateUser(user.getUserName());
+
+        List<Task> taskList = query.list();
+
+        return taskList.size();
+    }
+
+    @Override
+    public void submitPurchaseApplyOrder(String id, String price) {
+
+        float pri = Float.parseFloat(price);
+
+        Map<String,Object> variable = new HashMap<String, Object>();
+
+        variable.put("price",pri);
+
+        taskService.complete(id,variable);
+
+    }
+
+    public List<PurchaseAppllyOrder> findPurchaseAppllyOrderAll(int page, int rows, Integer purchaseAppllyUserName){
+
+        return mapper.findPurchaseAppllyOrder(page,rows,purchaseAppllyUserName);
+
+    }
+
+    @Override
+    public int findCount(Integer purchaseAppllyUserName) {
+
+        return mapper.getCount(purchaseAppllyUserName);
+    }
 
     @Override
     public List<PurchaseAppllyOrder> findPurchaseAppllyOrder(int page, int rows, Integer purchaseAppllyUserName) {
@@ -26,29 +114,83 @@ public class PurchaseAppllyOrderServiceImpl implements PurchaseAppllyOrderServic
 //        计算开始下标
         int start = (page - 1) * rows;
 
-        return Mapper.findPurchaseAppllyOrder(start, rows, purchaseAppllyUserName);
+        SysUserinfo user = (SysUserinfo) SecurityUtils.getSubject().getPrincipal();
+
+        TaskQuery query = taskService.createTaskQuery();
+
+        query.taskAssignee(user.getUserName());
+
+        List<Task> taskList = query.list();
+
+        List<PurchaseAppllyOrder> list = new ArrayList<PurchaseAppllyOrder>();
+
+        for (Task t:taskList){
+
+            String processInstanceId = t.getProcessInstanceId();
+
+            PurchaseAppllyOrder purchaseAppllyOrder = mapper.findByProcessinstanceId(processInstanceId);
+
+            if (purchaseAppllyOrder!=null){
+
+                purchaseAppllyOrder.setPurchaseAppllyTaskid(t.getId());
+
+                list.add(purchaseAppllyOrder);
+            }
+
+        }
+
+        return list;
     }
     @Override
     public int getCount(Integer purchaseAppllyUserName) {
-        return Mapper.getCount(purchaseAppllyUserName);
+
+        SysUserinfo user = (SysUserinfo) SecurityUtils.getSubject().getPrincipal();
+
+        TaskQuery query = taskService.createTaskQuery();
+
+        query.taskAssignee(user.getUserName());
+
+        List<Task> taskList = query.list();
+
+        taskList.size();
+
+        return  taskList.size();
+
     }
 
     @Transactional
     @Override
     public void add(PurchaseAppllyOrder p) {
-        Mapper.insert(p);
+
+        SysUserinfo user = (SysUserinfo) SecurityUtils.getSubject().getPrincipal();
+
+        String id = UUID.randomUUID().toString();
+
+        String processDefinitionKey = "myProcess";
+
+        identityService.setAuthenticatedUserId(user.getUserName());
+
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processDefinitionKey, id);
+
+        p.setPurchaseAppllyUserName(user.getUserName());
+
+        p.setPurchaseAppllyOrderId(id);
+
+        p.setProcessinstanceId(processInstance.getProcessInstanceId());
+
+        mapper.insert(p);
     }
 
     @Transactional
     @Override
     public void update(PurchaseAppllyOrder p) {
-        Mapper.updateByPrimaryKey(p);
+        mapper.updateByPrimaryKey(p);
     }
 
     @Transactional
     @Override
     public void del(String purchaseAppllyOrderId) {
-        Mapper.deleteByPrimaryKey(purchaseAppllyOrderId);
+        mapper.deleteByPrimaryKey(purchaseAppllyOrderId);
     }
 
 }

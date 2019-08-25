@@ -1,8 +1,11 @@
 package org.java.web.genlinfeiController;
 
+import org.java.dao.InGoodsMapper;
+import org.java.entity.InGoods;
 import org.java.entity.OutEquipGoods;
 import org.java.entity.OutGoods;
 import org.java.entity.TakeGoods;
+import org.java.service.InGoodsService;
 import org.java.service.OutEquipGoodsService;
 import org.java.service.OutGoodsService;
 import org.java.service.TakeGoodsService;
@@ -26,6 +29,9 @@ public class stockController {
 
     @Autowired
     private OutEquipGoodsService outEquipGoodsService;
+
+    @Autowired
+    private InGoodsService inGoodsService;
 
     @GetMapping("/stock/{page}")
     public String stock(@PathVariable("page") String page){
@@ -165,5 +171,23 @@ public class stockController {
 
         outGoodsService.updateOutGoodsStatus(outGoods);
 
+    }
+
+
+    @GetMapping("incomingOrders")
+    @ResponseBody
+    public Map<String,Object> incomingOrders(Integer page,Integer limit, String searchIncomingOrdersId){
+        System.out.println("------------"+searchIncomingOrdersId);
+        List<InGoods> inGoods = inGoodsService.findInGoods(page,limit,searchIncomingOrdersId);
+
+        Integer count = inGoodsService.getInGoodsCount(searchIncomingOrdersId);
+
+        Map map = new HashMap();
+        map.put("code",0);//状态正常
+        map.put("msg","");
+        map.put("count",count);//总数
+        map.put("data",inGoods);
+
+        return map;
     }
 }

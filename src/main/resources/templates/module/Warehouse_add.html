@@ -5,17 +5,15 @@
     <title>table模块快速使用</title>
     <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}" media="all">
     <script th:src="@{'/layui/layui.js'}"></script>
-    <script th:src="@{'/my.js'}"></script>
+    <script th:src="@{'/js/jquery-1.12.4.js'}" type="text/javascript"></script>
 </head>
 <body style="margin-left: 70px;margin-top: 10px">
 <Br>
 <form class="layui-form" id="addFrm"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
-
-
     <div class="layui-form-item">
         <label class="layui-form-label">编号</label>
         <div class="layui-input-inline">
-            <input type="text" name="warehouseId" placeholder="请输入编号"  readonly  lay-verify="readonly" autocomplete="off" class="layui-input">
+            <input type="text" name="warehouseId" placeholder="自动生成"  readonly  lay-verify="readonly" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -36,18 +34,27 @@
     <div class="layui-form-item">
         <label class="layui-form-label">类型</label>
         <div class="layui-input-inline">
-            <select name="warehouseType" lay-verify="required" lay-search="" required="required">
-                <option value="1" th:required="required">类型1</option>
-                <option value="2">类型2</option>
+            <select name="warehouseType" id="warehouseType" lay-verify="required" lay-search="" required="required">
             </select>
         </div>
     </div>
-
     <div class="layui-form-item">
         <label class="layui-form-label">地址</label>
-        <div class="layui-input-inline">
-            <input type="text" name="warehouseAddress" placeholder="请输入地址" required lay-verify="required" autocomplete="off" class="layui-input">
-        </div>
+            <div class="layui-inline">
+                <select name="province" id="province" lay-verify="required" lay-search lay-filter="province">
+                    <option value="">省份</option>
+                </select>
+            </div>
+            <div class="layui-inline">
+                <select name="city" id="city" lay-verify="required" lay-search lay-filter="city">
+                    <option value="">地级市</option>
+                </select>
+            </div>
+            <div class="layui-inline">
+                <select name="district" id="district" lay-verify="required" lay-search>
+                    <option value="">县/区</option>
+                </select>
+            </div>
     </div>
 
     <div class="layui-form-item">
@@ -82,7 +89,6 @@
     </div>
     <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
 </form>
-<script src="layui.js"></script>
 <script>
     layui.use(['form','jquery','layer'], function(){
         var form = layui.form;
@@ -105,9 +111,25 @@
             });
             return false;
         });
+
+        $.ajax({
+            url:"/findWarehouseType",
+            type:"get",
+            dataType:"json",//返回类型
+            success:function(data){
+                //data，即为返回的json,它本身的类型是map
+                //如果json的类型是map,循环取到的内容分别为：key(对应map中的键),value(对应map中的值)
+
+                $.each(data,function(index,m){
+                    $("#warehouseType").append(new Option(m.state,m.state));
+                });
+                layui.form.render("select");
+            }
+        });
+
     });
 </script>
 </body>
-</html>
-</body>
+<script th:src="@{'/js/area.js'}" type="text/javascript"></script>
+<script th:src="@{'/js/select.js'}" type="text/javascript"></script>
 </html>

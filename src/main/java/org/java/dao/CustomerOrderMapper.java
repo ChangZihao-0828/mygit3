@@ -21,10 +21,14 @@ public interface CustomerOrderMapper {
 
     int updateByPrimaryKey(CustomerOrder record);
 
+    CustomerOrder selectByProcessinstanceId(@Param("processinstanceId") String processinstanceId);
+
     public List<CustomerOrder> findCustomerOrder(@Param("start") int start, @Param("rows") int rows, @Param("customerOrderId") String customerOrderId);
 
     public int getCustomerOrderCount(@Param("customerOrderId") String customerOrderId);
 
-    CustomerOrder selectByProcessinstanceId(@Param("processinstanceId") String processinstanceId);
+    public List<CustomerOrder> getList(int start,int rows);
+
+    public int getCount();
 
 }

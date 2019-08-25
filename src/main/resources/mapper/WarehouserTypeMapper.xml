@@ -57,4 +57,7 @@
     set warehouserType_state = #{warehousertypeState,jdbcType=VARCHAR}
     where warehouser_Type_id = #{warehouserTypeId,jdbcType=INTEGER}
   </update>
+  <select id="findWarehouserType" resultMap="BaseResultMap">
+    select * from warehouser_type
+  </select>
 </mapper>

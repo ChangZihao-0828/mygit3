@@ -289,5 +289,8 @@
       customer_order_taskid = #{customerOrderTaskid,jdbcType=VARCHAR}
     where customer_order_id = #{customerOrderId,jdbcType=VARCHAR}
   </update>
+  <select id="selectByProcessinstanceId" resultMap="BaseResultMap">
+    select * from customer_order where processinstance_id=#{processinstanceId}
+  </select>
 
 </mapper>

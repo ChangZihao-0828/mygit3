@@ -9,11 +9,13 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.java.entity.SysPermission;
 import org.java.entity.SysUserinfo;
 import org.java.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,21 +33,19 @@ public class MyRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 
-//        System.out.println("###########从数据库中加载用户权限#####################");
-//
-//        //获得用户的主要凭证信息
-//        Map principal = (Map) principals.getPrimaryPrincipal();
-//
-//        //获得用户的id
-//        Integer userId = (Integer) principal.get("id");
-//
-//        //根据用户id,查询用户权限
-//        List<String> list = userService.loadPermission(userId);
-//
+        System.out.println("###########从数据库中加载用户权限#####################");
+
+        //获得用户的主要凭证信息
+        SysUserinfo user = (SysUserinfo) principals.getPrimaryPrincipal();
+
+        List<String> list = userService.loadPermission(user.getUserId());
+
+        System.out.println(list);
+
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-//
-//        info.addStringPermissions(list);
-//
+
+        info.addStringPermissions(list);
+
         return info;
 
     }
@@ -73,16 +73,6 @@ public class MyRealm extends AuthorizingRealm {
 
         //设置盐
         String salt = "d102";
-
-//        //获得用户的id
-//        Integer userId = Integer.valueOf(user.getUserId());
-
-        //获得当前用户可以访问的菜单
-//        List<Map> menus = userService.loadMenus(userId);
-//
-//        //把菜单放在user中
-//        user.put("menus",menus );
-
 
         //返回AuthenticationInfo
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user,pwd, ByteSource.Util.bytes(salt), "myrealm" );

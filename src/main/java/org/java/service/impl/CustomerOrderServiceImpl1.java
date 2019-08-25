@@ -2,19 +2,22 @@ package org.java.service.impl;
 
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
+import org.activiti.engine.task.TaskQuery;
 import org.apache.shiro.SecurityUtils;
-import org.java.dao.CustomerOrderMapper1;
+import org.java.dao.CustomerOrderMapper;
 import org.java.entity.CustomerOrder;
 import org.java.entity.SysUserinfo;
-import org.java.service.CustomerOrderService;
+import org.java.service.ActivityService;
 import org.java.service.CustomerOrderService1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.UUID;
+import javax.jws.soap.SOAPBinding;
+import java.util.*;
 
 /**
  * @Auther: 昌子豪
@@ -25,8 +28,6 @@ import java.util.UUID;
 @Service
 public class CustomerOrderServiceImpl1 implements CustomerOrderService1 {
 
-    @Autowired
-    private CustomerOrderMapper1 customerOrderMapper;
 
     @Autowired
     private IdentityService identityService;
@@ -34,16 +35,62 @@ public class CustomerOrderServiceImpl1 implements CustomerOrderService1 {
     @Autowired
     private RuntimeService runtimeService;
 
+    @Autowired
+    private CustomerOrderMapper customerOrderMapper;
+
+    @Autowired
+    private TaskService taskService;
+
+    @Autowired
+    private ActivityService activityService;
+
 
     @Override
     public List<CustomerOrder> getList(int page, int rows) {
         int start = (page-1)*rows;
-        return customerOrderMapper.getList(0,4);
+
+        SysUserinfo user = (SysUserinfo) SecurityUtils.getSubject().getPrincipal();
+
+        TaskQuery query = taskService.createTaskQuery();
+
+        query.taskCandidateUser(user.getUserName());
+
+        List<Task> taskList = query.list();
+
+        List<CustomerOrder> list = new ArrayList<CustomerOrder>();
+
+        for (Task t:taskList){
+
+            String processInstanceId = t.getProcessInstanceId();
+
+            CustomerOrder customerOrder = customerOrderMapper.selectByProcessinstanceId(processInstanceId);
+
+                if (customerOrder!=null){
+
+                    customerOrder.setCustomerOrderTaskid(t.getId());
+
+                    list.add(customerOrder);
+            }
+
+        }
+
+        return list;
     }
 
     @Override
     public int getCount() {
-        return customerOrderMapper.getCount();
+
+        SysUserinfo user = (SysUserinfo) SecurityUtils.getSubject().getPrincipal();
+
+        TaskQuery query = taskService.createTaskQuery();
+
+        query.taskCandidateUser(user.getUserName());
+
+        List<Task> taskList = query.list();
+
+        taskList.size();
+
+        return  taskList.size();
     }
 
 
@@ -55,7 +102,7 @@ public class CustomerOrderServiceImpl1 implements CustomerOrderService1 {
 
         String id = UUID.randomUUID().toString();
 
-        String processDefinitionKey = "myProcess";
+        String processDefinitionKey = "myProcess1";
 
         identityService.setAuthenticatedUserId(user.getUserName());
 
@@ -67,6 +114,36 @@ public class CustomerOrderServiceImpl1 implements CustomerOrderService1 {
 
         f.setProcessinstanceId(processInstance.getProcessInstanceId());
 
-        customerOrderMapper.insert(f);
+        f.setCustomerOrderState("未接收");
+
+            customerOrderMapper.insert(f);
+
+            TaskQuery query = taskService.createTaskQuery();
+
+            query.taskAssignee(user.getUserName());
+
+            List<Task> taskList = query.list();
+
+            for(Task t:taskList){
+
+                activityService.submitOrder(t.getId(),f.getCustomerOrderPrice());
+
+        }
+
+    }
+
+    @Override
+    public void acceptCustomerOrder(CustomerOrder c) {
+
+        Map<String,Object> variable = new HashMap<String, Object>();
+
+        variable.put("price",c.getCustomerOrderPrice());
+
+        taskService.complete(c.getCustomerOrderTaskid(),variable);
+
+        c.setCustomerOrderState("已接收");
+
+        customerOrderMapper.updateByPrimaryKeySelective(c);
+
     }
 }

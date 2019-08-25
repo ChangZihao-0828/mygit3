@@ -18,11 +18,11 @@
     <thead>
     <tr>
         <th>序号</th>
-        <th>任务名称</th>
-        <th>采购单名称</th>
-        <th>采购金额</th>
-        <th>采购详情</th>
-        <th>任务创建人</th>
+        <th>任务编号</th>
+        <th>客户订单编号</th>
+        <th>订单金额</th>
+        <th>客户编号</th>
+        <th>订单状态</th>
         <th>任务开始时间</th>
         <th>处理任务</th>
     </tr>
@@ -30,30 +30,15 @@
     <tbody>
     <tr th:each="l,st:${list}" align="center">
         <td th:text="${st.count}"></td>
-        <td th:text="${l.taskName}"></td>
-        <td th:text="${l.name}"></td>
-        <td th:text="${l.price}"></td>
-        <td th:text="${l.content}"></td>
-        <td th:text="${l.user_id}"></td>
-        <td th:text="${#dates.format(l.createtime,'yyyy-MM-dd')}"></td>
-        <td><b th:if="${l.taskDefinitionKey=='createOrder'}">
-            <a th:href="@{|/submitorder/${l.taskId}/${l.price}|}" class="layui-btn">提交采购单</a>
-            </b>
-            <b th:if="${l.taskDefinitionKey=='firstAudit'}">
-                <a th:href="@{|/audit/${l.taskId}/${l.id}/${l.taskDefinitionKey}|}" class="layui-btn">部门经理审核</a>
-            </b>
-            <b th:if="${l.taskDefinitionKey=='secondAudit'}">
-                <a th:href="@{|/audit/${l.taskId}/${l.id}/${l.taskDefinitionKey}|}" class="layui-btn">校长审核</a>
-            </b>
-            <b th:if="${l.taskDefinitionKey=='thirdAudit'}">
-                <a th:href="@{|/audit/${l.taskId}/${l.id}/${l.taskDefinitionKey}|}" class="layui-btn">财务审核</a>
-            </b>
-            <b th:if="${l.taskDefinitionKey=='storage'}">
-                <a th:href="@{|/storage/${l.taskId}|}" class="layui-btn">采购入库</a>
-            </b>
-            <b th:if="${l.taskDefinitionKey=='settlement'}">
-                <a th:href="@{|/settlement/${l.taskId}|}" class="layui-btn">财务结算</a>
-            </b>
+        <td th:text="${l.customerOrderTaskid}"></td>
+        <td th:text="${l.customerOrderId}"></td>
+        <td th:text="${l.customerOrderPrice}"></td>
+        <td th:text="${l.customerOrderNameId}"></td>
+        <td th:text="${l.customerOrderState}"></td>
+        <td th:text="${#dates.format(l.customerGetgoodstime,'yyyy-MM-dd')}"></td>
+        <td>
+            <b><a th:href="@{|/submitorder/${l.customerOrderTaskid}/${l.customerOrderPrice}|}" class="layui-btn">提交任务</a></b>
+
         </td>
     </tr>
     </tbody>

@@ -5,7 +5,7 @@
     <id column="warehouse_id" jdbcType="VARCHAR" property="warehouseId" />
     <result column="warehouse_name" jdbcType="VARCHAR" property="warehouseName" />
     <result column="Warehouse_area" jdbcType="INTEGER" property="warehouseArea" />
-    <result column="Warehouse_type" jdbcType="INTEGER" property="warehouseType" />
+    <result column="Warehouse_type" jdbcType="VARCHAR" property="warehouseType" />
     <result column="Warehouse_address" jdbcType="VARCHAR" property="warehouseAddress" />
     <result column="Warehouse_enable" jdbcType="VARCHAR" property="warehouseEnable" />
     <result column="Warehouse_build_date" jdbcType="DATE" property="warehouseBuildDate" />
@@ -30,7 +30,7 @@
       Warehouse_type, Warehouse_address, Warehouse_enable, 
       Warehouse_build_date, Warehouse_manager)
     values (#{warehouseId,jdbcType=VARCHAR}, #{warehouseName,jdbcType=VARCHAR}, #{warehouseArea,jdbcType=INTEGER}, 
-      #{warehouseType,jdbcType=INTEGER}, #{warehouseAddress,jdbcType=VARCHAR}, #{warehouseEnable,jdbcType=VARCHAR}, 
+      #{warehouseType,jdbcType=VARCHAR}, #{warehouseAddress,jdbcType=VARCHAR}, #{warehouseEnable,jdbcType=VARCHAR},
       #{warehouseBuildDate,jdbcType=DATE}, #{warehouseManager,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.java.entity.Warehouse">
@@ -72,7 +72,7 @@
         #{warehouseArea,jdbcType=INTEGER},
       </if>
       <if test="warehouseType != null">
-        #{warehouseType,jdbcType=INTEGER},
+        #{warehouseType,jdbcType=VARCHAR},
       </if>
       <if test="warehouseAddress != null">
         #{warehouseAddress,jdbcType=VARCHAR},
@@ -98,7 +98,7 @@
         Warehouse_area = #{warehouseArea,jdbcType=INTEGER},
       </if>
       <if test="warehouseType != null">
-        Warehouse_type = #{warehouseType,jdbcType=INTEGER},
+        Warehouse_type = #{warehouseType,jdbcType=VARCHAR},
       </if>
       <if test="warehouseAddress != null">
         Warehouse_address = #{warehouseAddress,jdbcType=VARCHAR},
@@ -119,7 +119,7 @@
     update warehouse
     set warehouse_name = #{warehouseName,jdbcType=VARCHAR},
       Warehouse_area = #{warehouseArea,jdbcType=INTEGER},
-      Warehouse_type = #{warehouseType,jdbcType=INTEGER},
+      Warehouse_type = #{warehouseType,jdbcType=VARCHAR},
       Warehouse_address = #{warehouseAddress,jdbcType=VARCHAR},
       Warehouse_enable = #{warehouseEnable,jdbcType=VARCHAR},
       Warehouse_build_date = #{warehouseBuildDate,jdbcType=DATE},
@@ -143,5 +143,8 @@
         and warehouse_id like '%${id}%'
       </if>
     </where>
+  </select>
+  <select id="findAll" resultMap="BaseResultMap">
+    select * from warehouse
   </select>
 </mapper>

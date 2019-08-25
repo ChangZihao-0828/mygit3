@@ -90,4 +90,15 @@
       percode = #{percode,jdbcType=VARCHAR}
     where permission_id = #{permissionId,jdbcType=INTEGER}
   </update>
+  <select id="loadPermission" resultType="java.lang.String">
+    SELECT percode FROM sys_permission WHERE permission_id IN
+    (SELECT permission_id FROM sys_role_permission WHERE role_id=
+    (SELECT role_id FROM sys_userinfo_role WHERE user_id=#{id}))
+  </select>
+
+  <select id="loadMenus" resultMap="BaseResultMap">
+    SELECT * FROM sys_permission WHERE permission_id IN
+    (SELECT permission_id FROM sys_role_permission WHERE role_id=
+    (SELECT role_id FROM sys_userinfo_role WHERE user_id=#{id}))
+  </select>
 </mapper>

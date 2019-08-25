@@ -1,24 +1,25 @@
-layui.use('table', function(){
+layui.use(['table','layer','jquery'], function(){
     var table = layui.table;
-
+    var layer = layui.layer;
+    var $ = layui.$;
     //第一个实例
     table.render({
         elem: '#demo'
-        ,url: '/init' //数据接口
+        ,url: '/incomingOrders' //数据接口
         ,page: true //开启分页
         ,limit:5 //默认每一页显示的条数
         ,limits:[1,2,3,5,10,20,30,50]//提示的每页条数的列表
         ,toolbar:"#addDemo"//显示工具栏
-        ,title:"仓库检查记录汇总" //设置导出文件时的标题
+        ,title:"入库作业单汇总" //设置导出文件时的标题
         ,loading:true
         ,cols: [[ //表头
-            {field: 'in_goods_id', title: '入库作业单编号', width:"20%", sort: true, fixed: 'left',align:"center"}
-            ,{field: 'in_goods_inTime', title: '入库时间', width:"10%",align:"center", sort: true}
-            ,{field: 'warehouse_id', title: '仓库编号', width:"10%",align:"center"}
-            ,{field: 'prepare_goods_id', title: '备货单编号', width:"10%",align:"center", sort: true,templet:'<div>{{ layui.util.toDateString(d.bir, "yyyy-MM-dd") }}</div>'}
-            ,{field: 'processinstance_id', title: '流程实列id', width: "10%",align:"center"}
+            {field: 'inGoodsId', title: '入库作业单编号', width:"20%", sort: true, fixed: 'left',align:"center"}
+            ,{field: 'inGoodsIntime', title: '入库时间', width:"10%",align:"center", sort: true,templet:'<div>{{ layui.util.toDateString(d.bir, "yyyy-MM-dd") }}</div>'}
+            ,{field: 'warehouseId', title: '仓库编号', width:"20%",align:"center"}
+            ,{field: 'prepareGoodsId', title: '备货单编号', width:"20%",align:"center", sort: true}
+            ,{field: 'inGoodsStatus', title: '状态', width: "10%",align:"center"}
 
-            , {field: 'op', title: '操作', width: "10%", align: "center", toolbar: "#barDemo"}
+            , {field: 'op', title: '操作', width: "20%", align: "center", toolbar: "#barDemo"}
         ]]
     });
 
@@ -52,13 +53,12 @@ layui.use('table', function(){
     $("#search").click(function(){
 
         //获得输入框的内容
-        var myname = $("#name").val();
-        var myclazz = $("#clazz").val();
+        var searchIncomingOrdersId = $("#searchIncomingOrdersId").val();
+
 
         table.reload('demo', {
             where: { //设定异步数据接口的额外参数，任意设
-                name:myname
-                ,clazz:myclazz
+                searchIncomingOrdersId:searchIncomingOrdersId
             }
             ,page: {
                 curr: 1 //重新从第 1 页开始

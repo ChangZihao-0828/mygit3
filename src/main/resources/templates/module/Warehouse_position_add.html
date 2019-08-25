@@ -20,16 +20,22 @@
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">所属仓库区域编号</label>
+        <label class="layui-form-label">所属仓库区域</label>
         <div class="layui-input-inline">
-            <input type="text" name="warehousePositionRegionId" placeholder="请输入所属仓库区域编号" required lay-verify="required" autocomplete="off" class="layui-input">
+            <select name="warehouseRegion" id="warehouseRegion" lay-verify="required" lay-search="" required="required">
+                <option value="1" th:required="required">类型1</option>
+                <option value="2">类型2</option>
+            </select>
         </div>
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">所属仓库编号</label>
+        <label class="layui-form-label">所属仓库</label>
         <div class="layui-input-inline">
-            <input type="text" name="warehouseId" placeholder="请输入所属仓库编号" required lay-verify="required" autocomplete="off" class="layui-input">
+            <select name="warehouse" id="warehouse" lay-verify="required" lay-search="" required="required">
+                <option value="1" th:required="required">类型1</option>
+                <option value="2">类型2</option>
+            </select>
         </div>
     </div>
 

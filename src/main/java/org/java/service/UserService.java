@@ -1,6 +1,9 @@
 package org.java.service;
 
+import org.java.entity.SysPermission;
 import org.java.entity.SysUserinfo;
+
+import java.util.List;
 
 /**
  * @Auther: 昌子豪
@@ -13,4 +16,8 @@ public interface UserService {
 
 
     public SysUserinfo login(String username);
+
+    public List<String> loadPermission(String id);
+
+    public List<SysPermission> loadMenus(String id);
 }
