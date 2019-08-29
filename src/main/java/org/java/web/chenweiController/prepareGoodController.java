@@ -48,7 +48,7 @@ public class prepareGoodController {
 
     @RequestMapping("delPrepareGoods")
     @ResponseBody
-    public void delPrepareGoods1(String prepareGoodsId) {
+    public void delPrepareGoods(String prepareGoodsId) {
 
         prepareGoodsService.delPrepareGoods1(prepareGoodsId);
     }

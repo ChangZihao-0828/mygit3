@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}" media="all">
     <script th:src="@{'/layui/layui.js'}"></script>
-    <script th:src="@{'/customerjs/purchase_order.js'}"></script>
+    <script th:src="@{'/customerjs/purchase_applly_order.js'}"></script>
 
 </head>
 <body>
@@ -25,8 +25,8 @@
 
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    <a class="layui-btn layui-btn-xs" lay-event="agree">同意申请</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="refuse">拒绝申请</a>
+    <a th:href="@{/cg9}">确认申请</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="refuse">取消申请</a>
 </script>
 
 

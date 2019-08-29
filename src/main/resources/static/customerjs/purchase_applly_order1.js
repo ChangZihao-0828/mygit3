@@ -3,21 +3,21 @@ layui.use(['table','layer','jquery'], function(){
     var layer = layui.layer;
     var $ = layui.$;
     table.render({
-        elem: '#demo'
+        elem: '#demo1'
         ,url: '/initPurchaseAppllyOrder' //数据接口
         ,page: true //开启分页
-        ,limit:10 //默认每一页显示的条数
+        ,limit:5 //默认每一页显示的条数
         ,limits:[1,2,3,5,10,20,30,50]//提示的每页条数的列表
-        ,toolbar:"#addDemo" //显示工具栏
+        ,toolbar:"#addDemo1" //显示工具栏
         ,title:"采购申请" //设置导出文件时的标题
         ,loading:true
         ,cols: [[ //表头
-            ,{field: 'purchaseAppllyOrderId', title: '采购申请单编号', width:"20%", sort: true,align:"center"}
-            ,{field: 'purchaseAppllyOrderBeginTime', title: '申请日期', width:"10%",align:"center",sort: true,templet:'<div>{{ layui.util.toDateString(d.purchaseAppllyOrderBeginTime, "yyyy-MM-dd") }}</div>'}
-            ,{field: 'purchaseAppllyUserName', title: '申请人', width:"10%", align:"center"}
-            ,{field: 'purchaseAppllyPrice', title: '价格', width:"10%", align:"center"}
-            ,{field: 'purchaseAppllyTaskid', title: '任务编号', width:"20%", align:"center"}
-            ,{field: 'cz', title: '操作', width: "30%",align:"center",toolbar:"#barDemo"}
+
+            {field: 'no',type:'checkbox', width:"10%",fixed: 'left',align:"center"}
+            ,{field: 'purchaseAppllyOrderId', title: '采购申请单编号', width:"30%", sort: true, fixed: 'left',align:"center"}
+            ,{field: 'purchaseAppllyOrderBeginTime', title: '申请日期', width:"30%",align:"center",sort: true,templet:'<div>{{ layui.util.toDateString(d.purchaseAppllyOrderBeginTime, "yyyy-MM-dd") }}</div>'}
+            ,{field: 'purchaseAppllyUserName', title: '申请人', width:"20%", align:"center"}
+            ,{field: 'cz', title: '操作', width: "20%",align:"center",toolbar:"#barDemo"}
 
         ]]
     });
@@ -34,21 +34,28 @@ layui.use(['table','layer','jquery'], function(){
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的DOM对象
 
-        if(layEvent === 'agree'){ //
-
-            layer.confirm('真的提交吗？', function (index) {
-
-                $.post("/agreePurchaseApplyOrder", {"purchaseAppllyTaskid": data.purchaseAppllyTaskid,"purchaseAppllyPrice":data.purchaseAppllyPrice}, function () {
-
-                    table.reload('demo', {
-                        page: {
-                            curr: 1 //重新从第 1 页开始
+        if(layEvent === 'agree'){ //查看
+            alert("999")
+            var checkStatus = table.checkStatus(obj.config.id)
+                ,data = checkStatus.data; //获取选中的数据
+            switch(obj.event){
+                case 'add1':
+                    layer.open({
+                        type: 2,
+                        shade: true,
+                        area: ['500px','400px'],
+                        maxmin: false,
+                        anim: 1,
+                        title:"添加采购单",
+                        content: '/cg9',
+                        zIndex: layer.zIndex, //重点1
+                        success: function(layero){
+                            layer.setTop(layero); //重点2
                         }
-                    }); //只重载数据
-                    layer.close(index);
-                });
-                //
-            });
+                    });
+                    break;
+            };
+
         } else if(layEvent === 'del'){ //删除
 
             alert("删除");
@@ -75,8 +82,7 @@ layui.use(['table','layer','jquery'], function(){
                     body.find("[name='purchaseAppllyOrderEndtime']").val(format(data.purchaseAppllyOrderEndtime, 'yyyy-MM-dd'));
                     body.find("[name='purchaseAppllyUserName']").val(data.purchaseAppllyUserName);
                     body.find("[name='purchaseAppllyRemark']").val(data.purchaseAppllyRemark);
-                    body.find("[name='purchaseAppllyPrice']").val(data.purchaseAppllyPrice);
-                    body.find("[name='purchaseAppllyTaskid']").val(data.purchaseAppllyTaskid);
+
 
                 }
             });
@@ -144,5 +150,4 @@ layui.use(['table','layer','jquery'], function(){
                 break;
         };
     });
-
 });

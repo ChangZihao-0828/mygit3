@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>创建采购单</h1>
+<form th:action="${pageContext.request.contextPath }/createOrder.do" method="post">
+    采购单名称:<input type="text" name="name"/><BR>
+    采购单金额:<input type="text" name="price"/><BR>
+    采购单详情:<textarea cols="50" rows="5" name="content"></textarea>
+    <Br>
+    <input type="submit" value="创建采购单"/>
+</form>
+</body>
+</html>
