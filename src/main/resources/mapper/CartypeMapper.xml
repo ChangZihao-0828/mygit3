@@ -55,4 +55,7 @@
     set carType_state = #{cartypeState,jdbcType=VARCHAR}
     where carType_id = #{cartypeId,jdbcType=INTEGER}
   </update>
+  <select id="findAll" resultMap="BaseResultMap">
+      select * from cartype
+  </select>
 </mapper>

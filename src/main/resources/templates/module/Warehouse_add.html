@@ -38,6 +38,7 @@
             </select>
         </div>
     </div>
+    <input type="hidden" name="warehouseTypeId">
     <div class="layui-form-item">
         <label class="layui-form-label">地址</label>
             <div class="layui-inline">
@@ -61,7 +62,7 @@
         <label class="layui-form-label">是否可用</label>
         <div class="layui-input-inline">
             <select name="warehouseEnable" lay-verify="required" lay-search="" required="required">
-            <option value="可用" th:required="required">可用</option>
+            <option value="可用">可用</option>
             <option value="不可用">不可用</option>
             </select>
         </div>
@@ -75,7 +76,7 @@
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">仓库管理员编号</label>
+        <label class="layui-form-label">仓库管理员</label>
         <div class="layui-input-inline">
             <input type="text" name="warehouseManager" placeholder="请输仓库管理员编号" required lay-verify="required" autocomplete="off" class="layui-input">
         </div>
@@ -119,13 +120,17 @@
             success:function(data){
                 //data，即为返回的json,它本身的类型是map
                 //如果json的类型是map,循环取到的内容分别为：key(对应map中的键),value(对应map中的值)
-
+                alert("");
                 $.each(data,function(index,m){
-                    $("#warehouseType").append(new Option(m.state,m.state));
+
+                    $("#warehouseType").append(new Option(m.state,m.id));
                 });
                 layui.form.render("select");
             }
         });
+
+
+
 
     });
 </script>

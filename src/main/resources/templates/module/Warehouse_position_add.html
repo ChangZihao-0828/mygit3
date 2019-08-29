@@ -5,13 +5,11 @@
     <title>table模块快速使用</title>
     <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}" media="all">
     <script th:src="@{'/layui/layui.js'}"></script>
-    <script th:src="@{'/my.js'}"></script>
+    <script th:src="@{'/js/warehouseAndRegion.js'}"></script>
 </head>
 <body style="margin-left: 70px;margin-top: 10px">
 <Br>
 <form class="layui-form" id="addFrm"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
-
-
     <div class="layui-form-item">
         <label class="layui-form-label">编号</label>
         <div class="layui-input-inline">
@@ -20,24 +18,22 @@
     </div>
 
     <div class="layui-form-item">
+        <label class="layui-form-label">所属仓库</label>
+        <div class="layui-input-inline">
+            <select name="warehouseId" id="warehouseId" lay-filter="warehouseId" lay-verify="required" lay-search="" required="required">
+                <option value="">请选择</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">所属仓库区域</label>
         <div class="layui-input-inline">
-            <select name="warehouseRegion" id="warehouseRegion" lay-verify="required" lay-search="" required="required">
-                <option value="1" th:required="required">类型1</option>
-                <option value="2">类型2</option>
+            <select name="warehousePositionRegionId" id="warehousePositionRegionId" lay-filter="warehousePositionRegionId" lay-verify="required" lay-search="" required="required">
+                <option value="">请选择</option>
             </select>
         </div>
     </div>
 
-    <div class="layui-form-item">
-        <label class="layui-form-label">所属仓库</label>
-        <div class="layui-input-inline">
-            <select name="warehouse" id="warehouse" lay-verify="required" lay-search="" required="required">
-                <option value="1" th:required="required">类型1</option>
-                <option value="2">类型2</option>
-            </select>
-        </div>
-    </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">面积</label>
@@ -61,7 +57,6 @@
     </div>
     <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
 </form>
-<script src="layui.js"></script>
 <script>
     layui.use(['form','jquery','layer'], function(){
         var form = layui.form;

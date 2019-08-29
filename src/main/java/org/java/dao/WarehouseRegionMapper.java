@@ -23,4 +23,6 @@ public interface WarehouseRegionMapper {
     List<WarehouseRegion> findWarehouseRegion(@Param("start") Integer start, @Param("rows") Integer rows, @Param("id") String searchWarehouseRegionId);
 
     Integer findWarehouseRegionCount(@Param("id") String searchWarehouseRegionId);
+
+    List<WarehouseRegion> findByWarehouseName(@Param("warehouseName") String warehouseName);
 }

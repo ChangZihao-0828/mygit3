@@ -1,9 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
+	<link rel="shortcut icon" href="favicon.ico">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" type="text/css" th:href="@{'/css/verify.css'}">
 		<link th:href="@{'/assets/css/bootstrap.min.css'}" rel="stylesheet" />
 		<link rel="stylesheet" th:href="@{'/assets/css/font-awesome.min.css'}" />
+
 		<!--[if IE 7]>
 		  <link rel="stylesheet" th:href="@{'/assets/css/font-awesome-ie7.min.css'}" />
 		<![endif]-->
@@ -26,7 +29,7 @@
 
 <body class="login-layout Reg_log_style">
 <div class="logintop">    
-    <span>欢迎TMS物流管理界面平台</span>
+    <span>欢迎进入TMS物流管理界面平台</span>
     <ul>
     <li><a href="#">帮助</a></li>
     <li><a href="#">关于</a></li>
@@ -56,8 +59,9 @@
 					<ul>
 						   <li class="frame_style form_error"><label class="user_icon"></label><input name="username" type="text"  id="username"/><i>用户名</i></li>
 						   <li class="frame_style form_error"><label class="password_icon"></label><input name="password" type="password" id="password"/><i>密码</i></li>
-						   <li class="frame_style form_error"><label class="Codes_icon"></label><input name="codesText" type="text" id="Codes_text"/><i>验证码</i><div class="Codes_region"></div></li>
+							<div id="mpanel2" ></div><button type="button" id="check-btn" class="verify-btn">确定</button>
 					</ul>
+
 								<div class="space"></div>
 
 								<div class="clearfix">
@@ -66,7 +70,7 @@
 										<span class="lbl">保存密码</span>
 									</label>
 
-									<button type="submit" class="width-35 pull-right btn btn-sm btn-primary" id="login_btn">
+									<button type="submit" class="width-35 pull-right btn btn-sm btn-primary" id="login_btn" disabled="true">
 										<i class="icon-key"></i>
 										登陆
 									</button>
@@ -96,6 +100,28 @@
 	</div>
 	</div>
 	<div class="loginbm">版权所有  2019  <a href="#">千硕教育北大青鸟D102级</a> </div><strong></strong>
+<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script type="text/javascript" th:src="@{'/js/verify.js'}" ></script>
+<script>
+    $('#mpanel2').codeVerify({
+        type : 1,
+        width : '285px',
+        height : '30px',
+        fontSize : '20px',
+        codeLength : 6,
+        btnId : 'check-btn',
+        ready : function() {
+        },
+        success : function() {
+            alert('验证匹配！');
+            document.getElementById("login_btn").disabled=false;
+        },
+        error : function() {
+            alert('验证码不匹配！');
+        }
+    });
+
+</script>
 </body>
 </html>
 <script type="text/javascript">

@@ -8,7 +8,6 @@
     <script th:src="@{'/my.js'}"></script>
 </head>
 <body>
-
 <!--搜索界面 -->
 <Br>
 <div>
@@ -32,10 +31,11 @@
 </script>
 
 <script th:inline="none">
-    layui.use(['table','layer','jquery'], function(){
+    layui.use(['table','layer','jquery',"form"], function(){
         var table = layui.table;
         var layer = layui.layer;
         var $ = layui.$;
+        var form = layui.form;
 
         //第六个实例
         table.render({
@@ -48,8 +48,7 @@
             ,title:"仓库管理"
             ,loading:true
             ,cols: [[ //表头
-                {field: 'no', type:'checkbox', width:"5%", sort: true, fixed: 'left',align:"center"}
-                ,{field: 'warehouseId', title: '编号', width:"5%", sort: true, fixed: 'left',align:"center"}
+                {field: 'warehouseId', title: '编号', width:"20%", sort: true, fixed: 'left',align:"center"}
                 ,{field: 'warehouseName', title: '名称', width:"10%", sort: true, align:"center"}
                 ,{field: 'warehouseArea', title: '面积', width:"5%",align:"center"}
                 ,{field: 'warehouseType', title: '类型', width:"10%",align:"center"}
@@ -57,7 +56,8 @@
                 ,{field: 'warehouseEnable', title: '是否可用', width:"10%",align:"center"}
                 ,{field: 'warehouseBuildDate', title: '创建时间', width:"10%", sort: true, align:"center",templet:'<div>{{ layui.util.toDateString(d.warehouseBuildDate, "yyyy-MM-dd") }}</div>'}
                 ,{field: 'warehouseManager', title: '仓库管理员编号', width:"15%", sort: true, align:"center"}
-                ,{field: 'op', title: '操作', width:"20%",align:"center", toolbar:"#barDemo"}
+                ,{field: 'op', title: '操作', width:"10%",align:"center", toolbar:"#barDemo"}
+                ,{field: 'warehouseTypeId', title: '类型编号', width:"10%",align:"center",hide:true	}
             ]]
         });
 
@@ -88,24 +88,26 @@
                 layer.open({
                     type: 2,
                     shade: true,
-                    area: ['500px','400px'],
+                    area: ['1000px','400px'],
                     anim: 1,
                     title:"修改用户",
                     content: '/forward/Warehouse_add',
                     zIndex: layer.zIndex, //重点1
                     success: function(layero){
                         layer.setTop(layero); //重点2
-
                         var body = layui.layer.getChildFrame("body");
-
+                        alert(data.warehouseTypeId);
                         body.find("[name='warehouseId']").val(data.warehouseId);
                         body.find("[name='warehouseName']").val(data.warehouseName);
                         body.find("[name='warehouseArea']").val(data.warehouseArea);
-                        body.find("[name='warehouseType']").val(data.warehouseType);
+                        body.find("[name='warehouseTypeId']").val(data.warehouseTypeId);
+                        // body.find("[name='warehouseType']").val(data.warehouseType);
                         body.find("[name='warehouseAddress']").val(data.warehouseAddress);
                         body.find("[value='"+data.warehouseEnable+"']").attr("checked",true);
                         body.find("[name='warehouseBuildDate']").val(format(data.warehouseBuildDate,'yyyy-MM-dd'));
                         body.find("[name='warehouseManager']").val(data.warehouseManager);
+                        form.render("select");
+
                     }
                 });
             }

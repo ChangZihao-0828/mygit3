@@ -111,4 +111,8 @@
       </if>
     </where>
   </select>
+  <select id="findByWarehouseName" resultMap="BaseResultMap">
+    select * from warehouse_region where warehouse_id=#{warehouseName}
+  </select>
+
 </mapper>

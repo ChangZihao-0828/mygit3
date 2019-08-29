@@ -1,11 +1,13 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 	<head>
+		<link rel="shortcut icon" href="favicon.ico">
 		<meta charset="utf-8" />
 		<title>网站后台管理系统  </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
 		<![endif]-->
@@ -234,7 +236,7 @@ function link_operating(name,title){
                <ul class="nav ace-nav">	
                 <li class="light-blue">
 				<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-				 <span  class="time"><em id="time"></em></span><span class="user-info"><small>欢迎光临,</small>超级管理员</span>
+				 <span  class="time"><em id="time"></em></span><span class="user-info"><small>欢迎光临,</small>[[${session.user}]]</span>
 				 <i class="icon-caret-down"></i>
 				</a>
 				<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
@@ -320,8 +322,8 @@ function link_operating(name,title){
 						</a>
 					</li>
 					<li class="home">
-						<a th:href="@{'/forward/Car'}" name="Category_Manage.html" title="车位管理"  class="iframeurl" target="iframe">
-							<i class="icon-double-angle-right"></i>车位管理</a>
+						<a th:href="@{'/forward/Car'}" name="Category_Manage.html" title="车辆管理"  class="iframeurl" target="iframe">
+							<i class="icon-double-angle-right"></i>车辆管理</a>
 					</li>
 					</ul>
 					</li>

@@ -79,4 +79,7 @@
       motorcade_build_date = #{motorcadeBuildDate,jdbcType=DATE}
     where motorcade_id = #{motorcadeId,jdbcType=INTEGER}
   </update>
+  <select id="findAll" resultMap="BaseResultMap">
+    select * from motorcade
+  </select>
 </mapper>

@@ -68,19 +68,18 @@ public class pageController {
     public String first(HttpSession session){
         System.out.println("--------first-------------");
         //获得认证成功的主体
-//        Subject subject = SecurityUtils.getSubject();
-//
-//        //从主体获得用户的主要凭证（就是认证方法，返回的SimpleAuthencationInfo对象的第一个参数，map）
-//        Map map = (Map) subject.getPrincipal();
-//
-//        //获得用户名与菜单，存放在session中
-//        String username = (String) map.get("username");
-//        //获得菜单
-//        List<Map> menus = (List<Map>) map.get("menus");
-//
-//        session.setAttribute("user", username);
-//        session.setAttribute("menus",menus );
+        Subject subject = SecurityUtils.getSubject();
 
-        return "/index";
+        //从主体获得用户的主要凭证（就是认证方法，返回的SimpleAuthencationInfo对象的第一个参数，map）
+        SysUserinfo sysUserinfo = (SysUserinfo) subject.getPrincipal();
+
+        String username = sysUserinfo.getUserName();
+
+//          List<Map> menus = (List<Map>) map.get("menus");
+//
+            session.setAttribute("user", username);
+//          session.setAttribute("menus",menus );
+
+            return "/index";
     }
 }

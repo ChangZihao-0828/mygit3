@@ -33,7 +33,7 @@
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">所属仓库:</label>
+        <label class="layui-form-label">所属仓库</label>
         <div class="layui-input-inline">
             <select name="warehouseId" id="warehouseId" lay-verify="required" lay-search="" required="required">
             </select>
@@ -87,7 +87,7 @@
                 //如果json的类型是map,循环取到的内容分别为：key(对应map中的键),value(对应map中的值)
 
                 $.each(data,function(index,m){
-                    $("#warehouseId").append(new Option(m.name,m.name));
+                    $("#warehouseId").append(new Option(m.name,m.id));
                 });
                 layui.form.render("select");
             }
