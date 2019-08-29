@@ -21,7 +21,7 @@ public interface CustomerOrderMapper {
 
     int updateByPrimaryKey(CustomerOrder record);
 
-    CustomerOrder selectByProcessinstanceId(@Param("processinstanceId") String processinstanceId);
+    CustomerOrder selectByProcessinstanceId(@Param("processinstanceId") String processinstanceId,@Param("state") String state);
 
     public List<CustomerOrder> findCustomerOrder(@Param("start") int start, @Param("rows") int rows, @Param("customerOrderId") String customerOrderId);
 

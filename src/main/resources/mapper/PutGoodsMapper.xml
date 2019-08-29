@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.java.dao.PutGoodsMapper">
+  <resultMap id="BaseResultMap" type="org.java.entity.PutGoods">
+    <id column="put_goods_id" jdbcType="VARCHAR" property="putGoodsId" />
+    <result column="in_goods_id" jdbcType="VARCHAR" property="inGoodsId" />
+    <result column="warehouse_position_id" jdbcType="VARCHAR" property="warehousePositionId" />
+    <result column="put_goods_remark" jdbcType="VARCHAR" property="putGoodsRemark" />
+    <result column="processinstanceId" jdbcType="VARCHAR" property="processinstanceid" />
+    <result column="put_goods_status" jdbcType="VARCHAR" property="putGoodsStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    put_goods_id, in_goods_id, warehouse_position_id, put_goods_remark, processinstanceId, 
+    put_goods_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from put_goods
+    where put_goods_id = #{putGoodsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from put_goods
+    where put_goods_id = #{putGoodsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.java.entity.PutGoods">
+    insert into put_goods (put_goods_id, in_goods_id, warehouse_position_id, 
+      put_goods_remark, processinstanceId, put_goods_status
+      )
+    values (#{putGoodsId,jdbcType=VARCHAR}, #{inGoodsId,jdbcType=VARCHAR}, #{warehousePositionId,jdbcType=VARCHAR}, 
+      #{putGoodsRemark,jdbcType=VARCHAR}, #{processinstanceid,jdbcType=VARCHAR}, #{putGoodsStatus,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.java.entity.PutGoods">
+    insert into put_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="putGoodsId != null">
+        put_goods_id,
+      </if>
+      <if test="inGoodsId != null">
+        in_goods_id,
+      </if>
+      <if test="warehousePositionId != null">
+        warehouse_position_id,
+      </if>
+      <if test="putGoodsRemark != null">
+        put_goods_remark,
+      </if>
+      <if test="processinstanceid != null">
+        processinstanceId,
+      </if>
+      <if test="putGoodsStatus != null">
+        put_goods_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="putGoodsId != null">
+        #{putGoodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="inGoodsId != null">
+        #{inGoodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="warehousePositionId != null">
+        #{warehousePositionId,jdbcType=VARCHAR},
+      </if>
+      <if test="putGoodsRemark != null">
+        #{putGoodsRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="processinstanceid != null">
+        #{processinstanceid,jdbcType=VARCHAR},
+      </if>
+      <if test="putGoodsStatus != null">
+        #{putGoodsStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.java.entity.PutGoods">
+    update put_goods
+    <set>
+      <if test="inGoodsId != null">
+        in_goods_id = #{inGoodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="warehousePositionId != null">
+        warehouse_position_id = #{warehousePositionId,jdbcType=VARCHAR},
+      </if>
+      <if test="putGoodsRemark != null">
+        put_goods_remark = #{putGoodsRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="processinstanceid != null">
+        processinstanceId = #{processinstanceid,jdbcType=VARCHAR},
+      </if>
+      <if test="putGoodsStatus != null">
+        put_goods_status = #{putGoodsStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where put_goods_id = #{putGoodsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.java.entity.PutGoods">
+    update put_goods
+    set in_goods_id = #{inGoodsId,jdbcType=VARCHAR},
+      warehouse_position_id = #{warehousePositionId,jdbcType=VARCHAR},
+      put_goods_remark = #{putGoodsRemark,jdbcType=VARCHAR},
+      processinstanceId = #{processinstanceid,jdbcType=VARCHAR},
+      put_goods_status = #{putGoodsStatus,jdbcType=VARCHAR}
+    where put_goods_id = #{putGoodsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

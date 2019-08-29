@@ -22,4 +22,6 @@ public interface DeliverGoodsMapper {
     public List<DeliverGoods> findDeliverGoods(@Param("start") int start, @Param("rows") int rows, @Param("deliverGoodsId") String deliverGoodsId);
 
     public int getDeliverGoodsCount(@Param("deliverGoodsId") String deliverGoodsId);
+
+    public DeliverGoods selectByProcessinstanceId(@Param("processinstanceId") String processinstanceId,@Param("state") String state);
 }

@@ -87,16 +87,16 @@ layui.use(['table','layer','jquery'], function(){
                 });
                 //
             });
-        } else if (layEvent === 'edit') { //编辑
+        } else if (layEvent === 'order') { //编辑
             /******修改数据********/
             layer.open({
                 type: 2,
                 shade: true,
-                area: ['500px', '400px'],
+                area: ['1000px', '400px'],
                 maxmin: false,
                 anim: 1,
-                title: "修改用户",
-                content: '/forward/update',
+                title: "添加入库作业单",
+                content: '/stock/add_Incoming_Orders',
                 zIndex: layer.zIndex, //重点1
                 success: function (layero) {
                     layer.setTop(layero); //重点2

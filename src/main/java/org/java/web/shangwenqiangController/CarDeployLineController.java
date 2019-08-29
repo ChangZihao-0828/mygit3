@@ -1,7 +1,11 @@
 package org.java.web.shangwenqiangController;
 
 import org.java.entity.CarDeployLine;
+import org.java.entity.CarDispatch;
+import org.java.entity.DeliverGoods;
 import org.java.service.CarDeployLineService;
+import org.java.service.CarDispatchService;
+import org.java.service.DeliverGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +35,13 @@ import java.util.Map;
 public class CarDeployLineController {
     @Autowired
     private CarDeployLineService carDeployLineService;
+
+    @Autowired
+    private CarDispatchService carDispatchService;
+
+    @Autowired
+    private DeliverGoodsService deliverGoodsService;
+
     @GetMapping("initCarDeployLine")
     public Map getList(Integer page,Integer limit,String carDeployLineId){
 
@@ -48,10 +59,35 @@ public class CarDeployLineController {
         return map;
     }
 
+    @GetMapping("carDeployLine")
+    public Map carDeployLine(){
+
+        //创建一个map，用于封装要返回的4种数据
+        Map map = new HashMap();
+
+        List<DeliverGoods> list = carDispatchService.finddeliverGoodsByProcessinstanceId("未配线");
+
+        map.put("code", 0);//状态正常
+        map.put("msg","" );
+        map.put("count",list.size() );//总数
+        map.put("data",list );
+
+        return map;
+    }
+
     @RequestMapping("/carDeployAdd")
     @ResponseBody //一定要添加此注解
     public void add(CarDeployLine c){
+
         carDeployLineService.add(c);
+
+        DeliverGoods deliverGoods = new DeliverGoods();
+
+        deliverGoods.setDeliverGoodsId(c.getDeliverGoodsId());
+
+        deliverGoods.setDeliverGoodsStatus("已配线");
+
+        deliverGoodsService.updateState(deliverGoods);
     }
 
     @RequestMapping("/carDeployUpdate")
@@ -64,19 +100,19 @@ public class CarDeployLineController {
     @RequestMapping("/carDeployLine/{carDeployDel}")
     @ResponseBody //一定要添加此注解
     public void del(String carDeployLineId, @PathVariable String carDeployDel){
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+carDeployLineId);
+
         carDeployLineService.del(carDeployLineId);
     }
     @RequestMapping("/carFromSiteUpdate")
     @ResponseBody //一定要添加此注解
     public void updateCarFromSite(CarDeployLine c){
-        System.out.println("#########################");
+
         carDeployLineService.UpdateCarFromSite(c);
     }
     @RequestMapping("/carFromSiteUpdateIn")
     @ResponseBody //一定要添加此注解
     public void updateCarFromSiteIn(CarDeployLine c){
-        System.out.println("#########################");
+
         carDeployLineService.UpdateCarFromSiteIn(c);
     }
 

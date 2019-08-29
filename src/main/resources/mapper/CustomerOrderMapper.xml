@@ -291,6 +291,9 @@
   </update>
   <select id="selectByProcessinstanceId" resultMap="BaseResultMap">
     select * from customer_order where processinstance_id=#{processinstanceId}
+      <if test="state!=null and state!=''">
+        and customer_order_state=#{state}
+      </if>
   </select>
 
 </mapper>

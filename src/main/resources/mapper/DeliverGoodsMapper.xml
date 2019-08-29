@@ -8,11 +8,12 @@
     <result column="customer_order_id" jdbcType="VARCHAR" property="customerOrderId" />
     <result column="Customer_id" jdbcType="VARCHAR" property="customerId" />
     <result column="processinstance_id" jdbcType="VARCHAR" property="processinstanceId" />
+    <result column="deliver_goods_status" jdbcType="VARCHAR" property="deliverGoodsStatus"/>
     <result column="deliver_goods_taskid" jdbcType="VARCHAR" property="deliverGoodsTaskid" />
   </resultMap>
   <sql id="Base_Column_List">
     deliver_goods_id, Deliver_date, User_id, customer_order_id, Customer_id, processinstance_id, 
-    deliver_goods_taskid
+    deliver_goods_status,deliver_goods_taskid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -26,11 +27,11 @@
   </delete>
   <insert id="insert" parameterType="org.java.entity.DeliverGoods">
     insert into deliver_goods (deliver_goods_id, Deliver_date, User_id, 
-      customer_order_id, Customer_id, processinstance_id, 
+      customer_order_id, Customer_id, processinstance_id, deliver_goods_status,
       deliver_goods_taskid)
     values (#{deliverGoodsId,jdbcType=VARCHAR}, #{deliverDate,jdbcType=DATE}, #{userId,jdbcType=VARCHAR}, 
       #{customerOrderId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}, #{processinstanceId,jdbcType=VARCHAR}, 
-      #{deliverGoodsTaskid,jdbcType=VARCHAR})
+      #{deliverGoodsStatus,jdbcType=VARCHAR}, #{deliverGoodsTaskid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.java.entity.DeliverGoods">
     insert into deliver_goods
@@ -52,6 +53,9 @@
       </if>
       <if test="processinstanceId != null">
         processinstance_id,
+      </if>
+      <if test="deliverGoodsStatus != null">
+        deliver_goods_status,
       </if>
       <if test="deliverGoodsTaskid != null">
         deliver_goods_taskid,
@@ -76,6 +80,9 @@
       <if test="processinstanceId != null">
         #{processinstanceId,jdbcType=VARCHAR},
       </if>
+      <if test="deliverGoodsStatus != null">
+        #{deliverGoodsStatus,jdbcType=VARCHAR},
+      </if>
       <if test="deliverGoodsTaskid != null">
         #{deliverGoodsTaskid,jdbcType=VARCHAR},
       </if>
@@ -99,6 +106,9 @@
       <if test="processinstanceId != null">
         processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
       </if>
+      <if test="deliverGoodsStatus != null">
+        deliver_goods_status = #{deliverGoodsStatus,jdbcType=VARCHAR},
+      </if>
       <if test="deliverGoodsTaskid != null">
         deliver_goods_taskid = #{deliverGoodsTaskid,jdbcType=VARCHAR},
       </if>
@@ -112,6 +122,7 @@
       customer_order_id = #{customerOrderId,jdbcType=VARCHAR},
       Customer_id = #{customerId,jdbcType=VARCHAR},
       processinstance_id = #{processinstanceId,jdbcType=VARCHAR},
+      deliver_goods_status = #{deliverGoodsStatus,jdbcType=VARCHAR},
       deliver_goods_taskid = #{deliverGoodsTaskid,jdbcType=VARCHAR}
     where deliver_goods_id = #{deliverGoodsId,jdbcType=VARCHAR}
   </update>
@@ -133,5 +144,10 @@
     </where>
 
   </select>
-
+  <select id="selectByProcessinstanceId" resultMap="BaseResultMap">
+    select * from deliver_goods where processinstance_id=#{processinstanceId}
+    <if test="state!=null and state!=''">
+      and deliver_goods_status=#{state}
+    </if>
+  </select>
 </mapper>

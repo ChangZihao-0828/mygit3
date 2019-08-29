@@ -8,36 +8,44 @@
 </head>
 <body>
 <br>
-<h1>&nbsp;&nbsp;&nbsp;添加出库作业单</h1>
+<h1>&nbsp;&nbsp;&nbsp;添加入库摆货单</h1>
 <br/>
-<form class="layui-form" id="addFrm">
-    <input type="hidden" name="outGoodsTaskid">
-    <input type="hidden" name="processinstanceId">
+<form class="layui-form" action="" method="post">
     <table align="center" width="100%">
         <tr>
             <td colspan="4"><h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>基础信息</b></h4><hr/></td>
         </tr>
         <tr>
-            <td align="center" width="15%">出库作业单单号:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td align="center" width="15%">入库摆货单号:&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td width="35%"><div class="layui-input-inline">
-                <input type="text" name="outGoodsId" lay-verify="title" autocomplete="off" placeholder="自动生成" class="layui-input" readonly="readonly">
+                <input type="text" name="putGoodsId" lay-verify="title" autocomplete="off" placeholder="请输入" class="layui-input">
             </div><br/><br/></td>
-            <td align="center" width="15%">客户订单号:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td align="center" width="15%">入库作业单号:&nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td width="35%"><div class="layui-input-inline">
-                <input type="text" name="customerOrderId" lay-verify="title" placeholder="请输入" autocomplete="off" class="layui-input">
+                <input type="text" name="inGoodsId" lay-verify="title" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div><br/><br/></td>
+        </tr>
+        <tr>
+            <td align="center" width="15%">仓位编号:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td width="35%"><div class="layui-input-inline">
+                <input type="text" name="warehousePositionId" lay-verify="title" autocomplete="off" placeholder="请输入" class="layui-input">
+            </div><br/><br/></td>
+            <td align="center" width="15%">流程实例编号:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td width="35%"><div class="layui-input-inline">
+                <input type="text" name="processinstanceid" lay-verify="title" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div><br/><br/></td>
+        </tr>
+        <tr>
+            <td align="center" width="15%">状态:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td width="35%"><div class="layui-input-inline">
+                <input type="text" name="putGoodsStatus" lay-verify="title" autocomplete="off" placeholder="请输入" class="layui-input">
+            </div><br/><br/></td>
+            <td align="center" width="15%">备注:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td width="35%"><div class="layui-input-inline">
+                <input type="text" name="putGoodsRemark" lay-verify="title" placeholder="请输入" autocomplete="off" class="layui-input">
             </div><br/><br/></td>
         </tr>
 
-        <tr>
-            <td align="center" width="15%">出库日期：&nbsp;&nbsp;</td>
-            <td width="35%"><div class="layui-input-inline">
-                <input type="text" name="outGoodsTime" id="date" lay-verify="date" placeholder="年/月/日" autocomplete="off" class="layui-input">
-            </div><br/><br/></td>
-            <td align="center" width="15%">仓库编号:&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td width="35%"><div class="layui-input-inline">
-                <input type="text" name="warehouseId" lay-verify="title" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div><br/><br/></td>
-        </tr>
     </table>
     <br/>
     <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>物料详情</b></h4><hr/>
@@ -85,12 +93,11 @@
     </table>
 </form>
 <script>
-    layui.use(['form', 'layedit', 'laydate','jquery'], function() {
+    layui.use(['form', 'layedit', 'laydate'], function() {
         var form = layui.form
             , layer = layui.layer
             , layedit = layui.layedit
-            , laydate = layui.laydate
-            , $ = layui.$;
+            , laydate = layui.laydate;
 
         //日期
         laydate.render({
@@ -105,10 +112,17 @@
             ,trigger: 'click'
         });
 
+        //日期时间选择器
+        laydate.render({
+            elem: '#test6'
+            ,type: 'datetime'
+            ,trigger: 'click'
+        });
+
         //监听提交
         form.on('submit(demo1)', function(data){
             $.ajax({
-                url:"/addDeliveryReceiving",
+                url:"/addStockCheck",
                 type:"post",
                 data:$("#addFrm").serialize(),
                 success:function () {
@@ -121,6 +135,7 @@
             });
             return false;
         });
+
     });
 </script>
 </body>

@@ -14,6 +14,8 @@ layui.use(['table','layer','jquery'], function(){
         ,loading:true
         ,cols: [[ //表头
             {field: 'outGoodsId', title: '出库作业单', width:"35%", sort: true, fixed: 'left',align:"center"}
+            ,{field: 'outGoodsTaskid', title: '任务编号', width:"35%",align:"center"}
+            ,{field: 'processinstanceId', title: '流程实例编号', width:"35%",align:"center"}
             ,{field: 'outGoodsStatus', title: '状态', width:"35%",align:"center"}
             , {field: 'op', title: '操作', width: "30%", align: "center", toolbar: "#barDemo"}
         ]]
@@ -86,6 +88,8 @@ layui.use(['table','layer','jquery'], function(){
 
                     //给弹出层body中的表单控件赋值
                     body.find("[name='outGoodsId']").val(data.outGoodsId);
+                    body.find("[name='takeGoodsTaskid']").val(data.outGoodsTaskid);
+                    body.find("[name='processinstanceId']").val(data.processinstanceId);
                 }
             });
         }

@@ -12,7 +12,10 @@ import java.util.List;
  * @Description:
  */
 public interface DeliverGoodsService {
+
     public List<DeliverGoods> findDeliverGoods(int page, int rows, String deliverGoodsId);
+
+    public List<DeliverGoods> findDeliverGoods2();
 
     public int getDeliverGoodsCount(String deliverGoodsId);
 
@@ -20,6 +23,10 @@ public interface DeliverGoodsService {
 
     public void update(DeliverGoods d);
 
+    public void updateState(DeliverGoods deliverGoods);
+
     public void del(String deliverGoodsId);
+
+    public void submitDeliveryOrder(String deliverGoodsTaskid);
 
 }

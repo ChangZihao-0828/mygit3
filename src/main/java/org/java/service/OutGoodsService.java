@@ -1,6 +1,7 @@
 package org.java.service;
 
 import org.java.entity.OutGoods;
+import org.java.entity.TakeGoods;
 
 import java.util.List;
 
@@ -20,5 +21,10 @@ public interface OutGoodsService {
     public Integer findOutGoodsCount(String searchDeliveryReceivingId,String outGoodsStatus);
 
     public void updateOutGoodsStatus(OutGoods record);
+
+    public List<OutGoods> findOutGoodsByProcessinstanceId(String state);
+
+    public List<OutGoods> findOutGoods2();
+
 
 }

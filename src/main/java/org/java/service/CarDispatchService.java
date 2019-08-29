@@ -2,6 +2,7 @@ package org.java.service;
 
 import org.java.entity.ArriveNoticeOrder;
 import org.java.entity.CarDispatch;
+import org.java.entity.DeliverGoods;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface CarDispatchService {
     public void update(CarDispatch c);
 
     public void del(String id);
+
+    public List<DeliverGoods> finddeliverGoodsByProcessinstanceId(String state);
 }
