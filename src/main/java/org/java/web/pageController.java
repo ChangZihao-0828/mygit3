@@ -3,6 +3,8 @@ package org.java.web;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.java.entity.SysUserinfo;
+import org.java.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -21,6 +24,9 @@ import java.util.Map;
 
 @Controller
 public class pageController {
+
+    @Autowired
+    private UserService userService;
 
 
     @GetMapping("/forword/{page}")
@@ -66,7 +72,7 @@ public class pageController {
 
     @GetMapping("/")
     public String first(HttpSession session){
-        System.out.println("--------first-------------");
+
         //获得认证成功的主体
         Subject subject = SecurityUtils.getSubject();
 
@@ -81,5 +87,24 @@ public class pageController {
 //          session.setAttribute("menus",menus );
 
             return "/index";
+    }
+
+    @GetMapping("/adminInfo")
+    public String adminInfo(HttpSession session){
+
+        Subject subject = SecurityUtils.getSubject();
+
+        //从主体获得用户的主要凭证（就是认证方法，返回的SimpleAuthencationInfo对象的第一个参数，map）
+        SysUserinfo sysUserinfo = (SysUserinfo) subject.getPrincipal();
+
+
+        session.setAttribute("username",sysUserinfo.getUserName());
+        session.setAttribute("department",userService.findByDempartmentId(Integer.valueOf(sysUserinfo.getUserDepartment())).getDepartmentName());
+        session.setAttribute("tel",sysUserinfo.getUserTel());
+        session.setAttribute("permission",userService.loadMenus(sysUserinfo.getUserId()));
+
+
+        return "/admin_info";
+
     }
 }

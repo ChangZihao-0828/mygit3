@@ -1,5 +1,6 @@
 package org.java.service;
 
+import org.java.entity.Department;
 import org.java.entity.SysPermission;
 import org.java.entity.SysUserinfo;
 
@@ -20,4 +21,6 @@ public interface UserService {
     public List<String> loadPermission(String id);
 
     public List<SysPermission> loadMenus(String id);
+
+    public Department findByDempartmentId(Integer id);
 }
