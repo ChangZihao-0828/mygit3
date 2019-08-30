@@ -69,7 +69,7 @@ public class ActivityServiceImpl implements ActivityService {
 
             String processInstanceId = t.getProcessInstanceId();
 
-            CustomerOrder customerOrder = customerOrderMapper.selectByProcessinstanceId(processInstanceId);
+            CustomerOrder customerOrder = customerOrderMapper.selectByProcessinstanceId(processInstanceId,"");
 
             customerOrder.setCustomerOrderTaskid(t.getId());
 
@@ -119,7 +119,7 @@ public class ActivityServiceImpl implements ActivityService {
 
             String processInstanceId = i.getProcessInstanceId();
 
-            CustomerOrder customerOrder =  customerOrderMapper.selectByProcessinstanceId(processInstanceId);
+            CustomerOrder customerOrder =  customerOrderMapper.selectByProcessinstanceId(processInstanceId,"");
 
             if (customerOrder!=null){
 
@@ -199,7 +199,7 @@ public class ActivityServiceImpl implements ActivityService {
 
             String processInstanceId = t.getProcessInstanceId();
 
-            CustomerOrder customerOrder = customerOrderMapper.selectByProcessinstanceId(processInstanceId);
+            CustomerOrder customerOrder = customerOrderMapper.selectByProcessinstanceId(processInstanceId,"");
 
             customerOrder.setCustomerOrderTaskid(t.getId());
 

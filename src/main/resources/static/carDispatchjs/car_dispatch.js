@@ -5,7 +5,7 @@ layui.use(['table', 'layer', 'jquery'], function () {
     //第一个实例
     table.render({
         elem: '#demo'
-        , url: '/initCarDispatch' //数据接口
+        , url: '/carDispatch' //数据接口
         , page: true //开启分页
         , limit: 5 //默认每一页显示的条数
         , limits: [1, 2, 3, 5, 10, 20, 30, 50]//提示的每页条数的列表
@@ -15,28 +15,22 @@ layui.use(['table', 'layer', 'jquery'], function () {
         , cols: [
             [ //表头
 
-                {field: 'no', type: 'checkbox', width: "3%", fixed: 'left', align: "center"}
-                , {field: 'carDispatchId', title: '编号', width: "10%", sort: true, fixed: 'left', align: "center"}
-                , {field: 'carId', title: '车辆编号', width: "10%", align: "center"}
-                , {field: 'deliverGoodsId', title: '配送任务单编号', width: "15%", align: "center"}
+                {field: "deliverGoodsId", title: '配送任务单编号', width: "15%", sort: true, fixed: 'left', align: "center"}
+                , {field: 'userId', title: '配送员编号', width: "15%", align: "center"}
+                , {field: 'customerOrderId', title: '订单编号', width: "15%", align: "center"}
+                , {field: 'customerId', title: '客户编号', width: "15%", align: "center"}
                 , {
-                field: 'carGoDate',
-                title: '出车日期',
-                width: "15%",
+                field: 'deliverDate',
+                title: '配送日期',
+                width: "10%",
                 sort: true,
                 align: "center",
                 templet: '<div>{{ layui.util.toDateString(d.deliverDate, "yyyy-MM-dd") }}</div>'
             }
-                , {
-                field: 'carBackDate',
-                title: '回车日期',
-                width: "15%",
-                sort: true,
-                align: "center",
-                templet: '<div>{{ layui.util.toDateString(d.deliverDate, "yyyy-MM-dd") }}</div>'
-            }
-                , {field: 'carDispatchStatus', title: '状态', width: "15%", sort: true, align: "center"}
-                , {field: 'op', title: '操作', width: "17%", align: "center", toolbar: "#barDemo"}
+                ,{field: 'deliverGoodsTaskid', title: '任务编号', width:"10%",align:"center"}
+                ,{field: 'processinstanceId', title: '流程实例编号', width:"10%",align:"center"}
+                , {field: 'deliverGoodsStatus', title: '状态', width: "10%", align: "center", sort: true}
+                , {field: 'op', title: '操作', width: "10%", align: "center", toolbar: "#barDemo"}
             ]
         ]
     });
@@ -83,8 +77,8 @@ layui.use(['table', 'layer', 'jquery'], function () {
                 area: ['500px', '500px'],
                 maxmin: false,
                 anim: 1,
-                title: "车辆调度详情",
-                content: '/carDispatch/detail',
+                title: "车辆调度作业",
+                content: '/carDispatch/add',
                 zIndex: layer.zIndex, //重点1
                 success: function (layero) {
                     layer.setTop(layero); //重点2
@@ -93,13 +87,9 @@ layui.use(['table', 'layer', 'jquery'], function () {
                     var body = layui.layer.getChildFrame("body");
 
                     //给弹出层body中的表单控件赋值
-                    body.find("[name='carDispatchId']").val(data.carDispatchId);
-                    body.find("[name='carId']").val(data.carId);
+                    body.find("[name='carDispatchTaskid']").val(data.deliverGoodsTaskid);
                     body.find("[name='deliverGoodsId']").val(data.deliverGoodsId);
-                    body.find("[name='customerId']").val(data.customerId);
-                    body.find("[name='carGoDate']").val(format(data.carGoDate, 'yyyy-MM-dd'));
-                    body.find("[name='carBackDate']").val(format(data.carBackDate, 'yyyy-MM-dd'));
-                    body.find("[value='" + data.carDispatchStatus + "']").attr("checked", true);//选中指定状态的单选按钮
+                    body.find("[name='processinstanceId']").val(data.processinstanceId);
 
                 }
             });

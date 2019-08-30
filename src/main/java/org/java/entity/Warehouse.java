@@ -12,7 +12,7 @@ public class Warehouse implements Serializable {
 
     private Integer warehouseArea;
 
-    private String warehouseType;
+    private Integer warehouseType;
 
     private String warehouseAddress;
 
@@ -47,11 +47,11 @@ public class Warehouse implements Serializable {
         this.warehouseArea = warehouseArea;
     }
 
-    public String getWarehouseType() {
+    public Integer getWarehouseType() {
         return warehouseType;
     }
 
-    public void setWarehouseType(String warehouseType) {
+    public void setWarehouseType(Integer warehouseType) {
         this.warehouseType = warehouseType;
     }
 

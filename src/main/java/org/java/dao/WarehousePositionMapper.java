@@ -24,4 +24,9 @@ public interface WarehousePositionMapper {
     List<WarehousePosition> findWarehousePosition(@Param("start") Integer start, @Param("rows") Integer rows, @Param("id") String searchWarehousePositionId);
 
     Integer findWarehousePositionCount(@Param("id") String searchWarehousePositionId);
+
+    List<WarehousePosition> findByWarehouseId(@Param("warehouseId") String warehouseId);
+
+    List<WarehousePosition> findByWarehouseRegionId(@Param("warehouseRegionId") String warehouseRegionId);
+
 }

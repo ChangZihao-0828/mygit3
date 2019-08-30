@@ -2,6 +2,9 @@ package org.java.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.java.entity.Motorcade;
+
+import java.util.List;
+
 @Mapper
 public interface MotorcadeMapper {
     int deleteByPrimaryKey(Integer motorcadeId);
@@ -15,4 +18,6 @@ public interface MotorcadeMapper {
     int updateByPrimaryKeySelective(Motorcade record);
 
     int updateByPrimaryKey(Motorcade record);
+
+    List<Motorcade> findAll();
 }

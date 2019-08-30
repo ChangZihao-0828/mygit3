@@ -22,4 +22,6 @@ public interface OutGoodsMapper {
     List<OutGoods> findOutGoods(@Param("start") Integer start, @Param("rows") Integer rows, @Param("id") String searchDeliveryReceivingId, @Param("outGoodsStatus") String outGoodsStatus);
 
     Integer findOutGoodsCount(@Param("id") String searchDeliveryReceivingId,@Param("outGoodsStatus") String outGoodsStatus);
+
+    OutGoods findOutGoodsByProcessinstanceId(@Param("outGoodsStatus") String outGoodsStatus,@Param("processinstanceId") String processinstanceId);
 }

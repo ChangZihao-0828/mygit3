@@ -37,6 +37,12 @@ public class BusinessServiceImpl implements BusinessService {
     @Autowired
     private WarehouserTypeMapper warehouserTypeMapper;
 
+    @Autowired
+    private CartypeMapper cartypeMapper;
+
+    @Autowired
+    private MotorcadeMapper motorcadeMapper;
+
     //仓库管理-------------------------------------------------------------------------
     @Override
     public List<Warehouse> findWarehouse(Integer page, Integer rows, String searchWarehouseId) {
@@ -228,8 +234,61 @@ public class BusinessServiceImpl implements BusinessService {
     }
 
     @Override
+    public List<WarehouseRegion> findWarehouseRegionByWarehouseName(String warehouseName) {
+
+        return warehouseRegionMapper.findByWarehouseName(warehouseName);
+    }
+
+    @Override
     public WarehouserType selectByPrimaryKey(Integer warehouserTypeId) {
 
         return warehouserTypeMapper.selectByPrimaryKey(warehouserTypeId);
+    }
+
+    @Override
+    public List<Cartype> findCarType() {
+
+        return cartypeMapper.findAll();
+
+    }
+
+    @Override
+    public List<Motorcade> findMotorcade() {
+        return motorcadeMapper.findAll();
+    }
+
+    @Override
+    public Cartype findCarTypeById(Integer id) {
+        return cartypeMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public Motorcade findMotorcadeById(Integer id) {
+        return motorcadeMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public Warehouse findWarehouseById(String id) {
+        return warehouseMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public WarehouseRegion findWarehouseRegionById(String id) {
+        return warehouseRegionMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public WarehouserType findWarehouseTypeById(Integer id) {
+        return warehouserTypeMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<WarehousePosition> findWarehousePositionByByWarehouseId(String warehouseId) {
+        return warehousePositionMapper.findByWarehouseId(warehouseId);
+    }
+
+    @Override
+    public List<WarehousePosition> findWarehousePositionByByWarehouseRegionId(String warehouseRegionId) {
+        return warehousePositionMapper.findByWarehouseRegionId(warehouseRegionId);
     }
 }

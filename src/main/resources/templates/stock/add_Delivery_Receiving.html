@@ -11,6 +11,8 @@
 <h1>&nbsp;&nbsp;&nbsp;添加出库作业单</h1>
 <br/>
 <form class="layui-form" id="addFrm">
+    <input type="hidden" name="outGoodsTaskid">
+    <input type="hidden" name="processinstanceId">
     <table align="center" width="100%">
         <tr>
             <td colspan="4"><h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>基础信息</b></h4><hr/></td>
@@ -35,7 +37,6 @@
             <td width="35%"><div class="layui-input-inline">
                 <input type="text" name="warehouseId" lay-verify="title" placeholder="请输入" autocomplete="off" class="layui-input">
             </div><br/><br/></td>
-
         </tr>
     </table>
     <br/>

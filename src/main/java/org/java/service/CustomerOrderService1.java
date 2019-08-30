@@ -13,11 +13,13 @@ import java.util.List;
 
 public interface CustomerOrderService1 {
 
-    public List<CustomerOrder> getList(int page, int rows);
-
-    public int getCount();
+    public List<CustomerOrder> getList(String state);
 
     public void add(CustomerOrder f);
 
     public void acceptCustomerOrder(CustomerOrder customerOrder);
+
+    public void updateCustomerOrderState(CustomerOrder customerOrder);
+
+
 }

@@ -10,10 +10,12 @@
 <body style="margin-left: 70px;margin-top: 10px">
 <Br>
 <form class="layui-form" id="addFrm"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+    <input type="hidden" name="carDeployLineTaskid">
+    <input type="hidden" name="processinstanceId">
     <div class="layui-form-item">
-        <label class="layui-form-label">编号</label>
+        <label class="layui-form-label">配线编号</label>
         <div class="layui-input-inline">
-            <input type="text" name="carDeployLineId" placeholder="请输入配线编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
+            <input type="text" name="carDeployLineId" placeholder="自动生成" lay-verify="" autocomplete="off" class="layui-input" readonly="readonly">
         </div>
     </div>
     <div class="layui-form-item">
@@ -25,7 +27,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">配送编号</label>
         <div class="layui-input-inline">
-            <input type="text" name="deliverGoodsId" placeholder="请输入配送编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
+            <input type="text" name="deliverGoodsId" placeholder="请输入配送作业编号" readonly="readonly" lay-verify="" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">

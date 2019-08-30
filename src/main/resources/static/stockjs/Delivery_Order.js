@@ -13,9 +13,12 @@ layui.use(['table','layer','jquery'], function(){
         ,title:"仓库检查记录汇总" //设置导出文件时的标题
         ,loading:true
         ,cols: [[ //表头
-            {field: 'outGoodsId', title: '出库作业单', width:"35%", sort: true, fixed: 'left',align:"center"}
-            ,{field: 'outGoodsStatus', title: '状态', width:"35%",align:"center"}
-            , {field: 'op', title: '操作', width: "30%", align: "center", toolbar: "#barDemo"}
+            {field: 'outGoodsId', title: '出库作业单', width:"20%", sort: true, fixed: 'left',align:"center"}
+            ,{field: 'customerOrderId', title: '订单编号', width:"20%",align:"center"}
+            ,{field: 'outGoodsTaskid', title: '任务编号', width:"20%",align:"center"}
+            ,{field: 'processinstanceId', title: '流程实例编号', width:"20%",align:"center"}
+            ,{field: 'outGoodsStatus', title: '状态', width:"20%",align:"center"}
+            , {field: 'op', title: '操作', width: "20%", align: "center", toolbar: "#barDemo"}
         ]]
     });
 
@@ -73,15 +76,15 @@ layui.use(['table','layer','jquery'], function(){
 
             layer.confirm('是否确认出库？', function (index) {
 
-                $.post("/addDeliveryOrder", {"id": data.outGoodsId}, function () {
+                    $.post("/addDeliveryOrder", {"id": data.outGoodsId,"taskId":data.outGoodsTaskid,"customerOrderId":data.customerOrderId}, function () {
 
-                    table.reload('demo', {
-                        page: {
-                            curr: 1 //重新从第 1 页开始
-                        }
-                    }); //只重载数据
-                    layer.close(index);
-                });
+                        table.reload('demo', {
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                        }); //只重载数据
+                        layer.close(index);
+                    });
                 //
             });
         } else if (layEvent === 'edit') { //编辑

@@ -83,4 +83,24 @@ public interface BusinessService {
 
     public WarehouserType selectByPrimaryKey(Integer warehouserTypeId);
 
+    public List<WarehouseRegion> findWarehouseRegionByWarehouseName(String warehouseName);
+
+    public List<WarehousePosition> findWarehousePositionByByWarehouseId(String warehouseId);
+
+    public List<WarehousePosition> findWarehousePositionByByWarehouseRegionId(String warehouseRegionId);
+
+    public List<Cartype> findCarType();
+
+    public List<Motorcade> findMotorcade();
+
+    public Motorcade findMotorcadeById(Integer id);
+
+    public Cartype findCarTypeById(Integer id);
+
+    public Warehouse findWarehouseById(String id);
+
+    public WarehouseRegion findWarehouseRegionById(String id);
+
+    public WarehouserType findWarehouseTypeById(Integer id);
+
 }

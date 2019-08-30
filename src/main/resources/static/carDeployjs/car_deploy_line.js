@@ -5,7 +5,7 @@ layui.use(['table', 'layer', 'jquery'], function () {
     //第一个实例
     table.render({
         elem: '#demo'
-        , url: '/initCarDeployLine' //数据接口
+        , url: '/carDeployLine' //数据接口
         , page: true //开启分页
         , limit: 5 //默认每一页显示的条数
         , limits: [1, 2, 3, 5, 10, 20, 30, 50]//提示的每页条数的列表
@@ -15,25 +15,22 @@ layui.use(['table', 'layer', 'jquery'], function () {
         , cols: [
             [ //表头
 
-                {field: 'no', type: 'checkbox', width: "3%", fixed: 'left', align: "center"}
-                , {field: 'carDeployLineId', title: '编号', width: "10%", sort: true, fixed: 'left', align: "center"}
-                , {field: 'carId', title: '车辆编号', width: "10%", align: "center"}
-                , {field: 'deliverGoodsId', title: '配送任务单编号', width: "10%", align: "center"}
-                , {field: 'carFromSite', title: '始发站', width: "20%", align: "center"}
-                , {field: 'carMap', title: '始发站地图', width: "10%", align: "center", toolbar: "#barMap"}
-                , {field: 'carToSite', title: '目的站', width: "20%", align: "center"}
-                , {field: 'carMapIn', title: '目的站地图', width: "10%", align: "center", toolbar: "#barMapIn"}
+                {field: "deliverGoodsId", title: '配送任务单编号', width: "15%", sort: true, fixed: 'left', align: "center"}
+                , {field: 'userId', title: '配送员编号', width: "15%", align: "center"}
+                , {field: 'customerOrderId', title: '订单编号', width: "15%", align: "center"}
+                , {field: 'customerId', title: '客户编号', width: "15%", align: "center"}
                 , {
-                field: 'carDispatchDate',
-                title: '配线日期',
-                width: "11%",
+                field: 'deliverDate',
+                title: '配送日期',
+                width: "10%",
                 sort: true,
                 align: "center",
                 templet: '<div>{{ layui.util.toDateString(d.deliverDate, "yyyy-MM-dd") }}</div>'
             }
-                , {field: 'carMileage', title: '里程', width: "10%", sort: true, align: "center"}
-                , {field: 'carPrice', title: '单价', width: "10%", sort: true, align: "center"}
-                , {field: 'op', title: '操作', width: "15%", align: "center", toolbar: "#barDemo"}
+                ,{field: 'deliverGoodsTaskid', title: '任务编号', width:"10%",align:"center"}
+                ,{field: 'processinstanceId', title: '流程实例编号', width:"10%",align:"center"}
+                , {field: 'deliverGoodsStatus', title: '状态', width: "10%", align: "center", sort: true}
+                , {field: 'op', title: '操作', width: "10%", align: "center", toolbar: "#barDemo"}
             ]
         ]
     });
@@ -53,7 +50,7 @@ layui.use(['table', 'layer', 'jquery'], function () {
                     area: ['500px', '500px'],
                     maxmin: false,
                     anim: 1,
-                    title: "添加车辆调度",
+                    title: "配送作业",
                     content: '/carDeployLine/add',
                     zIndex: layer.zIndex, //重点1
                     success: function (layero) {
@@ -80,8 +77,8 @@ layui.use(['table', 'layer', 'jquery'], function () {
                 area: ['500px', '500px'],
                 maxmin: false,
                 anim: 1,
-                title: "车辆调度详情",
-                content: '/carDeployLine/detail',
+                title: "配送作业",
+                content: '/carDeployLine/add',
                 zIndex: layer.zIndex, //重点1
                 success: function (layero) {
                     layer.setTop(layero); //重点2
@@ -90,14 +87,9 @@ layui.use(['table', 'layer', 'jquery'], function () {
                     var body = layui.layer.getChildFrame("body");
 
                     //给弹出层body中的表单控件赋值
-                    body.find("[name='carDeployLineId']").val(data.carDeployLineId);
-                    body.find("[name='carId']").val(data.carId);
+                    body.find("[name='processinstanceId']").val(data.processinstanceId);
+                    body.find("[name='carDeployLineTaskid']").val(data.deliverGoodsTaskid);
                     body.find("[name='deliverGoodsId']").val(data.deliverGoodsId);
-                    body.find("[name='carFromSite']").val(data.carFromSite);
-                    body.find("[name='carToSite']").val(data.carToSite);
-                    body.find("[name='carDispatchDate']").val(format(data.carDispatchDate, 'yyyy-MM-dd'));
-                    body.find("[name='carMileage']").val(data.carMileage);
-                    body.find("[name='carPrice']").val(data.carPrice);
                 }
             });
         } else if (layEvent === 'del') { //删除

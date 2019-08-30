@@ -32,6 +32,25 @@ public class BusinessController {
 
         List<Warehouse> warehouse = businessService.findWarehouse(page, limit, searchWarehouseId);
 
+        List<Map> list = new ArrayList<Map>();
+
+        for (Warehouse w:warehouse){
+
+            Map m = new HashMap();
+
+            m.put("warehouseId",w.getWarehouseId());
+            m.put("warehouseName",w.getWarehouseName());
+            m.put("warehouseArea",w.getWarehouseArea());
+            m.put("warehouseType",businessService.findWarehouseTypeById(w.getWarehouseType()).getWarehousertypeState());
+            m.put("warehouseAddress",w.getWarehouseAddress());
+            m.put("warehouseEnable",w.getWarehouseEnable());
+            m.put("warehouseBuildDate",w.getWarehouseBuildDate());
+            m.put("warehouseManager",w.getWarehouseManager());
+            m.put("warehouseTypeId",w.getWarehouseType());
+            list.add(m);
+
+        }
+
         Integer count = businessService.findWarehouseCount(searchWarehouseId);
 
         Map map = new HashMap();
@@ -39,7 +58,7 @@ public class BusinessController {
         map.put("code", 0);//状态正常
         map.put("msg", "");
         map.put("count", count);//总数
-        map.put("data", warehouse);
+        map.put("data", list);
 
         return map;
     }
@@ -72,6 +91,23 @@ public class BusinessController {
 
         businessService.delWarehouse(warehouseId);
 
+        List<WarehouseRegion> list = businessService.findWarehouseRegionByWarehouseName(warehouseId);
+
+        for (WarehouseRegion w:list){
+
+            businessService.delWarehouseRegion(w.getWarehouseRegionId());
+
+        }
+
+        List<WarehousePosition> list2 = businessService.findWarehousePositionByByWarehouseId(warehouseId);
+
+        for (WarehousePosition w2:list2){
+
+            businessService.delWarehousePosition(w2.getWarehousePositionId());
+
+        }
+
+
     }
 
     //区域管理-------------------------------------------------------------------------
@@ -81,6 +117,20 @@ public class BusinessController {
 
         List<WarehouseRegion> warehouseRegion = businessService.findWarehouseRegion(page, limit, searchWarehouseRegionId);
 
+        List<Map> list = new ArrayList<Map>();
+
+        for (WarehouseRegion w:warehouseRegion){
+
+            Map map = new HashMap();
+
+            map.put("warehouseRegionId",w.getWarehouseRegionId());
+            map.put("warehouseRegionName",w.getWarehouseRegionName());
+            map.put("warehouseRegionArea",w.getWarehouseRegionArea());
+            map.put("warehouseId",businessService.findWarehouseById(w.getWarehouseId()).getWarehouseName());
+            map.put("warehouseRegionBuildDate",w.getWarehouseRegionBuildDate());
+            list.add(map);
+        }
+
         Integer count = businessService.findWarehouseRegionCount(searchWarehouseRegionId);
 
         Map map = new HashMap();
@@ -88,7 +138,7 @@ public class BusinessController {
         map.put("code", 0);//状态正常
         map.put("msg", "");
         map.put("count", count);//总数
-        map.put("data", warehouseRegion);
+        map.put("data", list);
 
         return map;
     }
@@ -117,6 +167,14 @@ public class BusinessController {
 
         businessService.delWarehouseRegion(warehouseRegionId);
 
+        List<WarehousePosition> list = businessService.findWarehousePositionByByWarehouseRegionId(warehouseRegionId);
+
+        for (WarehousePosition w:list){
+
+            businessService.delWarehousePosition(w.getWarehousePositionId());
+
+
+        }
     }
 
     //仓位管理-------------------------------------------------------------------------
@@ -126,6 +184,21 @@ public class BusinessController {
 
         List<WarehousePosition> warehousePosition = businessService.findWarehousePosition(page, limit, searchWarehousePositionId);
 
+        List<Map> list = new ArrayList<Map>();
+
+        for (WarehousePosition w:warehousePosition){
+
+            Map map = new HashMap();
+            map.put("warehousePositionId",w.getWarehousePositionId());
+            map.put("warehousePositionRegionId",businessService.findWarehouseRegionById(w.getWarehousePositionRegionId()).getWarehouseRegionName());
+            map.put("warehouseId",businessService.findWarehouseById(w.getWarehouseId()).getWarehouseName());
+            map.put("warehousePositionArea",w.getWarehousePositionArea());
+            map.put("warehousePositionBuildDate",w.getWarehousePositionBuildDate());
+            list.add(map);
+
+        }
+
+
         Integer count = businessService.findWarehousePositionCount(searchWarehousePositionId);
 
         Map map = new HashMap();
@@ -133,7 +206,7 @@ public class BusinessController {
         map.put("code", 0);//状态正常
         map.put("msg", "");
         map.put("count", count);//总数
-        map.put("data", warehousePosition);
+        map.put("data", list);
 
         return map;
     }
@@ -171,6 +244,23 @@ public class BusinessController {
 
         List<Car> car = businessService.findCar(page, limit, searchCarId);
 
+        List<Map> list = new ArrayList<>();
+
+        for (Car c:car){
+
+            Map map = new HashMap();
+
+            map.put("carId",c.getCarId());
+            map.put("carTypeId",businessService.findCarTypeById(c.getCarTypeId()).getCartypeState());
+            map.put("carBrand",c.getCarBrand());
+            map.put("motorcadeId",businessService.findMotorcadeById(c.getMotorcadeId()).getMotorcadeName());
+            map.put("carLoad",c.getCarLoad());
+            map.put("carBulk",c.getCarBulk());
+            map.put("carState",c.getCarState());
+            list.add(map);
+
+        }
+
         Integer count = businessService.findCarCount(searchCarId);
 
         Map map = new HashMap();
@@ -178,7 +268,7 @@ public class BusinessController {
         map.put("code", 0);//状态正常
         map.put("msg", "");
         map.put("count", count);//总数
-        map.put("data", car);
+        map.put("data", list);
 
         return map;
     }
@@ -312,6 +402,7 @@ public class BusinessController {
             Map<String,Object> map = new HashMap<String, Object>();
 
             map.put("state",t.getWarehousertypeState());
+            map.put("id",t.getWarehouserTypeId());
 
             l.add(map);
 
@@ -340,5 +431,73 @@ public class BusinessController {
         }
 
         return l;
+    }
+
+    @GetMapping("/findWarehouseRegion")
+    @ResponseBody
+    public List<Map> findWarehouseRegion(String warehouseId){
+
+        List<WarehouseRegion> list =  businessService.findWarehouseRegionByWarehouseName(warehouseId);
+
+        List<Map> l = new ArrayList<Map>();
+
+        for (WarehouseRegion t:list){
+
+            Map m = new HashMap();
+
+            m.put("name",t.getWarehouseRegionName());
+            m.put("id",t.getWarehouseRegionId());
+
+            l.add(m);
+
+        }
+
+        return l;
+    }
+
+    @GetMapping("/findMotorcade")
+    @ResponseBody
+    public List<Map> findMotorcade(){
+
+        List<Motorcade> list =  businessService.findMotorcade();
+
+        List<Map> l = new ArrayList<Map>();
+
+        for (Motorcade motorcade:list){
+
+            Map m = new HashMap();
+
+            m.put("name",motorcade.getMotorcadeName());
+            m.put("id",motorcade.getMotorcadeId());
+
+            l.add(m);
+
+        }
+
+        return l;
+
+    }
+
+    @GetMapping("/findCarType")
+    @ResponseBody
+    public List<Map> findCarType(){
+
+        List<Cartype> list =  businessService.findCarType();
+
+        List<Map> l = new ArrayList<Map>();
+
+        for (Cartype c:list){
+
+            Map m = new HashMap();
+
+            m.put("state",c.getCartypeState());
+            m.put("id",c.getCartypeId());
+
+            l.add(m);
+
+        }
+
+        return l;
+
     }
 }

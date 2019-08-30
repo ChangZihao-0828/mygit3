@@ -46,8 +46,14 @@ public class CustomerOrderServiceImpl1 implements CustomerOrderService1 {
 
 
     @Override
-    public List<CustomerOrder> getList(int page, int rows) {
-        int start = (page-1)*rows;
+    public void updateCustomerOrderState(CustomerOrder customerOrder) {
+
+        customerOrderMapper.updateByPrimaryKeySelective(customerOrder);
+
+    }
+
+    @Override
+    public List<CustomerOrder> getList(String state) {
 
         SysUserinfo user = (SysUserinfo) SecurityUtils.getSubject().getPrincipal();
 
@@ -63,7 +69,7 @@ public class CustomerOrderServiceImpl1 implements CustomerOrderService1 {
 
             String processInstanceId = t.getProcessInstanceId();
 
-            CustomerOrder customerOrder = customerOrderMapper.selectByProcessinstanceId(processInstanceId);
+            CustomerOrder customerOrder = customerOrderMapper.selectByProcessinstanceId(processInstanceId,state);
 
                 if (customerOrder!=null){
 
@@ -74,24 +80,11 @@ public class CustomerOrderServiceImpl1 implements CustomerOrderService1 {
 
         }
 
+
+
         return list;
     }
 
-    @Override
-    public int getCount() {
-
-        SysUserinfo user = (SysUserinfo) SecurityUtils.getSubject().getPrincipal();
-
-        TaskQuery query = taskService.createTaskQuery();
-
-        query.taskCandidateUser(user.getUserName());
-
-        List<Task> taskList = query.list();
-
-        taskList.size();
-
-        return  taskList.size();
-    }
 
 
     @Transactional
@@ -135,15 +128,12 @@ public class CustomerOrderServiceImpl1 implements CustomerOrderService1 {
     @Override
     public void acceptCustomerOrder(CustomerOrder c) {
 
-        Map<String,Object> variable = new HashMap<String, Object>();
-
-        variable.put("price",c.getCustomerOrderPrice());
-
-        taskService.complete(c.getCustomerOrderTaskid(),variable);
+        taskService.complete(c.getCustomerOrderTaskid());
 
         c.setCustomerOrderState("已接收");
 
         customerOrderMapper.updateByPrimaryKeySelective(c);
 
     }
+
 }

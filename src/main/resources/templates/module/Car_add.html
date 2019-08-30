@@ -5,7 +5,7 @@
     <title>table模块快速使用</title>
     <link rel="stylesheet" th:href="@{'/layui/css/layui.css'}" media="all">
     <script th:src="@{'/layui/layui.js'}"></script>
-    <script th:src="@{'/my.js'}"></script>
+    <script th:src="@{'/js/my.js'}"></script>
 </head>
 <body style="margin-left: 70px;margin-top: 10px">
 <Br>
@@ -20,11 +20,10 @@
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">车辆类型编号</label>
+        <label class="layui-form-label">车辆类型</label>
         <div class="layui-input-inline">
-            <select name="carTypeId" lay-verify="required" lay-search="" required="required">
-                <option value="1" th:required="required">类型1</option>
-                <option value="2">类型2</option>
+            <select name="carTypeId" id="carTypeId" lay-verify="required" lay-search="" required="required">
+                <option value="" >请选择</option>
             </select>
         </div>
     </div>
@@ -37,11 +36,10 @@
     </div>
 
     <div class="layui-form-item">
-        <label class="layui-form-label">所属车队编号</label>
+        <label class="layui-form-label">所属车队</label>
         <div class="layui-input-inline">
-            <select name="motorcadeId" lay-verify="required" lay-search="" required="required">
-                <option value="1" th:required="required">车队1</option>
-                <option value="2">车队2</option>
+            <select name="motorcadeId" id="motorcadeId" lay-verify="required" lay-filter="motorcadeId" lay-search="" required="required">
+                <option value="">请选择</option>
             </select>
         </div>
     </div>
@@ -64,8 +62,8 @@
         <label class="layui-form-label">车辆状态</label>
         <div class="layui-input-inline">
             <select name="carState" lay-verify="required" lay-search="" required="required">
-                <option value="1" th:required="required">状态1</option>
-                <option value="2">状态2</option>
+                <option value="未出车" th:required="required">未出车</option>
+                <option value="已出车">已出车</option>
             </select>
         </div>
     </div>
@@ -78,7 +76,6 @@
     </div>
     <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
 </form>
-<script src="layui.js"></script>
 <script>
     layui.use(['form','jquery','layer'], function(){
         var form = layui.form;
@@ -101,6 +98,24 @@
             });
             return false;
         });
+
+            $.ajax({
+                url:"/findCarType",
+                type:"get",
+                dataType:"json",//返回类型
+                success:function(data){
+                    //data，即为返回的json,它本身的类型是map
+                    //如果json的类型是map,循环取到的内容分别为：key(对应map中的键),value(对应map中的值)
+
+                    $.each(data,function(index,m){
+                        $("#carTypeId").append(new Option(m.state,m.id));
+                    });
+
+                    layui.form.render("select");
+                }
+            });
+
+
     });
 </script>
 </body>

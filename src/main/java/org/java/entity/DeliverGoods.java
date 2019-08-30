@@ -21,6 +21,16 @@ public class DeliverGoods implements Serializable {
 
     private String deliverGoodsTaskid;
 
+    private String deliverGoodsStatus;
+
+    public String getDeliverGoodsStatus() {
+        return deliverGoodsStatus;
+    }
+
+    public void setDeliverGoodsStatus(String deliverGoodsStatus) {
+        this.deliverGoodsStatus = deliverGoodsStatus;
+    }
+
     public String getDeliverGoodsId() {
         return deliverGoodsId;
     }

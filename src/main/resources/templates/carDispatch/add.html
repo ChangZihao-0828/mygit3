@@ -10,10 +10,12 @@
 <body style="margin-left: 70px;margin-top: 10px">
 <Br>
 <form class="layui-form" id="addFrm"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+    <input type="hidden" name="carDispatchTaskid">
+    <input type="hidden" name="processinstanceId">
     <div class="layui-form-item">
         <label class="layui-form-label">编号</label>
         <div class="layui-input-inline">
-            <input type="text" name="carDispatchId" placeholder="请输入任务编号"  required  lay-verify="required" autocomplete="off" class="layui-input">
+            <input type="text" name="carDispatchId" placeholder="自动生成" lay-verify="" readonly="readonly" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -39,13 +41,6 @@
         <label class="layui-form-label">回车日期</label>
         <div class="layui-input-inline">
             <input type="date" name="carBackDate"  autocomplete="off" required class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">状态</label>
-        <div class="layui-input-block">
-            <input type="radio" name="carDispatchStatus" value="已调度" title="已调度" checked>
-            <input type="radio" name="carDispatchStatus" value="未调度" title="未调度">
         </div>
     </div>
     <div class="layui-form-item">

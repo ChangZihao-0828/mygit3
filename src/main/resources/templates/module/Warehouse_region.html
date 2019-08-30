@@ -48,10 +48,9 @@
             ,title:"区域管理"
             ,loading:true
             ,cols: [[ //表头
-                {field: 'no', type:'checkbox', width:"5%", sort: true, fixed: 'left',align:"center"}
-                ,{field: 'warehouseRegionId', title: '编号', width:"10%", sort: true, fixed: 'left',align:"center"}
+                {field: 'warehouseRegionId', title: '区域编号', width:"20%", sort: true, fixed: 'left',align:"center"}
                 ,{field: 'warehouseRegionName', title: '名称', width:"20%", sort: true, align:"center"}
-                ,{field: 'warehouseRegionArea', title: '面积', width:"15%", sort: true, align:"center"}
+                ,{field: 'warehouseRegionArea', title: '面积', width:"10%", sort: true, align:"center"}
                 ,{field: 'warehouseId', title: '所属仓库', width:"10%",align:"center"}
                 ,{field: 'warehouseRegionBuildDate', title: '创建时间', width:"20%", sort: true, align:"center",templet:'<div>{{ layui.util.toDateString(d.warehouseRegionBuildDate, "yyyy-MM-dd") }}</div>'}
                 ,{field: 'op', title: '操作', width:"20%",align:"center", toolbar:"#barDemo"}

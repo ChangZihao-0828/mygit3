@@ -140,4 +140,10 @@
       </if>
     </where>
   </select>
+  <select id="findOutGoodsByProcessinstanceId" resultMap="BaseResultMap">
+    select * from out_goods where processinstance_id=#{processinstanceId}
+    <if test="outGoodsStatus!=null and  outGoodsStatus!=''">
+      and out_goods_status=#{outGoodsStatus}
+    </if>
+  </select>
 </mapper>

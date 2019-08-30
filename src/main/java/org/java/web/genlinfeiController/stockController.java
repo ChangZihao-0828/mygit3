@@ -1,14 +1,8 @@
 package org.java.web.genlinfeiController;
 
 import org.java.dao.InGoodsMapper;
-import org.java.entity.InGoods;
-import org.java.entity.OutEquipGoods;
-import org.java.entity.OutGoods;
-import org.java.entity.TakeGoods;
-import org.java.service.InGoodsService;
-import org.java.service.OutEquipGoodsService;
-import org.java.service.OutGoodsService;
-import org.java.service.TakeGoodsService;
+import org.java.entity.*;
+import org.java.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +27,12 @@ public class stockController {
     @Autowired
     private InGoodsService inGoodsService;
 
+    @Autowired
+    private DeliverGoodsService deliverGoodsService;
+
+    @Autowired
+    private CustomerOrderService1 customerOrderService1;
+
     @GetMapping("/stock/{page}")
     public String stock(@PathVariable("page") String page){
 
@@ -45,46 +45,73 @@ public class stockController {
 
         List<OutGoods> outGoods = outGoodsService.findOutGoods(page,limit,searchDeliveryReceivingId,null);
 
-        Integer count = outGoodsService.findOutGoodsCount(searchDeliveryReceivingId,null);
+        Map map = new HashMap();
+        map.put("code",0);//状态正常
+        map.put("msg","");
+        map.put("count",outGoods.size());//总数
+        map.put("data",outGoods);
+
+        return map;
+    }
+
+    @RequestMapping("deliveryReceiving2")
+    @ResponseBody
+    public Map<String,Object> deliveryReceiving2(Integer page,Integer limit, String searchDeliveryReceivingId){
+
+        List<OutGoods> outGoods = outGoodsService.findOutGoods2();
 
         Map map = new HashMap();
         map.put("code",0);//状态正常
         map.put("msg","");
-        map.put("count",count);//总数
+        map.put("count",outGoods.size());//总数
         map.put("data",outGoods);
 
         return map;
+    }
+
+
+    @PostMapping("submitOutGoodsOrder")
+    @ResponseBody
+    public void submitDeliveryOrder(String outGoodsTaskid,String outGoodsId){
+
+        deliverGoodsService.submitDeliveryOrder(outGoodsTaskid);
+
+        OutGoods outGoods = new OutGoods();
+
+        outGoods.setOutGoodsId(outGoodsId);
+
+        outGoods.setOutGoodsStatus("未拣选");
+
+        outGoodsService.updateOutGoodsStatus(outGoods);
+
     }
 
     @RequestMapping("deliveryOrder")
     @ResponseBody
     public Map<String,Object> deliveryOrder(Integer page,Integer limit, String searchDeliveryOrderId){
 
-        List<OutGoods> outGoods = outGoodsService.findOutGoods(page,limit,searchDeliveryOrderId,"已装卸");
-
-        Integer count = outGoodsService.findOutGoodsCount(searchDeliveryOrderId,"已装卸");
+        List<OutGoods> outGoods = outGoodsService.findOutGoodsByProcessinstanceId("已装卸");
 
         Map map = new HashMap();
         map.put("code",0);//状态正常
         map.put("msg","");
-        map.put("count",count);//总数
+        map.put("count",outGoods.size());//总数
         map.put("data",outGoods);
         return map;
     }
+
 
     @RequestMapping("deliveryPicking")
     @ResponseBody
     public Map<String,Object> deliveryPicking(Integer page,Integer limit, String searchDeliveryPickingId){
 
-        List<OutGoods> outGoods = outGoodsService.findOutGoods(page,limit,searchDeliveryPickingId,"未接收");
-
-        Integer count = outGoodsService.findOutGoodsCount(searchDeliveryPickingId,"未接收");
+        List<OutGoods> outGoods = outGoodsService.findOutGoodsByProcessinstanceId("未拣选");
 
 
         Map map = new HashMap();
         map.put("code",0);//状态正常
         map.put("msg","");
-        map.put("count",count);//总数
+        map.put("count",outGoods.size());//总数
         map.put("data",outGoods);
         return map;
     }
@@ -93,29 +120,25 @@ public class stockController {
     @ResponseBody
     public Map<String,Object> deliveryUnloading(Integer page,Integer limit, String searchDeliveryUnloadingId){
 
-        List<OutGoods> outGoods = outGoodsService.findOutGoods(page,limit,searchDeliveryUnloadingId,"已拣选");
-
-        Integer count = outGoodsService.findOutGoodsCount(searchDeliveryUnloadingId,"已拣选");
-
+        List<OutGoods> outGoods = outGoodsService.findOutGoodsByProcessinstanceId("已拣货");
 
         Map map = new HashMap();
         map.put("code",0);//状态正常
         map.put("msg","");
-        map.put("count",count);//总数
+        map.put("count",outGoods.size());//总数
         map.put("data",outGoods);
         return map;
     }
+
+
+
+
 
     @PostMapping("addDeliveryReceiving")
     @ResponseBody
     public void addDeliveryReceiving(OutGoods outGoods){
 
-        outGoods.setOutGoodsId(String.valueOf(UUID.randomUUID()));
-
-        outGoods.setOutGoodsStatus("未接收");
-
         outGoodsService.addDeliveryReceiving(outGoods);
-
 
     }
 
@@ -123,15 +146,13 @@ public class stockController {
     @ResponseBody
     public void addDeliveryPicking(TakeGoods takeGoods){
 
-        takeGoods.setTakeGoodsId(String.valueOf(UUID.randomUUID()));
-
         takeGoodsService.addTakeGoods(takeGoods);
 
         OutGoods outGoods = new OutGoods();
 
         outGoods.setOutGoodsId(takeGoods.getOutGoodsId());
 
-        outGoods.setOutGoodsStatus("已拣选");
+        outGoods.setOutGoodsStatus("已拣货");
 
         outGoodsService.updateOutGoodsStatus(outGoods);
 
@@ -141,10 +162,6 @@ public class stockController {
     @PostMapping("addDeliveryUnloading")
     @ResponseBody
     public void addDeliveryUnloading(OutEquipGoods outEquipGoods){
-
-        outEquipGoods.setOutEquipGoodsId(String.valueOf(UUID.randomUUID()));
-
-        outEquipGoods.setOutEquipGoodsStatus("已装卸");
 
         outEquipGoodsService.addOutEquipGoods(outEquipGoods);
 
@@ -161,7 +178,7 @@ public class stockController {
 
     @PostMapping("addDeliveryOrder")
     @ResponseBody
-    public void addDeliveryOrder(String id){
+    public void addDeliveryOrder(String id,String taskId,String customerOrderId){
 
         OutGoods outGoods = new OutGoods();
 
@@ -171,13 +188,24 @@ public class stockController {
 
         outGoodsService.updateOutGoodsStatus(outGoods);
 
+        deliverGoodsService.submitDeliveryOrder(taskId);
+
+        CustomerOrder customerOrder = new CustomerOrder();
+
+        customerOrder.setCustomerOrderId(customerOrderId);
+
+        customerOrder.setCustomerOrderState("运输中");
+
+        customerOrderService1.updateCustomerOrderState(customerOrder);
+
+
     }
 
 
     @GetMapping("incomingOrders")
     @ResponseBody
     public Map<String,Object> incomingOrders(Integer page,Integer limit, String searchIncomingOrdersId){
-        System.out.println("------------"+searchIncomingOrdersId);
+
         List<InGoods> inGoods = inGoodsService.findInGoods(page,limit,searchIncomingOrdersId);
 
         Integer count = inGoodsService.getInGoodsCount(searchIncomingOrdersId);

@@ -4,7 +4,7 @@ layui.use(['table','layer','jquery'], function(){
     var $ = layui.$;
     table.render({
         elem: '#demo'
-        ,url: '/order' //数据接口
+        ,url: '/orderPeocessing' //数据接口
         ,page: true //开启分页
         ,limit:5 //默认每一页显示的条数
         ,limits:[1,2,3,5,10,20,30,50]//提示的每页条数的列表
@@ -13,13 +13,15 @@ layui.use(['table','layer','jquery'], function(){
         ,loading:true
         ,cols: [[ //表头
 
-            {field: 'no',type:'checkbox', width:"5%",fixed: 'left',align:"center"}
-            ,{field: 'customerOrderId', title: '订单编号', width:"20%", sort: true, fixed: 'left',align:"center"}
-            ,{field: 'customerOrderNameId', title: '客户名称', width:"20%",align:"center"}
+            {field: 'customerOrderId', title: '订单编号', width:"20%", sort: true, fixed: 'left',align:"center"}
+            ,{field: 'customerOrderNameId', title: '客户名称', width:"10%",align:"center"}
             ,{field: 'customerOrderType', title: '订单类型', width:"10%", align:"center"}
-            ,{field: 'customerOrderTime', title: '订单日期', width:"20%",align:"center",sort: true,templet:'<div>{{ layui.util.toDateString(d.purchaseOrderBegintime, "yyyy-MM-dd") }}</div>'}
+            ,{field: 'customerOrderTime', title: '订单日期', width:"15%",align:"center" ,sort: true,templet:'<div>{{ layui.util.toDateString(d.customerOrderTime, "yyyy-MM-dd") }}</div>'}
+            ,{field: 'customerOrderPrice', title: '订单价格', width: "10%",align:"center"}
+            ,{field: 'customerOrderTaskid', title: '任务编号', width: "10%",align:"center"}
+            ,{field: 'processinstanceId', title: '流程实例', width: "10%",align:"center"}
             ,{field: 'customerOrderState', title: '状态', width: "10%",align:"center"}
-            ,{field: 'cz', title: '操作', width: "10%",align:"center",toolbar:"#barDemo"}
+            ,{field: 'cz', title: '操作', width: "15%",align:"center",toolbar:"#barDemo"}
         ]]
     });
 
@@ -36,20 +38,54 @@ layui.use(['table','layer','jquery'], function(){
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的DOM对象
 
-        if(layEvent === 'detail'){ //查看
-            alert('显示详情');
-        } else if(layEvent === 'del'){ //删除
+        if(layEvent === 'outGoods'){ //出库
 
-            alert("删除");
-            // layer.confirm('真的删除行么', function(index){
-            //     // obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-            //     // layer.close(index);
-            //     // //向服务端发送删除指令
-            //
-            //
-            // });
-        } else if(layEvent === 'edit'){ //编辑
-            alert("修改");
+            layer.open({
+                type: 2,
+                shade: true,
+                area: ['1000px', '440px'],
+                maxmin: false,
+                anim: 1,
+                title: "添加出库作业",
+                content: '/stock/add_Delivery_Receiving',
+                zIndex: layer.zIndex, //重点1
+                success: function (layero) {
+                    layer.setTop(layero); //重点2
+                    /*********弹出新窗体以后，给新窗中的控件赋值**********************/
+                        //-------------获得弹出层页面的body部份
+                    var body = layui.layer.getChildFrame("body");
+
+                    //给弹出层body中的表单控件赋值
+                    body.find("[name='customerOrderId']").val(data.customerOrderId);
+                    body.find("[name='outGoodsTaskid']").val(data.customerOrderTaskid);
+                    body.find("[name='processinstanceId']").val(data.processinstanceId);
+                }
+            });
+
+        } else if(layEvent === 'dispatching'){ //配送
+
+            layer.open({
+                type: 2,
+                shade: true,
+                area: ['1000px', '440px'],
+                maxmin: false,
+                anim: 1,
+                title: "添加配送任务",
+                content: '/deliver/add',
+                zIndex: layer.zIndex, //重点1
+                success: function (layero) {
+                    layer.setTop(layero); //重点2
+                    /*********弹出新窗体以后，给新窗中的控件赋值**********************/
+                        //-------------获得弹出层页面的body部份
+                    var body = layui.layer.getChildFrame("body");
+
+                    //给弹出层body中的表单控件赋值
+                    body.find("[name='customerOrderId']").val(data.customerOrderId);
+                    body.find("[name='deliverGoodsTaskid']").val(data.customerOrderTaskid);
+                    body.find("[name='processinstanceId']").val(data.processinstanceId);
+
+                }
+            });
         }
     });
 //指定日期转换格式

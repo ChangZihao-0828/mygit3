@@ -1,13 +1,18 @@
 package org.java.service.impl;
 
+import org.activiti.engine.TaskService;
+import org.activiti.engine.task.TaskQuery;
+import org.apache.shiro.SecurityUtils;
 import org.java.dao.CarDeployLineMapper;
 import org.java.entity.CarDeployLine;
+import org.java.entity.SysUserinfo;
 import org.java.service.CarDeployLineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @Title: Talk is cheap,show me the code.
@@ -32,6 +37,9 @@ public class CarDeployLineServiceImpl implements CarDeployLineService {
 
     @Autowired
     private CarDeployLineMapper mapper;
+
+    @Autowired
+    private TaskService taskService;
     @Override
     public List<CarDeployLine> findCarDeployLine(int page, int rows, String carDeployLineId) {
         //计算开始下标
@@ -48,6 +56,23 @@ public class CarDeployLineServiceImpl implements CarDeployLineService {
     @Transactional
     @Override
     public void add(CarDeployLine c) {
+
+        SysUserinfo user = (SysUserinfo) SecurityUtils.getSubject().getPrincipal();
+
+        TaskQuery query = taskService.createTaskQuery();
+
+        query.taskCandidateUser(user.getUserName());
+
+        TaskQuery task = query.taskId(c.getCarDeployLineTaskid());
+
+        if (task != null) {
+
+            taskService.claim(c.getCarDeployLineTaskid(),user.getUserName());
+
+            taskService.complete(c.getCarDeployLineTaskid());
+        }
+
+        c.setCarDeployLineId(String.valueOf(UUID.randomUUID()));
 
         mapper.insert(c);
     }

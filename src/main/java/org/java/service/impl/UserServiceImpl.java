@@ -1,7 +1,9 @@
 package org.java.service.impl;
 
+import org.java.dao.DepartmentMapper;
 import org.java.dao.SysPermissionMapper;
 import org.java.dao.SysUserinfoMapper;
+import org.java.entity.Department;
 import org.java.entity.SysPermission;
 import org.java.entity.SysUserinfo;
 import org.java.service.UserService;
@@ -25,6 +27,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private SysPermissionMapper sysPermissionMapper;
 
+    @Autowired
+    private DepartmentMapper departmentMapper;
+
     @Override
     public SysUserinfo login(String username) {
 
@@ -41,5 +46,10 @@ public class UserServiceImpl implements UserService {
     public List<SysPermission> loadMenus(String id) {
 
         return sysPermissionMapper.loadMenus(id);
+    }
+
+    @Override
+    public Department findByDempartmentId(Integer id) {
+        return departmentMapper.selectByPrimaryKey(id);
     }
 }
