@@ -18,8 +18,9 @@ layui.use(['table','layer','jquery'], function(){
             ,{field: 'purchaseAppllyOrderBeginTime', title: '申请日期', width:"10%",align:"center",sort: true,templet:'<div>{{ layui.util.toDateString(d.purchaseAppllyOrderBeginTime, "yyyy-MM-dd") }}</div>'}
             ,{field: 'purchaseAppllyUserName', title: '申请人', width:"10%", align:"center"}
             ,{field: 'purchaseAppllyPrice', title: '价格', width:"10%", align:"center"}
-            ,{field: 'purchaseAppllyTaskid', title: '任务编号', width:"20%", align:"center"}
-            ,{field: 'cz', title: '操作', width: "30%",align:"center",toolbar:"#barDemo"}
+            ,{field: 'purchaseAppllyTaskid', title: '任务编号', width:"10%", align:"center"}
+            ,{field: 'defkey', title: '审核意见', width: "20%",align:"center",hide:true}
+            ,{field: 'cz', title: '操作', width: "20%",align:"center",toolbar:"#barDemo"}
 
         ]]
     });
@@ -70,9 +71,16 @@ layui.use(['table','layer','jquery'], function(){
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的DOM对象
+        if(layEvent === 'disagree'){ //查看
+            $.post("/disagreePurchaseOrder", {"purchaseAppllyTaskid": data.purchaseAppllyTaskid,"defkey":data.defkey}, function () {
+                table.reload('demo', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                }); //只重载数据
+                layer.close(index);
+            });
 
-        if(layEvent === 'detail'){ //查看
-            alert('显示详情');
         } else if(layEvent === 'del'){ //删除
 
             layer.confirm('确定要删除', function(index){

@@ -199,12 +199,14 @@
   <select id="findPurchaseOrder" resultMap="BaseResultMap">
     select * from purchase_order
     <where>
-      <if test="purchaseOrderId!=null and purchaseOrderId !=''">
-        and purchase_order_id like '%${purchaseOrderId}%'
+      <if test="purchaseUserId!=null and purchaseUserId !=''">
+        and purchase_user_id like '%${purchaseUserId}%'
       </if>
     </where>
     limit #{start},#{rows}
   </select>
-
+  <select id="findByProcessinstanceId" resultMap="BaseResultMap">
+    select * from purchase_order where processinstance_id=#{processinstanceId}
+  </select>
 
 </mapper>

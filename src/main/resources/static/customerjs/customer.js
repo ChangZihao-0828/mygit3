@@ -72,7 +72,6 @@ layui.use(['table','layer','jquery'], function(){
                     }); //只重载数据
                     layer.close(index);
                 });
-
             });
         } else if(layEvent === 'edit'){ //编辑
             alert("修改");

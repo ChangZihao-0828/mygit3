@@ -61,7 +61,11 @@ public class OrderController {
         return "redirect:showPersonTask";
 
     }
-
+    /**
+     * 查询个人待处理任务 根据用户名，查询有哪些需要当前用户进行处理
+     *
+     * @return
+     */
     @GetMapping("showPersonTask")
     public String showPersonTask(Model model){
 
@@ -107,7 +111,11 @@ public class OrderController {
 
         return "/activitiOrder/showProcessInstance";
     }
-
+    /**
+     * 查询个人待处理任务 根据用户名，查询有哪些需要当前用户进行处理
+     *
+     * @return
+     */
     @GetMapping("showProcessInstance2")
     public String showProcessInstance2(Model model){
 
@@ -206,18 +214,15 @@ public class OrderController {
 //    }
 //
 //
-//    @PostMapping("submitAudit")
-//    public String submitAudit(@RequestParam Map<String,Object> map){
-//
-//        String userId = (String) ses.getAttribute("user");
-//
-//        map.put("userId",userId);
-//
-//        infService.submitAudit(map);
-//
-//        return "redirect:showPersonTask";
-//
-//    }
+    @PostMapping("submitAudit")
+    public String submitAudit(@RequestParam Map<String,Object> map){
+        System.out.println("mizuki");
+       String userId = (String) ses.getAttribute("user");
+      map.put("userId",userId);
+     activityService.submitAudit(map);
+
+        return "customer/purchase_order_add";
+   }
 
     @GetMapping("showClaimTask")
     public String showClaimTask(Model model){

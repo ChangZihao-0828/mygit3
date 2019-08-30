@@ -10,7 +10,7 @@ layui.use(['table','layer','jquery'], function() {
         , limit: 5 //默认每一页显示的条数
         , limits: [1, 2, 3, 5, 10, 20, 30, 50]//提示的每页条数的列表
         , toolbar: "#addDemo" //显示工具栏
-        , title: "采购申请单" //设置导出文件时的标题
+        , title: "采购单" //设置导出文件时的标题
         , loading: true
         , cols: [[ //表头
 

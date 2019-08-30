@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,7 @@ public class SupplierController {
 
         return map;
     }
+
 
     @RequestMapping("cg1")
     public String cg1() {
@@ -95,7 +97,6 @@ public class SupplierController {
 
     @RequestMapping("cg9")
     public String cg9() {
-
         return "customer/purchase_order_add";
     }
 
@@ -137,7 +138,7 @@ public class SupplierController {
 
     @RequestMapping("/purchaseorderadd")
     @ResponseBody //一定要添加此注解
-    public void edit(PurchaseOrder e) {
+    public void edit(PurchaseOrder e, HttpSession ses) {
         if (e.getPurchaseOrderId() == "") {
             e.setPurchaseOrderId(String.valueOf(UUID.randomUUID()));
 
@@ -146,6 +147,7 @@ public class SupplierController {
             purchaseOrderService.updatePurchaseOrder(e);
 
         }
+
 
     }
     @RequestMapping("delPurchaseOrder")
@@ -161,5 +163,21 @@ public class SupplierController {
 
         purchaseAppllyOrderService.submitPurchaseApplyOrder(purchaseAppllyTaskid,purchaseAppllyPrice);
 
+    }
+    @PostMapping("agreePurchaseOrder")
+    @ResponseBody
+    public void agreePurchaseOrder(String purchaseTaskid,String purchasePrice){
+        System.out.println("asuna");
+       purchaseOrderService.submitPurchaseOrder(purchaseTaskid,purchasePrice);
+
+    }
+    @PostMapping("disagreePurchaseOrder")
+    @ResponseBody
+    public void disagreePurchaseOrder(String purchaseAppllyTaskid,String defkey){
+
+        defkey= String.valueOf(0);
+        System.out.println(defkey);
+        System.out.println(purchaseAppllyTaskid);
+        purchaseAppllyOrderService.submitPurchaseApplyOrder(purchaseAppllyTaskid,defkey);
     }
 }

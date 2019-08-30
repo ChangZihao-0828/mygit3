@@ -47,7 +47,6 @@ layui.use(['table','layer','jquery'], function(){
                     }); //只重载数据
                     layer.close(index);
                 });
-                //
             });
         } else if(layEvent === 'del'){ //删除
 
@@ -81,11 +80,6 @@ layui.use(['table','layer','jquery'], function(){
                 }
             });
         }
-
-
-
-
-
 
     });
 

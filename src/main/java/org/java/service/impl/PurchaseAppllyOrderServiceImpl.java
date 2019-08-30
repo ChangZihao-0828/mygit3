@@ -39,7 +39,7 @@ public class PurchaseAppllyOrderServiceImpl implements PurchaseAppllyOrderServic
 
 
     @Override
-    public List<PurchaseAppllyOrder> findGroupPurchaseApplyOrder() {
+    public List<Map> findGroupPurchaseApplyOrder() {
 
         SysUserinfo user = (SysUserinfo) SecurityUtils.getSubject().getPrincipal();
 
@@ -49,19 +49,21 @@ public class PurchaseAppllyOrderServiceImpl implements PurchaseAppllyOrderServic
 
         List<Task> taskList = query.list();
 
-        List<PurchaseAppllyOrder> list = new ArrayList<PurchaseAppllyOrder>();
+        List<Map> list = new ArrayList<Map>();
 
         for (Task t:taskList){
 
             String processInstanceId = t.getProcessInstanceId();
 
             PurchaseAppllyOrder purchaseAppllyOrder = mapper.findByProcessinstanceId(processInstanceId);
-
+            Map map = new HashMap();
+            map.put("defkey",t.getTaskDefinitionKey());
+            map.put("purchaseAppllyTaskid",t.getId());
             if (purchaseAppllyOrder!=null){
 
                 purchaseAppllyOrder.setPurchaseAppllyTaskid(t.getId());
 
-                list.add(purchaseAppllyOrder);
+                list.add(map);
             }
 
         }
@@ -84,18 +86,17 @@ public class PurchaseAppllyOrderServiceImpl implements PurchaseAppllyOrderServic
     }
 
     @Override
-    public void submitPurchaseApplyOrder(String id, String price) {
-
-        float pri = Float.parseFloat(price);
+    public void submitPurchaseApplyOrder(String purchaseAppllyTaskid,String defkey) {
 
         Map<String,Object> variable = new HashMap<String, Object>();
 
-        variable.put("price",pri);
+        variable.put("defkey",defkey);
+        variable.put("purchaseAppllyTaskid",purchaseAppllyTaskid);
 
-        taskService.complete(id,variable);
+        taskService.complete(purchaseAppllyTaskid,variable);
 
     }
-
+    @Override
     public List<PurchaseAppllyOrder> findPurchaseAppllyOrderAll(int page, int rows, Integer purchaseAppllyUserName){
 
         return mapper.findPurchaseAppllyOrder(page,rows,purchaseAppllyUserName);
@@ -110,7 +111,7 @@ public class PurchaseAppllyOrderServiceImpl implements PurchaseAppllyOrderServic
 
     @Override
     public List<PurchaseAppllyOrder> findPurchaseAppllyOrder(int page, int rows, Integer purchaseAppllyUserName) {
-
+        System.out.println("======================");
 //        计算开始下标
         int start = (page - 1) * rows;
 
@@ -127,6 +128,8 @@ public class PurchaseAppllyOrderServiceImpl implements PurchaseAppllyOrderServic
         for (Task t:taskList){
 
             String processInstanceId = t.getProcessInstanceId();
+
+            System.out.println(processInstanceId);
 
             PurchaseAppllyOrder purchaseAppllyOrder = mapper.findByProcessinstanceId(processInstanceId);
 

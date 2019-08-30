@@ -4,7 +4,7 @@ layui.use(['table','layer','jquery'], function(){
     var $ = layui.$;
     table.render({
         elem: '#demo'
-        ,url: '/sc' //数据接口
+        ,url: '/initPurchaseOrder' //数据接口
         ,page: true //开启分页
         ,limit:5 //默认每一页显示的条数
         ,limits:[1,2,3,5,10,20,30,50]//提示的每页条数的列表
@@ -15,12 +15,13 @@ layui.use(['table','layer','jquery'], function(){
 
             {field: 'no',type:'checkbox', width:"5%",fixed: 'left',align:"center"}
             ,{field: 'purchaseOrderId', title: '采购订单编号', width:"10%", sort: true, fixed: 'left',align:"center"}
-            ,{field: 'purchaseSupplierId', title: '供货商名称', width:"20%",align:"center"}
+            ,{field: 'purchaseSupplierId', title: '供货商名称', width:"10%",align:"center"}
             ,{field: 'purchaseOrderBegintime', title: '采购日期', width:"10%", align:"center",sort: true,templet:'<div>{{ layui.util.toDateString(d.purchaseOrderBegintime, "yyyy-MM-dd") }}</div>'}
-            ,{field: 'purchaseUserId', title: '采购员', width:"20%",align:"center"}
-            ,{field: 'purchaseType', title: '状态', width:"20%",align:"center"}
-            ,{field: 'cz', title: '操作', width: "10%",align:"center",toolbar:"#barDemo"}
-
+            ,{field: 'purchaseUserId', title: '采购员', width:"10%",align:"center"}
+            ,{field: 'purchaseType', title: '状态', width:"10%",align:"center"}
+            ,{field: 'purchasePrice', title: '价格', width:"10%", align:"center"}
+            ,{field: 'purchaseTaskid', title: '任务编号', width:"10%", align:"center"}
+            ,{field: 'cz', title: '操作', width: "20%",align:"center",toolbar:"#barDemo"}
         ]]
     });
 
@@ -51,7 +52,6 @@ layui.use(['table','layer','jquery'], function(){
         };
     });
 
-
     //监听行工具条
     table.on('tool(test)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
         var data = obj.data; //获得当前行数据
@@ -60,54 +60,23 @@ layui.use(['table','layer','jquery'], function(){
 
         if(layEvent === 'detail'){ //查看
             alert('显示详情');
-        } else if(layEvent === 'del'){ //删除
+        } else if(layEvent === 'agree'){ //删除
 
-            alert("删除");
-            // layer.confirm('真的删除行么', function(index){
-            //     // obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-            //     // layer.close(index);
-            //     // //向服务端发送删除指令
-            //
-            //
-            // });
+                layer.confirm('真的提交吗？', function (index) {
+
+                    $.post("/agreePurchaseOrder", {"purchaseTaskid": data.purchaseTaskid,"purchasePrice":data.purchasePrice}, function () {
+
+                        table.reload('demo', {
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            }
+                        }); //只重载数据
+                        layer.close(index);
+                    });
+                });
         } else if(layEvent === 'edit'){ //编辑
-            layer.open({
-                type: 2,
-                shade: true,
-                area: ['1000px', '440px'],
-                maxmin: false,
-                anim: 1,
-                title: "修改供应商信息",
-                content: '/cg9',
-                zIndex: layer.zIndex, //重点1
-                success: function (layero) {
-                    layer.setTop(layero); //重点2
-                    /*********弹出新窗体以后，给新窗中的控件赋值**********************/
-                        //-------------获得弹出层页面的body部份
-                    var body = layui.layer.getChildFrame("body");
-
-                    //给弹出层body中的表单控件赋值
-                    body.find("[name='supplierId']").val(data.supplierId);
-                    body.find("[name='supplierName']").val(data.supplierName);
-                    body.find("[name='supplierPwd']").val(data.supplierPwd);
-                    body.find("[name='supplierContacts']").val(data.supplierContacts);
-                    body.find("[name='supplierCreditiimit']").val(data.supplierCreditiimit);
-                    body.find("[name='supplierShortname']").val(data.supplierShortname);
-                    body.find("[name='supplierTelephone']").val(data.supplierTelephone);
-                    body.find("[name='supplierEmail']").val(data.supplierEmail);
-                    body.find("[name='supplierAddress']").val(data.supplierAddress);
-                }
-            });
         }
-
-
-
-
-
-
-    });
-
-
+        });
 
     //指定日期转换格式
     var format = function (time, format) {
@@ -139,4 +108,5 @@ layui.use(['table','layer','jquery'], function(){
         })
 
     }
-});//layui.use结束标记
+
+});

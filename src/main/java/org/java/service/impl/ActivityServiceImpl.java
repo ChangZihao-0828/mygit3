@@ -9,9 +9,11 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
+import org.apache.logging.log4j.core.helpers.UUIDUtil;
 import org.apache.shiro.SecurityUtils;
 import org.java.dao.CustomerOrderMapper;
 import org.java.dao.PurchaseAppllyOrderMapper;
+import org.java.dao.PurchaseOrderMapper;
 import org.java.entity.Customer;
 import org.java.entity.CustomerOrder;
 import org.java.entity.PurchaseAppllyOrder;
@@ -48,7 +50,8 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Autowired
     private PurchaseAppllyOrderMapper purchaseAppllyOrderMapper;
-
+    @Autowired
+    private PurchaseOrderMapper purchaseOrderMapper;
     @Override
     public List<CustomerOrder> showPersonTask() {
 
@@ -222,6 +225,33 @@ public class ActivityServiceImpl implements ActivityService {
 
             taskService.claim(taskId,user.getUserName());
 
+
         }
+    }
+
+    @Override
+    public void submitAudit(Map<String, Object> map) {
+        //取defKey的值，它值在不同的审核阶段 分别：firstAudit,secondAudit,thirdAudit
+        String val = map.get("defKey").toString();
+        //获得审核的状态：1：通过  0:不通过
+        String st =map.get("status").toString();
+
+        //创建map，存储流程变量
+        Map<String,Object> variables = new HashMap<String, Object>();
+        variables.put(val, st);
+
+        //任务1：完成当前任务，让任务，向后推进一步,在完成任务时 ，同时，设置流程变量
+        String taskId = (String) map.get("purchaseAppllyTaskid");
+        taskService.complete(taskId,variables);
+
+        //任务2 :向审核表中增加一条审核记录
+        //产生一个uuid，作为审核记录表的主键
+        String id = UUIDUtil.getTimeBasedUUID().toString();
+        //当前审核的时间
+        Date createtime = new Date();
+        map.put("id",id);//编号
+        map.put("createtime",createtime);
+
+        purchaseOrderMapper.submitAudit(map);
     }
 }

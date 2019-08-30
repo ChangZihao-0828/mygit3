@@ -27,25 +27,24 @@ public class PurchaseOrderQueryController {
     private PurchaseAppllyOrderService purchaseAppllyOrderService;
 
     @GetMapping("/initPurchaseOrder")
-    public Map findPurchaseOrder(Integer page , Integer limit , String purchaseOrderId){
+    public Map findPurchaseOrder(Integer page , Integer limit , String purchaseUserId){
         Map map = new HashMap();
-        List<PurchaseOrder> list = purchaseOrderService.findPurchaseOrder(page,limit,purchaseOrderId);
-        int count =purchaseOrderService.getPurchaseOrderCount(purchaseOrderId);
+        List<PurchaseOrder> list = purchaseOrderService.findPurchaseOrder(page,limit,purchaseUserId);
+        int count =purchaseOrderService.getPurchaseOrderCount(purchaseUserId);
 
         map.put("code",0);
         map.put("msg","");
         map.put("count",count);
         map.put("data",list);
-        System.out.println(purchaseOrderId);
+        System.out.println(purchaseUserId);
         return map;
 
     }
 
     @GetMapping("/findGroupPurchaseApplyOrder")
-    public Map findGroupPurchaseApplyOrder(Integer page , Integer limit , String purchaseOrderId){
+    public Map findGroupPurchaseApplyOrder(Integer page , Integer limit , String IpurchaseOrderd){
         Map map = new HashMap();
-
-        List<PurchaseAppllyOrder> list = purchaseAppllyOrderService.findGroupPurchaseApplyOrder();
+        List<Map> list = purchaseAppllyOrderService.findGroupPurchaseApplyOrder();
 
         int count =purchaseAppllyOrderService.findGroupPurchaseApplyOrderCount();
 
